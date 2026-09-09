@@ -22,8 +22,7 @@ services:
     runtime: node
     plan: free
     rootDir: backend
-    buildCommand: npm install && npx prisma generate && npm run build
-    preDeployCommand: npx prisma db push
+    buildCommand: npm install && npx prisma generate && npm run build && npx prisma db push
     startCommand: npm run start
     healthCheckPath: /health
     envVars:
