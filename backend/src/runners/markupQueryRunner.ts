@@ -1,4 +1,4 @@
-import sqlite3 from "sqlite3";
+import Database from "better-sqlite3";
 import yaml from "js-yaml";
 import { XMLValidator, XMLParser } from "fast-xml-parser";
 import MarkdownIt from "markdown-it";
@@ -75,8 +75,9 @@ async function executeSql(
   startTime: number,
   dialect: string = "sql"
 ): Promise<ExecutionResult> {
-  return new Promise((resolve) => {
-    const db = new sqlite3.Database(":memory:");
+  let db: Database.Database | null = null;
+  try {
+    db = new Database(":memory:");
 
     // Dialect translation to SQLite compatibility
     let sqlCode = code;
@@ -94,97 +95,73 @@ async function executeSql(
         .replace(/BOOLEAN/gi, "INTEGER")
         .replace(/RETURNING\s+[\w\*\,\s]+/gi, "");
     }
-    
-    db.serialize(() => {
-      const statements = sqlCode
-        .split(/;\s*$/m)
-        .map((s) => s.trim())
-        .filter((s) => s.length > 0);
 
-      let stdout = "";
-      let stderr = "";
+    const statements = sqlCode
+      .split(/;\s*$/m)
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0);
 
-      if (statements.length === 0) {
-        db.close();
-        return resolve({
-          submissionId,
-          language: dialect,
-          status: "success",
-          stdout: `${dialect.toUpperCase()} Query executed successfully (0 statements).`,
-          stderr: "",
-          exitCode: 0,
-          wallTimeMs: Date.now() - startTime,
-          memoryKb: 2048,
-        });
-      }
+    if (statements.length === 0) {
+      db.close();
+      return {
+        submissionId,
+        language: dialect,
+        status: "success",
+        stdout: `${dialect.toUpperCase()} Query executed successfully (0 statements).`,
+        stderr: "",
+        exitCode: 0,
+        wallTimeMs: Date.now() - startTime,
+        memoryKb: 2048,
+      };
+    }
 
-      db.exec(sqlCode, (err) => {
-        if (err) {
-          stderr = `${dialect.toUpperCase()} Syntax/Execution Error: ${err.message}`;
-          db.close();
-          return resolve({
-            submissionId,
-            language: dialect,
-            status: "error",
-            stdout: "",
-            stderr: sanitizeOutput(stderr),
-            exitCode: 1,
-            wallTimeMs: Date.now() - startTime,
-            memoryKb: 2048,
-          });
-        }
+    // Execute SQL script
+    db.exec(sqlCode);
 
-        const selectMatches = sqlCode.match(/SELECT[\s\S]*?;/gi) || (sqlCode.toUpperCase().includes("SELECT") ? [sqlCode] : []);
-        if (selectMatches.length > 0) {
-          const lastSelect = selectMatches[selectMatches.length - 1].replace(/;$/, "");
-          db.all(lastSelect, [], (selectErr, rows) => {
-            db.close();
-            if (selectErr) {
-              return resolve({
-                submissionId,
-                language: dialect,
-                status: "success",
-                stdout: `${dialect.toUpperCase()} statements executed successfully.`,
-                stderr: "",
-                exitCode: 0,
-                wallTimeMs: Date.now() - startTime,
-                memoryKb: 2048,
-              });
-            }
-
-            if (!rows || rows.length === 0) {
-              stdout = `Query executed successfully. (0 rows returned) [${dialect.toUpperCase()} Dialect]`;
-            } else {
-              stdout = `[${dialect.toUpperCase()} Query Result]\n\n` + formatTable(rows);
-            }
-
-            return resolve({
-              submissionId,
-              language: dialect,
-              status: "success",
-              stdout: sanitizeOutput(stdout),
-              stderr: "",
-              exitCode: 0,
-              wallTimeMs: Date.now() - startTime,
-              memoryKb: 2048,
-            });
-          });
+    let stdout = "";
+    const selectMatches = sqlCode.match(/SELECT[\s\S]*?;/gi) || (sqlCode.toUpperCase().includes("SELECT") ? [sqlCode] : []);
+    if (selectMatches.length > 0) {
+      const lastSelect = selectMatches[selectMatches.length - 1].replace(/;$/, "");
+      try {
+        const rows = db.prepare(lastSelect).all();
+        if (!rows || rows.length === 0) {
+          stdout = `Query executed successfully. (0 rows returned) [${dialect.toUpperCase()} Dialect]`;
         } else {
-          db.close();
-          return resolve({
-            submissionId,
-            language: dialect,
-            status: "success",
-            stdout: `${dialect.toUpperCase()} Script executed successfully. Tables modified/created.`,
-            stderr: "",
-            exitCode: 0,
-            wallTimeMs: Date.now() - startTime,
-            memoryKb: 2048,
-          });
+          stdout = `[${dialect.toUpperCase()} Query Result]\n\n` + formatTable(rows);
         }
-      });
-    });
-  });
+      } catch {
+        stdout = `${dialect.toUpperCase()} statements executed successfully.`;
+      }
+    } else {
+      stdout = `${dialect.toUpperCase()} Script executed successfully. Tables modified/created.`;
+    }
+
+    db.close();
+    return {
+      submissionId,
+      language: dialect,
+      status: "success",
+      stdout: sanitizeOutput(stdout),
+      stderr: "",
+      exitCode: 0,
+      wallTimeMs: Date.now() - startTime,
+      memoryKb: 2048,
+    };
+  } catch (err: any) {
+    if (db) {
+      try { db.close(); } catch {}
+    }
+    return {
+      submissionId,
+      language: dialect,
+      status: "error",
+      stdout: "",
+      stderr: sanitizeOutput(`${dialect.toUpperCase()} Syntax/Execution Error: ${err.message || String(err)}`),
+      exitCode: 1,
+      wallTimeMs: Date.now() - startTime,
+      memoryKb: 2048,
+    };
+  }
 }
 
 // 1b. MongoDB Query Evaluator
