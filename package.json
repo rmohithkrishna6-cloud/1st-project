@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "description": "Nexora 128+ Multi-Language Compiler & Execution Platform",
   "private": true,
-  "workspaces": [
-    "backend",
-    "frontend"
-  ],
   "scripts": {
     "dev:backend": "npm run dev --prefix backend",
     "dev:frontend": "npm run dev --prefix frontend",
