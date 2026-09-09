@@ -33,19 +33,29 @@ export async function runRedis(
 
   let client: Redis | null = null;
   try {
-    const redisHost = process.env.REDIS_HOST || "127.0.0.1";
-    const redisPort = parseInt(process.env.REDIS_PORT || "6379", 10);
-    const redisPassword = process.env.REDIS_PASSWORD || "judge0";
+    const redisUrl = process.env.REDIS_URL;
+    if (redisUrl) {
+      client = new Redis(redisUrl, {
+        connectTimeout: 4000,
+        maxRetriesPerRequest: 1,
+        retryStrategy: () => null,
+        lazyConnect: true,
+      });
+    } else {
+      const redisHost = process.env.REDIS_HOST || "127.0.0.1";
+      const redisPort = parseInt(process.env.REDIS_PORT || "6379", 10);
+      const redisPassword = process.env.REDIS_PASSWORD || "judge0";
 
-    client = new Redis({
-      host: redisHost,
-      port: redisPort,
-      password: redisPassword,
-      connectTimeout: 4000,
-      maxRetriesPerRequest: 1,
-      retryStrategy: () => null,
-      lazyConnect: true,
-    });
+      client = new Redis({
+        host: redisHost,
+        port: redisPort,
+        password: redisPassword,
+        connectTimeout: 4000,
+        maxRetriesPerRequest: 1,
+        retryStrategy: () => null,
+        lazyConnect: true,
+      });
+    }
 
     await client.connect();
 
