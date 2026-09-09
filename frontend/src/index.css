@@ -1,0 +1,281 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #B4FF00;
+  --deep-matrix: #0B1A12;
+  --surface: #0E2117;
+  --surface-light: #142E20;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--deep-matrix);
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Monospace Font Stack & Preformatted Output (Preserves exact spacing, tabs & alignment) */
+.font-mono,
+code,
+pre,
+kbd,
+samp {
+  font-family: 'Fira Code', 'JetBrains Mono', 'Cascadia Code', 'Consolas', 'Courier New', monospace !important;
+}
+
+pre,
+.output-pre {
+  white-space: pre-wrap !important;
+  word-break: break-all;
+  tab-size: 4;
+  -moz-tab-size: 4;
+  font-family: 'Fira Code', 'JetBrains Mono', 'Cascadia Code', 'Consolas', 'Courier New', monospace !important;
+}
+
+/* Neomorphism Effects */
+.neo-flat {
+  background: var(--surface);
+  box-shadow: 8px 8px 16px #050d09, -8px -8px 16px #173525;
+  border-radius: 16px;
+}
+
+.neo-inset {
+  background: var(--surface);
+  box-shadow: inset 6px 6px 12px #050d09, inset -6px -6px 12px #173525;
+  border-radius: 16px;
+}
+
+.neo-button {
+  background: linear-gradient(145deg, #a3e600, #b4ff00);
+  box-shadow: 4px 4px 10px #050d09, -4px -4px 10px #173525;
+  transition: all 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #0B1A12;
+  font-weight: 700;
+}
+
+.neo-button:hover {
+  background: #ffffff;
+  box-shadow: 0 0 25px rgba(180, 255, 0, 0.6);
+  border-color: #B4FF00;
+  color: #0B1A12;
+  transform: translateY(-1px);
+}
+
+/* Glassmorphism */
+.glass-box {
+  background: rgba(14, 33, 23, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+}
+
+/* Motion Background */
+#motion-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 35%, #0c2619 0%, #071911 50%, #040d08 100%);
+}
+
+.blob {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  filter: blur(90px);
+  opacity: 0.15;
+  transition: transform 0.2s ease-out;
+}
+
+.blob-cyan {
+  background: radial-gradient(circle, #00f2fe 0%, transparent 70%);
+  width: 550px;
+  height: 550px;
+  opacity: 0.12;
+}
+
+.blob-violet {
+  background: radial-gradient(circle, #7000ff 0%, transparent 70%);
+  width: 500px;
+  height: 500px;
+  opacity: 0.10;
+  filter: blur(110px);
+}
+
+/* 3D Perspective Virtual Horizon Grid (AR/VR Immersive Motion) */
+#vr-perspective-grid-container {
+  perspective: 1000px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+#vr-perspective-grid {
+  position: absolute;
+  bottom: -40%;
+  left: -50%;
+  width: 200%;
+  height: 140%;
+  background-image: 
+    linear-gradient(to right, rgba(180, 255, 0, 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 242, 254, 0.09) 1px, transparent 1px);
+  background-size: 55px 55px;
+  transform: perspective(1000px) rotateX(65deg);
+  transform-origin: 50% 100%;
+  mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0) 80%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0) 80%);
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+}
+
+/* Wavy Moving Navbar Animations (GPU Accelerated & Smooth) */
+@keyframes waveMotion {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes waveMotionReverse {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-wave-slow {
+  animation: waveMotion 15s linear infinite;
+  will-change: transform;
+}
+
+.animate-wave-fast {
+  animation: waveMotionReverse 9s linear infinite;
+  will-change: transform;
+}
+
+/* Animated Nexora Brand Logo Keyframes (Ultra-Smooth) */
+@keyframes textShimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes logoRingSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes logoPulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 16px rgba(180, 255, 0, 0.4), 0 0 28px rgba(0, 242, 254, 0.25);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 24px rgba(180, 255, 0, 0.75), 0 0 42px rgba(0, 242, 254, 0.45);
+  }
+}
+
+.animate-logo-text {
+  background: linear-gradient(135deg, #ffffff 0%, #B4FF00 45%, #00F2FE 80%, #ffffff 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textShimmer 6s ease-in-out infinite;
+  will-change: background-position;
+}
+
+.animate-logo-ring {
+  animation: logoRingSpin 16s linear infinite;
+  will-change: transform;
+  transform-origin: center;
+}
+
+.animate-logo-pulse {
+  animation: logoPulseGlow 4s ease-in-out infinite;
+  will-change: transform, box-shadow;
+}
+
+/* ==========================================================================
+   Clean Language Cards (Spacious & Minimalist)
+   ========================================================================== */
+
+.lang-card-clean {
+  position: relative;
+  background: rgba(14, 33, 23, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.lang-card-clean:hover:not(.disabled-card) {
+  transform: translateY(-2px);
+  background: rgba(20, 46, 32, 0.75);
+  border-color: rgba(180, 255, 0, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 16px rgba(180, 255, 0, 0.12);
+}
+
+.lang-card-clean:active:not(.disabled-card) {
+  transform: translateY(0) scale(0.99);
+  transition-duration: 0.1s;
+}
+
+.lang-card-clean.disabled-card {
+  background: rgba(14, 33, 23, 0.25);
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+  opacity: 0.6;
+}
+
+.lang-card-clean.disabled-card:hover {
+  border-color: rgba(245, 158, 11, 0.3);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Sleek Dark/Lime Matrix Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0B1A12;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(180, 255, 0, 0.25);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(180, 255, 0, 0.55);
+}
+

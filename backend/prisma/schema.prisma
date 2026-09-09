@@ -1,0 +1,106 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String         @id @default(uuid())
+  email         String         @unique
+  passwordHash  String?        @map("password_hash")
+  oauthProvider String?        @map("oauth_provider")
+  oauthId       String?        @map("oauth_id")
+  displayName   String         @map("display_name")
+  avatarUrl     String?        @map("avatar_url")
+  plan          String         @default("free")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  lastLoginAt   DateTime       @default(now()) @map("last_login_at")
+
+  snippets      Snippet[]
+  executions    Execution[]
+  apiKeys       ApiKey[]
+  billingEvents BillingEvent[]
+
+  @@map("users")
+}
+
+model Snippet {
+  id          String      @id @default(uuid())
+  userId      String?     @map("user_id")
+  user        User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  language    String
+  title       String
+  code        String
+  stdin       String?     @default("")
+  visibility  String      @default("private")
+  forkOf      String?     @map("fork_of")
+  viewCount   Int         @default(0) @map("view_count")
+  starCount   Int         @default(0) @map("star_count")
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+
+  executions  Execution[]
+
+  @@map("snippets")
+}
+
+model Execution {
+  id              String   @id @default(uuid())
+  snippetId       String?  @map("snippet_id")
+  snippet         Snippet? @relation(fields: [snippetId], references: [id], onDelete: SetNull)
+  userId          String?  @map("user_id")
+  user            User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  language        String
+  languageVersion String?  @map("language_version")
+  status          String
+  stdout          String?  @default("")
+  stderr          String?  @default("")
+  exitCode        Int?     @map("exit_code")
+  cpuTimeMs       Int?     @map("cpu_time_ms")
+  wallTimeMs      Int?     @map("wall_time_ms")
+  memoryKb        Int?     @map("memory_kb")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  @@map("executions")
+}
+
+model Language {
+  id          String  @id
+  displayName String  @map("display_name")
+  category    String
+  runnerType  String  @map("runner_type")
+  compileCmd  String? @map("compile_cmd")
+  runCmd      String? @map("run_cmd")
+  version     String
+  icon        String?
+  dockerImage String? @map("docker_image")
+
+  @@map("languages")
+}
+
+model ApiKey {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  keyHash   String   @map("key_hash")
+  planTier  String   @map("plan_tier")
+  rateLimit Int      @map("rate_limit")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("api_keys")
+}
+
+model BillingEvent {
+  id          String   @id @default(uuid())
+  userId      String   @map("user_id")
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  eventType   String   @map("event_type")
+  amount      Int
+  providerRef String?  @map("provider_ref")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("billing_events")
+}

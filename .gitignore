@@ -1,0 +1,83 @@
+# ==============================================================================
+# Nexora Platform — Comprehensive .gitignore
+# ==============================================================================
+
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Environment and Secret Configuration Files (NEVER COMMIT SECRETS)
+.env
+.env.*
+*.env
+!.env.example
+!*.example
+backend/.env
+frontend/.env
+*.conf
+backend/judge0.conf
+
+# Production Builds & Compiler Output
+dist/
+*/dist/
+build/
+*/build/
+out/
+backend/output/
+.vite/
+
+# Logs and Process Output
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Test, Audit & Scratch Files (NEVER COMMIT TEST SCRIPTS OR AUDITS)
+test_*
+verify_*
+*.test.*
+*.spec.*
+backend/test_*
+backend/verify_*
+backend/test_*.js
+backend/test_*.ts
+backend/verify_*.js
+backend/verify_*.ts
+backend/audit_runtimes.js
+backend/fast_audit.js
+backend/install_piston_packages.js
+backend/run_full_execution_audit.js
+scratch/
+backend/scratch/
+backend/audit_results.json
+backend/nexora_data.json
+*.tmp
+*.temp
+.system_generated/
+
+# Database Files & Dumps
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+
+# Docker Volumes & Persistent Container Mounts
+postgres-data/
+redis-data/
+piston-packages/
+app-postgres-data/
+*.docker/
+
+# IDE & Editor Temporary Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.suo
+.ntvs*
+.njsproj

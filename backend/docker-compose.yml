@@ -1,0 +1,82 @@
+services:
+  server:
+    image: judge0/judge0:1.13.1
+    volumes:
+      - ./judge0.conf:/judge0.conf:ro
+    ports:
+      - "2358:2358"
+    env_file: judge0.conf
+    environment:
+      - RACK_ENV=production
+    restart: always
+    depends_on:
+      - db
+      - redis
+
+  worker:
+    image: judge0/judge0:1.13.1
+    command: ["./scripts/workers"]
+    volumes:
+      - ./judge0.conf:/judge0.conf:ro
+    privileged: true
+    env_file: judge0.conf
+    environment:
+      - RACK_ENV=production
+    restart: always
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:13.0-alpine
+    env_file: judge0.conf
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: always
+
+  redis:
+    image: redis:6.0-alpine
+    command: redis-server --requirepass judge0
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: always
+
+  piston:
+    image: ghcr.io/engineer-man/piston:latest
+    container_name: piston
+    privileged: true
+    ports:
+      - "2000:2000"
+    environment:
+      - PISTON_COMPILE_MEMORY_LIMIT=1000000000
+      - PISTON_RUN_MEMORY_LIMIT=1000000000
+      - PISTON_COMPILE_TIMEOUT=30000
+      - PISTON_COMPILE_CPU_TIME=30000
+      - PISTON_RUN_TIMEOUT=10000
+      - PISTON_RUN_CPU_TIME=10000
+    volumes:
+      - piston-packages:/piston/packages
+    restart: always
+
+
+  app-db:
+    image: postgres:15-alpine
+    container_name: nexora-app-db
+    environment:
+      POSTGRES_USER: nexora
+      POSTGRES_PASSWORD: nexorapassword
+      POSTGRES_DB: nexoradb
+    ports:
+      - "5432:5432"
+    volumes:
+      - app-postgres-data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  postgres-data:
+  redis-data:
+  piston-packages:
+  app-postgres-data:
+

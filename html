@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        window.FontAwesomeConfig = {
+            autoReplaceSvg: 'nest'
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexora | Online Compiler</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #B4FF00;
+            --deep-matrix: #0B1A12;
+            --surface: #0E2117;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--deep-matrix);
+            color: white;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* Neomorphism Effects */
+        .neo-flat {
+            background: var(--surface);
+            box-shadow: 10px 10px 20px #050d09, -10px -10px 20px #173525;
+            border-radius: 20px;
+        }
+
+        .neo-inset {
+            background: var(--surface);
+            box-shadow: inset 8px 8px 16px #050d09, inset -8px -8px 16px #173525;
+            border-radius: 20px;
+        }
+
+        .neo-button {
+            background: linear-gradient(145deg, #a3e600, #b4ff00);
+            box-shadow: 6px 6px 12px #050d09, -6px -6px 12px #173525;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #0B1A12;
+        }
+
+        .neo-button:hover {
+            background: #ffffff;
+            box-shadow: 0 0 30px rgba(180, 255, 0, 0.6);
+            border-color: #B4FF00;
+            color: #0B1A12;
+        }
+
+        /* Glassmorphism */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+        }
+
+        /* Motion Background */
+        #motion-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            filter: blur(80px);
+            opacity: 0.15;
+            transition: transform 0.2s ease-out;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            right: 0;
+            bottom: 0;
+        }
+
+        /* Modal Transitions */
+        .modal {
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(0.95) translateY(20px);
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1) translateY(0);
+        }
+
+        .overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Language Grid Hover */
+        .lang-card {
+            transition: all 0.3s ease;
+        }
+
+        .lang-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--deep-matrix);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--infra-violet);
+            border-radius: 10px;
+        }
+
+        .search-spotlight {
+            box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+
+    <!-- Dynamic Motion Background -->
+    <div id="motion-bg">
+        <div class="blob" id="blob-1"></div>
+        <div class="blob blob-pink" id="blob-2"></div>
+    </div>
+
+    <!-- Modals -->
+    <div id="overlay" class="overlay fixed inset-0 z-[100]"></div>
+
+    <!-- About Modal -->
+    <div id="about-modal" class="modal fixed inset-0 z-[101] flex items-center justify-center p-6">
+        <div class="glass-box max-w-2xl w-full p-10 relative overflow-hidden">
+            <button onclick="closeModals()"
+                class="absolute top-6 right-6 text-white/50 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl"
+                    style="background: var(--primary)">
+                    <span class="font-bold text-[#0B1A12]">N</span>
+                </div>
+                <h2 class="text-3xl font-bold">About Nexora</h2>
+            </div>
+            <p class="text-lg text-white/80 leading-relaxed mb-6">
+                Nexora is a cutting-edge online compilation platform designed for the modern developer.
+                Our mission is to provide a seamless, lightning-fast execution environment for over 128 programming
+                languages,
+                bridging the gap between ideation and execution with zero setup time.
+            </p>
+            <div class="grid grid-cols-3 gap-6">
+                <div class="neo-inset p-4 text-center">
+                    <div class="text-2xl font-bold text-[#B4FF00]">128+</div>
+                    <div class="text-xs uppercase tracking-widest text-white/40">Languages</div>
+                </div>
+                <div class="neo-inset p-4 text-center">
+                    <div class="text-2xl font-bold text-[#B4FF00]">0ms</div>
+                    <div class="text-xs uppercase tracking-widest text-white/40">Latency</div>
+                </div>
+                <div class="neo-inset p-4 text-center">
+                    <div class="text-2xl font-bold text-white">∞</div>
+                    <div class="text-xs uppercase tracking-widest text-white/40">Cloud Sync</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Languages Modal -->
+    <div id="languages-modal" class="modal fixed inset-0 z-[101] flex items-center justify-center p-6">
+        <div class="glass-box max-w-5xl w-full h-[80vh] flex flex-col p-8 relative overflow-hidden">
+            <button onclick="closeModals()"
+                class="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-10">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+            <h2 class="text-3xl font-bold mb-6">Explore Languages</h2>
+
+            <div class="overflow-y-auto pr-4 custom-scrollbar">
+                <div id="languages-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 pb-4">
+                    <!-- Languages will be injected here via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Modal (Spotlight Style) -->
+    <div id="search-modal" class="modal fixed inset-0 z-[110] flex items-start justify-center pt-[15vh] px-6">
+        <div class="glass-box max-w-2xl w-full p-2 relative shadow-2xl border-white/20">
+            <div class="flex items-center p-4 gap-4">
+                <i class="fa-solid fa-magnifying-glass text-xl text-white/40"></i>
+                <input type="text" id="spotlight-input" placeholder="Search languages, domains or tools..."
+                    class="bg-transparent border-none outline-none w-full text-xl text-white placeholder-white/30"
+                    onkeyup="filterSpotlight()">
+            </div>
+            <div id="search-results" class="max-h-[400px] overflow-y-auto border-t border-white/10 hidden">
+                <!-- Search results injected here -->
+            </div>
+            <div
+                class="p-3 bg-white/5 rounded-b-xl flex justify-between items-center text-[10px] uppercase tracking-widest text-white/40">
+                <span>Navigate with <span class="bg-white/10 px-1 rounded">↑↓</span></span>
+                <span>Select with <span class="bg-white/10 px-1 rounded">Enter</span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="header"
+        class="fixed top-0 left-0 w-full z-50 px-8 py-6 flex justify-between items-center bg-transparent">
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-3 group cursor-pointer">
+                <!-- Logo -->
+                <div
+                    class="w-12 h-12 neo-button rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <span class="text-2xl font-black text-white italic">N</span>
+                </div>
+                <div class="flex flex-col">
+                    <h1 class="text-2xl font-black tracking-tighter text-white">NEXORA</h1>
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-[#B4FF00] font-bold">online compiler</span>
+                </div>
+            </div>
+        </div>
+
+        <nav class="neo-inset px-8 py-3 flex items-center gap-8">
+            <button onclick="openModal('about')"
+                class="text-sm font-semibold hover:text-[#B4FF00] transition-colors">About</button>
+            <button onclick="openModal('languages')"
+                class="text-sm font-semibold hover:text-[#B4FF00] transition-colors">Languages</button>
+            <button onclick="openModal('search')"
+                class="w-10 h-10 neo-button rounded-xl flex items-center justify-center text-sm">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 pt-40 px-6 max-w-7xl mx-auto flex flex-col items-center">
+        <!-- Hero Section -->
+        <div class="text-center mb-16 space-y-6">
+            <div
+                class="inline-block px-4 py-1.5 neo-inset rounded-full text-[10px] font-bold uppercase tracking-[0.2em] text-[#B4FF00] mb-4">
+                v2.0 Now with AI Debugging
+            </div>
+            <h2 class="text-6xl md:text-8xl font-black tracking-tighter leading-none">
+                Code Everything.<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#B4FF00] to-white">One
+                    Platform.</span>
+            </h2>
+
+            <div class="max-w-2xl mx-auto mt-12">
+                <div
+                    class="neo-inset p-2 flex items-center gap-4 group focus-within:ring-2 ring-[#B4FF00]/50 transition-all">
+                    <div class="pl-6 text-white/40">
+                        <i class="fa-solid fa-terminal text-xl"></i>
+                    </div>
+                    <input type="text" id="hero-search" placeholder="Search for a language (e.g. Python, Rust, Go...)"
+                        class="bg-transparent border-none outline-none w-full py-4 text-lg text-white placeholder-white/30"
+                        onkeyup="filterMainSearch()">
+                    <button
+                        class="neo-button px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:scale-105">
+                        Run
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Domain Sections -->
+        <div class="w-full mb-32">
+            <div class="glass-box p-8 backdrop-blur-3xl">
+                <div class="flex flex-wrap gap-4 mb-10 border-b border-white/10 pb-6" id="domain-tabs">
+                    <button onclick="filterDomain('Popular')"
+                        class="domain-tab active px-6 py-2 rounded-full neo-button text-sm font-bold">Popular</button>
+                    <button onclick="filterDomain('Programming')"
+                        class="domain-tab px-6 py-2 rounded-full neo-inset text-sm font-bold text-white/60 hover:text-white">Programming</button>
+                    <button onclick="filterDomain('Web')"
+                        class="domain-tab px-6 py-2 rounded-full neo-inset text-sm font-bold text-white/60 hover:text-white">Web</button>
+                    <button onclick="filterDomain('Databases')"
+                        class="domain-tab px-6 py-2 rounded-full neo-inset text-sm font-bold text-white/60 hover:text-white">Databases</button>
+                    <button onclick="filterDomain('Systems')"
+                        class="domain-tab px-6 py-2 rounded-full neo-inset text-sm font-bold text-white/60 hover:text-white">Systems</button>
+                    <button onclick="filterDomain('Blockchain')"
+                        class="domain-tab px-6 py-2 rounded-full neo-inset text-sm font-bold text-white/60 hover:text-white">Blockchain</button>
+                    <button onclick="filterDomain('Functional')"
+                        class="domain-tab px-6 py-2 rounded-full neo-inset text-sm font-bold text-white/60 hover:text-white">Functional</button>
+                </div>
+
+                <div id="domain-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                    <!-- Filtered content will appear here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer / Bottom Bar -->
+    <footer id="footer" class="fixed bottom-0 left-0 w-full z-50 px-8 py-6 bg-transparent">
+        <div
+            class="neo-flat px-10 py-4 flex justify-between items-center backdrop-blur-md bg-white/5 border border-white/10">
+            <div class="flex items-center gap-8">
+                <button onclick="openModal('about')"
+                    class="text-xs uppercase tracking-widest font-bold text-white/50 hover:text-[#B4FF00] transition-colors">About</button>
+                <button onclick="openModal('languages')"
+                    class="text-xs uppercase tracking-widest font-bold text-white/50 hover:text-[#B4FF00] transition-colors">Languages</button>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <span class="text-[10px] text-white/30 uppercase tracking-[0.2em]">Designed for Mohith Krishna R</span>
+                <a href="https://www.linkedin.com/in/mohith-krishna-r-b7551a39a?utm_source=share_via&utm_cprofile&utm_medium=member_android"
+                    target="_blank" class="w-10 h-10 neo-button rounded-xl flex items-center justify-center text-lg">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const languagesData = {
+            "Popular": ["Python", "Java", "C", "C++", "C#", "JavaScript", "TypeScript", "Go", "Rust", "Kotlin", "Swift", "PHP", "Ruby", "Dart", "R", "Scala", "Perl", "Lua", "Objective-C", "Visual Basic", "MATLAB", "Julia", "Groovy", "Elixir", "Erlang", "Haskell", "F#", "Delphi", "Assembly", "Bash"],
+            "Programming": ["Pascal", "Fortran", "COBOL", "Ada", "Prolog", "Lisp", "Common Lisp", "Scheme", "Racket", "Clojure", "OCaml", "Forth", "Raku", "Nim", "Crystal", "D", "V", "Zig", "Haxe", "Smalltalk", "Tcl", "Awk", "BASIC", "FreeBASIC", "QBasic", "Elm", "PureScript", "Reason", "Pony", "Chapel", "Hack", "Idris", "Agda", "Coq", "Lean", "Factor", "Gleam", "Ballerina", "Mojo", "Carbon"],
+            "Web": ["HTML", "CSS", "JSX", "TSX", "CoffeeScript", "WebAssembly", "WAT", "Solidity", "Vyper", "GDScript", "ActionScript"],
+            "Databases": ["SQL", "MySQL", "PostgreSQL", "SQLite", "PL/SQL", "T-SQL", "Oracle SQL", "MariaDB SQL", "MongoDB Query Language (MQL)", "Cypher", "SPARQL", "GraphQL", "Cassandra CQL", "Redis Lua", "HiveQL", "Pig Latin", "HQL", "LINQ", "Datalog", "InfluxQL"],
+            "Systems": ["CUDA", "OpenCL", "Verilog", "SystemVerilog", "VHDL"],
+            "Blockchain": ["Move", "Cairo", "Motoko"],
+            "Functional": ["Agda", "Coq", "Lean"]
+        };
+
+        // Combine all unique languages for global lists
+        const allLanguages = [];
+        Object.values(languagesData).forEach(list => {
+            list.forEach(lang => {
+                if (!allLanguages.includes(lang)) allLanguages.push(lang);
+            });
+        });
+
+        function getLangIcon(lang) {
+            const icons = {
+                'Python': 'fa-brands fa-python',
+                'JavaScript': 'fa-brands fa-js',
+                'Java': 'fa-brands fa-java',
+                'C++': 'fa-solid fa-copyright',
+                'HTML': 'fa-brands fa-html5',
+                'CSS': 'fa-brands fa-css3-alt',
+                'PHP': 'fa-brands fa-php',
+                'Rust': 'fa-brands fa-rust',
+                'Go': 'fa-brands fa-golang',
+                'Swift': 'fa-brands fa-swift',
+                'Database': 'fa-solid fa-database',
+                'Terminal': 'fa-solid fa-terminal',
+                'Code': 'fa-solid fa-code'
+            };
+
+            for (const key in icons) {
+                if (lang.toLowerCase().includes(key.toLowerCase())) return icons[key];
+            }
+            return 'fa-solid fa-code';
+        }
+
+        function createLangCard(lang, size = 'normal') {
+            const iconClass = getLangIcon(lang);
+            return `
+                <div onclick="openEditor('${lang}')" class="lang-card group cursor-pointer neo-flat p-4 flex flex-col items-center justify-center text-center transition-all">
+                    <div class="w-12 h-12 rounded-xl mb-3 flex items-center justify-center bg-white/5 group-hover:bg-[#B4FF00]/20 transition-colors">
+                        <i class="${iconClass} text-2xl text-white/60 group-hover:text-[#B4FF00]"></i>
+                    </div>
+                    <span class="text-xs font-bold truncate w-full">${lang}</span>
+                </div>
+            `;
+        }
+
+        // Initialize Lists
+        function initGrids() {
+            const fullGrid = document.getElementById('languages-grid');
+            allLanguages.sort().forEach(lang => {
+                fullGrid.innerHTML += createLangCard(lang);
+            });
+            filterDomain('Popular');
+        }
+
+        function filterDomain(domain) {
+            const grid = document.getElementById('domain-grid');
+            grid.innerHTML = '';
+
+            // Update tabs UI
+            document.querySelectorAll('.domain-tab').forEach(tab => {
+                tab.classList.remove('neo-button');
+                tab.classList.add('neo-inset');
+                tab.classList.add('text-white/60');
+            });
+            event.target.classList.remove('neo-inset', 'text-white/60');
+            event.target.classList.add('neo-button');
+
+            languagesData[domain].forEach(lang => {
+                grid.innerHTML += createLangCard(lang);
+            });
+        }
+
+        // Modal Logic
+        function openModal(type) {
+            document.getElementById('overlay').classList.add('active');
+            closeAllModals();
+            if (type === 'about') document.getElementById('about-modal').classList.add('active');
+            if (type === 'languages') document.getElementById('languages-modal').classList.add('active');
+            if (type === 'search') {
+                document.getElementById('search-modal').classList.add('active');
+                setTimeout(() => document.getElementById('spotlight-input').focus(), 100);
+            }
+        }
+
+        function closeModals() {
+            document.getElementById('overlay').classList.remove('active');
+            closeAllModals();
+        }
+
+        function closeAllModals() {
+            document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+        }
+
+        // Search logic
+        function filterSpotlight() {
+            const query = document.getElementById('spotlight-input').value.toLowerCase();
+            const results = document.getElementById('search-results');
+
+            if (query.length < 1) {
+                results.classList.add('hidden');
+                return;
+            }
+
+            const filtered = allLanguages.filter(l => l.toLowerCase().includes(query));
+            results.innerHTML = filtered.map(l => `
+                <div onclick="openEditor('${l}')" class="p-4 hover:bg-white/5 cursor-pointer flex items-center gap-4 group">
+                    <i class="${getLangIcon(l)} text-white/40 group-hover:text-[#FF00C8]"></i>
+                    <span class="font-medium">${l}</span>
+                </div>
+            `).join('');
+            results.classList.remove('hidden');
+        }
+
+        function openEditor(lang) {
+            window.location.href = 'Editor__desktop.html?lang=' + encodeURIComponent(lang);
+        }
+
+        // Mouse Motion Background
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+
+            const blob1 = document.getElementById('blob-1');
+            const blob2 = document.getElementById('blob-2');
+
+            blob1.style.transform = `translate(${x - 50}%, ${y - 50}%) scale(1.2)`;
+            blob2.style.transform = `translate(${(x - 50) * -1}%, ${(y - 50) * -1}%) scale(1.2)`;
+        });
+
+        // Initialize on load
+        window.onload = initGrids;
+
+        // Overlay close
+        document.getElementById('overlay').onclick = closeModals;
+    </script>
+</body>
+
+</html>
