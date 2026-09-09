@@ -248,12 +248,16 @@ export const EditorPage: React.FC = () => {
       const result = await executeCode(currentLanguage.id, code, stdin, activeSnippetId || undefined, user?.id);
       setExecutionResult(result);
     } catch (err: any) {
+      let errorMsg = err?.message || 'Execution error occurred';
+      if (errorMsg.includes('Unexpected end of JSON') || errorMsg.includes('is not valid JSON')) {
+        errorMsg = 'Backend compiler service is temporarily unavailable or waking up from sleep. If using Render free tier, please wait ~20 seconds and click "Run Code" again.';
+      }
       setExecutionResult({
         submissionId: 'error-local',
         language: currentLanguage.id,
         status: 'error',
         stdout: '',
-        stderr: err.message || 'Execution error occurred',
+        stderr: errorMsg,
         exitCode: 1,
         wallTimeMs: 0,
         memoryKb: 0,

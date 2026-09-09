@@ -68,12 +68,18 @@ app.use("/api/v1/history", historyRouter);
 app.use("/api/v1/user", historyRouter);
 app.use("/api/v1/feedback", feedbackRouter);
 
-// Error handling middleware
-app.use((err: any, _req: express.Request, res: express.Response, next: express.NextFunction) => {
+// Error handling middleware - guarantee JSON responses for all error types
+app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  if (res.headersSent) {
+    return;
+  }
   if (err && typeof err.message === "string" && err.message.startsWith("CORS blocked")) {
     return res.status(403).json({ error: err.message });
   }
-  next(err);
+  const statusCode = err.status || err.statusCode || 500;
+  res.status(statusCode).json({
+    error: err.message || "An unexpected server error occurred",
+  });
 });
 
 app.listen(PORT, () => {

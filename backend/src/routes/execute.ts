@@ -27,20 +27,19 @@ export const executeRateLimiter = rateLimit({
   },
   validate: { keyGeneratorIpFallback: false },
   standardHeaders: true,
-  legacyHeaders: true,
-  message: (req: AuthenticatedRequest) => {
+  handler: (req: AuthenticatedRequest, res: Response) => {
     const isAuth = !!req.user;
     const limit = isAuth ? (req.user?.plan === "pro" || req.user?.plan === "team" ? 120 : 30) : 5;
-    return {
-      error: `Rate limit exceeded. ${
+    res.status(429).json({
+      error: `Rate limit reached. ${
         isAuth
           ? `Your account allows ${limit} executions per minute.`
-          : "Anonymous users are limited to 5 executions per minute. Please sign up or log in for 30/min."
+          : "Anonymous users are limited to 5 executions per minute. Please sign in or wait 60s."
       }`,
       status: "rate_limited",
       limit,
       retryAfterSeconds: 60,
-    };
+    });
   },
 });
 
@@ -64,23 +63,28 @@ executeRouter.post(
       const result = await executeCode(language, code, stdin || "");
       executionResultsStore.set(result.submissionId, result);
 
-      // Record execution history into persistent store
-      db.recordExecution({
-        snippetId,
-        userId: req.user?.userId || userId,
-        language: result.language,
-        code,
-        stdin: stdin || "",
-        status: result.status,
-        stdout: result.stdout,
-        stderr: result.stderr,
-        exitCode: result.exitCode,
-        wallTimeMs: result.wallTimeMs,
-        memoryKb: result.memoryKb,
-      });
+      // Record execution history into persistent store (non-blocking / non-fatal)
+      try {
+        db.recordExecution({
+          snippetId,
+          userId: req.user?.userId || userId,
+          language: result.language,
+          code,
+          stdin: stdin || "",
+          status: result.status,
+          stdout: result.stdout,
+          stderr: result.stderr,
+          exitCode: result.exitCode,
+          wallTimeMs: result.wallTimeMs,
+          memoryKb: result.memoryKb,
+        });
+      } catch (recErr) {
+        console.warn("Non-fatal: Failed to record execution history:", recErr);
+      }
 
-      res.json(result);
+      res.status(200).json(result);
     } catch (err: any) {
+      console.error("Execute route failure:", err);
       res.status(500).json({ error: err.message || "Failed to execute code" });
     }
   }
