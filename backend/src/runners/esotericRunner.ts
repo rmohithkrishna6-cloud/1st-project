@@ -911,7 +911,7 @@ function executeIntercal(submissionId: string, code: string, stdin: string, star
       `INTERCAL execution requires the canonical C-INTERCAL ('ick') compiler toolchain and runtime library ('libick.a').\n` +
       `Full compilation involves multi-statement politeness budgeting (PLEASE frequency 20%-33%), non-standard control flow\n` +
       `(NEXT/RESUME/FORGET/ABSTAIN/REINSTATE), Roman numeral arithmetic I/O, and custom 7-bit character sets with sparkle/spot/mesh/mingle operators.\n` +
-      `No standalone pure JavaScript interpreter exists on npm. Execution is disabled per Nexora honesty policy.`
+      `No standalone pure JavaScript interpreter exists on npm. Execution is disabled per Codeticz honesty policy.`
     ),
     exitCode: 1,
     wallTimeMs: Date.now() - startTime,
@@ -1282,7 +1282,7 @@ function executePiet(submissionId: string, code: string, stdin: string, startTim
     status: "error",
     stdout: "",
     stderr: sanitizeOutput(
-      "[Nexora Policy] Piet requires 2D bitmap image codel matrices (.png/.ppm) rather than text code. " +
+      "[Codeticz Policy] Piet requires 2D bitmap image codel matrices (.png/.ppm) rather than text code. " +
       "Piet execution is currently deferred (Coming Soon) until image canvas upload is supported."
     ),
     exitCode: 1,

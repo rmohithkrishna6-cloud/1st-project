@@ -19,7 +19,8 @@ import {
 } from 'lucide-react';
 
 export const FeedbackModal: React.FC = () => {
-  const { isFeedbackOpen, setIsFeedbackOpen, user } = useAppStore();
+  const { isFeedbackOpen, setIsFeedbackOpen, user, theme } = useAppStore();
+  const isDark = theme === 'dark';
   const [activeTab, setActiveTab] = useState<'submit' | 'feed'>('submit');
   
   const [feedbacks, setFeedbacks] = useState<FeedbackItem[]>([]);
@@ -90,7 +91,6 @@ export const FeedbackModal: React.FC = () => {
       setTitle('');
       setMessage('');
       
-      // Reload feedbacks list and switch to feed tab after 1.5s
       await loadFeedbacks();
       setTimeout(() => {
         setSuccessMsg(null);
@@ -105,7 +105,7 @@ export const FeedbackModal: React.FC = () => {
 
   const handleUpvote = async (id: string) => {
     if (upvotedIds.includes(id)) {
-      return; // Each user can only upvote a feedback item once
+      return;
     }
 
     try {
@@ -125,7 +125,7 @@ export const FeedbackModal: React.FC = () => {
     switch (cat) {
       case 'bug':
         return (
-          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-red-500/15 text-red-400 border border-red-500/30 flex items-center gap-1">
+          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FF304F]/15 text-[#FF304F] border border-[#FF304F]/30 flex items-center gap-1">
             <Bug className="w-3 h-3" /> Bug Report
           </span>
         );
@@ -143,7 +143,7 @@ export const FeedbackModal: React.FC = () => {
         );
       default:
         return (
-          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#B4FF00]/15 text-[#B4FF00] border border-[#B4FF00]/30 flex items-center gap-1">
+          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FF5A1F]/15 text-[#FF5A1F] border border-[#FF5A1F]/30 flex items-center gap-1">
             <MessageSquare className="w-3 h-3" /> General
           </span>
         );
@@ -175,23 +175,25 @@ export const FeedbackModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-      <div className="glass-box max-w-2xl w-full p-6 sm:p-7 relative overflow-hidden shadow-2xl border border-white/15 bg-[#0B1A12]/95 flex flex-col max-h-[90vh]">
+      <div className={`max-w-2xl w-full p-6 sm:p-7 relative overflow-hidden shadow-2xl border rounded-2xl flex flex-col max-h-[90vh] transition-colors duration-300 ${
+        isDark ? 'border-white/10 bg-[#121620] text-[#F4F7FB]' : 'border-slate-200 bg-white text-[#0F172A]'
+      }`}>
         
         {/* Header Prompt Banner */}
-        <div className="flex items-start justify-between pb-4 border-b border-white/10">
+        <div className={`flex items-start justify-between pb-4 border-b ${isDark ? 'border-white/10' : 'border-slate-200'}`}>
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-2xl bg-[#B4FF00] text-[#0B1A12] flex items-center justify-center font-bold shadow-[0_0_20px_rgba(180,255,0,0.5)]">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#FF5A1F] to-[#FF304F] text-[#F4F7FB] flex items-center justify-center font-bold shadow-[0_0_15px_rgba(255,90,31,0.4)]">
               <Bug className="w-6 h-6" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-lg font-extrabold text-white">Feedback & Bug Reports</h3>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 font-mono font-bold border border-red-500/30">
+                <h3 className={`text-lg font-extrabold ${isDark ? 'text-[#F4F7FB]' : 'text-slate-900'}`}>Feedback & Bug Reports</h3>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#FF304F]/15 text-[#FF304F] font-mono font-bold border border-[#FF304F]/30">
                   Public Feed
                 </span>
               </div>
-              <p className="text-xs text-[#B4FF00] font-semibold flex items-center gap-1 mt-0.5">
-                <Sparkles className="w-3.5 h-3.5" />
+              <p className={`text-xs font-semibold flex items-center gap-1 mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                <Sparkles className="w-3.5 h-3.5 text-[#FF5A1F]" />
                 "If you face any bug, let me know that!"
               </p>
             </div>
@@ -199,20 +201,26 @@ export const FeedbackModal: React.FC = () => {
 
           <button
             onClick={() => setIsFeedbackOpen(false)}
-            className="neo-inset p-2 rounded-xl text-white/50 hover:text-white transition-colors"
+            className={`p-2 rounded-xl transition-colors ${
+              isDark
+                ? 'text-slate-400 hover:text-white bg-[#080A0F] border border-white/10'
+                : 'text-slate-600 hover:text-slate-900 bg-slate-100 border border-slate-200'
+            }`}
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab Selection */}
-        <div className="flex items-center gap-2 mt-4 mb-4 bg-[#0E2117] p-1.5 rounded-xl border border-white/10 neo-inset">
+        <div className={`flex items-center gap-2 mt-4 mb-4 p-1.5 rounded-xl border ${
+          isDark ? 'bg-[#080A0F] border-white/10' : 'bg-slate-100 border-slate-200'
+        }`}>
           <button
             onClick={() => setActiveTab('submit')}
             className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 ${
               activeTab === 'submit'
-                ? 'bg-[#B4FF00] text-[#0B1A12] shadow-[0_0_15px_rgba(180,255,0,0.4)]'
-                : 'text-white/70 hover:text-white'
+                ? 'bg-gradient-to-r from-[#FF5A1F] to-[#FF304F] text-[#F4F7FB] shadow-[0_0_12px_rgba(255,90,31,0.4)]'
+                : (isDark ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900')
             }`}
           >
             <Send className="w-3.5 h-3.5" />
@@ -223,11 +231,11 @@ export const FeedbackModal: React.FC = () => {
             onClick={() => setActiveTab('feed')}
             className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 ${
               activeTab === 'feed'
-                ? 'bg-[#B4FF00] text-[#0B1A12] shadow-[0_0_15px_rgba(180,255,0,0.4)]'
-                : 'text-white/70 hover:text-white'
+                ? 'bg-gradient-to-r from-[#FF5A1F] to-[#FF304F] text-[#F4F7FB] shadow-[0_0_12px_rgba(255,90,31,0.4)]'
+                : (isDark ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900')
             }`}
           >
-            <Globe className="w-3.5 h-3.5 text-cyan-400" />
+            <Globe className={`w-3.5 h-3.5 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
             Community Feed ({feedbacks.length})
           </button>
         </div>
@@ -243,23 +251,23 @@ export const FeedbackModal: React.FC = () => {
             )}
 
             {successMsg && (
-              <div className="p-3.5 rounded-xl bg-[#B4FF00]/15 border border-[#B4FF00]/40 text-[#B4FF00] text-xs flex items-center gap-2 font-semibold">
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
+              <div className="p-3.5 rounded-xl bg-[#FF5A1F]/15 border border-[#FF5A1F]/30 text-xs flex items-center gap-2 font-semibold text-emerald-600">
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-500" />
                 <span>{successMsg}</span>
               </div>
             )}
 
             {/* Category Selector */}
             <div>
-              <label className="text-xs text-white/70 font-semibold mb-1.5 block">Select Feedback Type</label>
+              <label className={`text-xs font-semibold mb-1.5 block ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Select Feedback Type</label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 <button
                   type="button"
                   onClick={() => setCategory('bug')}
                   className={`p-2.5 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-1.5 ${
                     category === 'bug'
-                      ? 'bg-red-500/20 text-red-300 border-red-500 shadow-[0_0_12px_rgba(239,68,68,0.3)]'
-                      : 'bg-[#0E2117] text-white/60 border-white/10 hover:text-white'
+                      ? 'bg-[#FF304F]/20 text-[#FF304F] border-[#FF304F] shadow-sm'
+                      : (isDark ? 'bg-[#080A0F] text-slate-400 border-white/10 hover:text-white' : 'bg-slate-50 text-slate-600 border-slate-200 hover:text-slate-900')
                   }`}
                 >
                   <Bug className="w-4 h-4" /> Bug Report
@@ -269,8 +277,8 @@ export const FeedbackModal: React.FC = () => {
                   onClick={() => setCategory('feature')}
                   className={`p-2.5 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-1.5 ${
                     category === 'feature'
-                      ? 'bg-blue-500/20 text-blue-300 border-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.3)]'
-                      : 'bg-[#0E2117] text-white/60 border-white/10 hover:text-white'
+                      ? 'bg-blue-500/20 text-blue-400 border-blue-500 shadow-sm'
+                      : (isDark ? 'bg-[#080A0F] text-slate-400 border-white/10 hover:text-white' : 'bg-slate-50 text-slate-600 border-slate-200 hover:text-slate-900')
                   }`}
                 >
                   <Lightbulb className="w-4 h-4" /> Feature Idea
@@ -280,8 +288,8 @@ export const FeedbackModal: React.FC = () => {
                   onClick={() => setCategory('performance')}
                   className={`p-2.5 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-1.5 ${
                     category === 'performance'
-                      ? 'bg-amber-500/20 text-amber-300 border-amber-500 shadow-[0_0_12px_rgba(245,158,11,0.3)]'
-                      : 'bg-[#0E2117] text-white/60 border-white/10 hover:text-white'
+                      ? 'bg-amber-500/20 text-amber-400 border-amber-500 shadow-sm'
+                      : (isDark ? 'bg-[#080A0F] text-slate-400 border-white/10 hover:text-white' : 'bg-slate-50 text-slate-600 border-slate-200 hover:text-slate-900')
                   }`}
                 >
                   <Zap className="w-4 h-4" /> Performance
@@ -291,8 +299,8 @@ export const FeedbackModal: React.FC = () => {
                   onClick={() => setCategory('general')}
                   className={`p-2.5 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-1.5 ${
                     category === 'general'
-                      ? 'bg-[#B4FF00]/20 text-[#B4FF00] border-[#B4FF00] shadow-[0_0_12px_rgba(180,255,0,0.3)]'
-                      : 'bg-[#0E2117] text-white/60 border-white/10 hover:text-white'
+                      ? 'bg-[#FF5A1F]/20 text-[#FF5A1F] border-[#FF5A1F] shadow-sm'
+                      : (isDark ? 'bg-[#080A0F] text-slate-400 border-white/10 hover:text-white' : 'bg-slate-50 text-slate-600 border-slate-200 hover:text-slate-900')
                   }`}
                 >
                   <MessageSquare className="w-4 h-4" /> General
@@ -300,61 +308,77 @@ export const FeedbackModal: React.FC = () => {
               </div>
             </div>
 
-            {/* Name & Email (optional for guests, auto-filled if logged in) */}
+            {/* Name & Email */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="text-xs text-white/60 font-semibold mb-1 block">Your Name</label>
+                <label className={`text-xs font-semibold mb-1 block ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Your Name</label>
                 <input
                   type="text"
                   placeholder="e.g. Mohith Krishna"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-[#0E2117] border border-white/10 rounded-xl text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#B4FF00] neo-inset"
+                  className={`w-full px-3.5 py-2.5 rounded-xl text-xs focus:outline-none focus:border-[#FF5A1F] border ${
+                    isDark
+                      ? 'bg-[#080A0F] border-white/10 text-[#F4F7FB] placeholder-slate-500'
+                      : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400'
+                  }`}
                 />
               </div>
 
               <div>
-                <label className="text-xs text-white/60 font-semibold mb-1 block">Your Email (Optional)</label>
+                <label className={`text-xs font-semibold mb-1 block ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Your Email (Optional)</label>
                 <input
                   type="email"
-                  placeholder="developer@nexora.com"
+                  placeholder="developer@codeticz.com"
                   value={userEmail}
                   onChange={(e) => setUserEmail(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-[#0E2117] border border-white/10 rounded-xl text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#B4FF00] neo-inset"
+                  className={`w-full px-3.5 py-2.5 rounded-xl text-xs focus:outline-none focus:border-[#FF5A1F] border ${
+                    isDark
+                      ? 'bg-[#080A0F] border-white/10 text-[#F4F7FB] placeholder-slate-500'
+                      : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400'
+                  }`}
                 />
               </div>
             </div>
 
             {/* Title / Summary */}
             <div>
-              <label className="text-xs text-white/60 font-semibold mb-1 block">Bug / Feedback Title</label>
+              <label className={`text-xs font-semibold mb-1 block ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Bug / Feedback Title</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. Stdin input detection hint doesn't clear on reset"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-[#0E2117] border border-white/10 rounded-xl text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#B4FF00] neo-inset"
+                className={`w-full px-3.5 py-2.5 rounded-xl text-xs focus:outline-none focus:border-[#FF5A1F] border ${
+                  isDark
+                    ? 'bg-[#080A0F] border-white/10 text-[#F4F7FB] placeholder-slate-500'
+                    : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400'
+                }`}
               />
             </div>
 
             {/* Message Description */}
             <div>
-              <label className="text-xs text-white/60 font-semibold mb-1 block">Detailed Description / Steps to Reproduce</label>
+              <label className={`text-xs font-semibold mb-1 block ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Detailed Description / Steps to Reproduce</label>
               <textarea
                 required
                 rows={4}
                 placeholder="Describe what happened or what feature you would like to see..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-[#0E2117] border border-white/10 rounded-xl text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#B4FF00] neo-inset"
+                className={`w-full px-3.5 py-2.5 rounded-xl text-xs focus:outline-none focus:border-[#FF5A1F] border ${
+                  isDark
+                    ? 'bg-[#080A0F] border-white/10 text-[#F4F7FB] placeholder-slate-500'
+                    : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400'
+                }`}
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full neo-button py-3 rounded-xl font-extrabold text-xs flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(180,255,0,0.4)] disabled:opacity-50"
+              className="w-full py-3 rounded-xl font-extrabold text-xs flex items-center justify-center gap-2 bg-[#FF5A1F] hover:bg-[#FF6D38] active:bg-[#E04812] text-[#F4F7FB] shadow-[0_0_15px_rgba(255,90,31,0.4)] disabled:opacity-50 transition-all"
             >
               <Send className="w-4 h-4" />
               {loading ? 'Submitting & Saving...' : 'Submit Feedback & Post to Community Feed'}
@@ -362,57 +386,65 @@ export const FeedbackModal: React.FC = () => {
           </form>
         )}
 
-        {/* TAB 2: COMMUNITY FEED (SHOWN TO ALL USERS) */}
+        {/* TAB 2: COMMUNITY FEED */}
         {activeTab === 'feed' && (
           <div className="overflow-y-auto pr-1 space-y-3 flex-1 min-h-[300px]">
             {fetchLoading ? (
-              <div className="text-center py-12 text-white/50 text-xs font-mono animate-pulse">
+              <div className={`text-center py-12 text-xs font-mono animate-pulse ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                 Loading community bug reports & feedbacks...
               </div>
             ) : feedbacks.length === 0 ? (
-              <div className="text-center py-12 text-white/40 text-xs">
+              <div className={`text-center py-12 text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                 No feedback submitted yet. Be the first to report a bug or suggest a feature!
               </div>
             ) : (
               feedbacks.map((fb) => (
                 <div
                   key={fb.id}
-                  className="neo-inset p-4 rounded-xl border border-white/5 bg-[#0E2117]/80 hover:border-white/15 transition-all space-y-2.5"
+                  className={`p-4 rounded-xl border transition-all space-y-2.5 ${
+                    isDark
+                      ? 'border-white/5 bg-[#080A0F] hover:border-white/15'
+                      : 'border-slate-200 bg-slate-50 hover:border-slate-300 shadow-sm'
+                  }`}
                 >
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
                       {getCategoryBadge(fb.category)}
                       {getStatusBadge(fb.status)}
                     </div>
-                    <span className="text-[10px] text-white/40 font-mono flex items-center gap-1">
+                    <span className={`text-[10px] font-mono flex items-center gap-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                       <Clock className="w-3 h-3" />
                       {new Date(fb.createdAt).toLocaleDateString()}
                     </span>
                   </div>
 
                   <div>
-                    <h4 className="text-sm font-bold text-white">{fb.title}</h4>
-                    <p className="text-xs text-white/70 mt-1 leading-relaxed whitespace-pre-wrap">{fb.message}</p>
+                    <h4 className={`text-sm font-bold ${isDark ? 'text-[#F4F7FB]' : 'text-slate-900'}`}>{fb.title}</h4>
+                    <p className={`text-xs mt-1 leading-relaxed whitespace-pre-wrap ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{fb.message}</p>
                   </div>
 
-                  <div className="flex items-center justify-between pt-2 border-t border-white/5">
-                    <div className="flex items-center gap-1.5 text-xs text-white/50">
-                      <UserCheck className="w-3.5 h-3.5 text-[#B4FF00]" />
-                      <span className="font-semibold text-white/80">{fb.userName}</span>
+                  <div className={`flex items-center justify-between pt-2 border-t ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
+                    <div className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      <UserCheck className="w-3.5 h-3.5 text-[#FF5A1F]" />
+                      <span className={`font-semibold ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>{fb.userName}</span>
                     </div>
 
                     {upvotedIds.includes(fb.id) ? (
                       <span
-                        className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#B4FF00]/20 text-[#B4FF00] border border-[#B4FF00]/40 text-xs font-bold shadow-[0_0_10px_rgba(180,255,0,0.2)]"
+                        className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#FF5A1F]/20 text-[#FF5A1F] border border-[#FF5A1F]/40 text-xs font-bold shadow-sm"
                         title="You have upvoted this feedback (1 time per user)"
                       >
-                        <ThumbsUp className="w-3.5 h-3.5 fill-[#B4FF00]" />
+                        <ThumbsUp className="w-3.5 h-3.5 fill-[#FF5A1F]" />
                         <span>Liked ({fb.upvotes})</span>
                       </span>
                     ) : (
                       <button
                         onClick={() => handleUpvote(fb.id)}
-                        className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 hover:bg-[#B4FF00]/15 text-white/80 hover:text-[#B4FF00] border border-white/10 hover:border-[#B4FF00]/30 transition-all text-xs font-bold"
+                        className={`flex items-center gap-1.5 px-3 py-1 rounded-lg transition-all text-xs font-bold border ${
+                          isDark
+                            ? 'bg-[#121620] hover:bg-[#1A202C] text-slate-300 hover:text-white border-white/10 hover:border-[#FF5A1F]/40'
+                            : 'bg-white hover:bg-slate-100 text-slate-700 hover:text-slate-900 border-slate-200 hover:border-[#FF5A1F]/40 shadow-sm'
+                        }`}
                         title="Upvote / Agree with this feedback (1 time per user)"
                       >
                         <ThumbsUp className="w-3.5 h-3.5" />
@@ -430,3 +462,5 @@ export const FeedbackModal: React.FC = () => {
     </div>
   );
 };
+
+export default FeedbackModal;

@@ -224,7 +224,7 @@ async function processJq(
 
     // Input JSON: from stdin or standard sample dataset
     let jsonString = stdin && stdin.trim() ? stdin.trim() : JSON.stringify({
-      compiler: "Nexora",
+      compiler: "Codeticz",
       version: "1.0.0",
       stats: {
         activeLanguages: 67,
@@ -244,7 +244,7 @@ async function processJq(
     const stdout =
       `[jq JSON Processor & Stream Filter]\n` +
       `Filter: ${filter}\n` +
-      `Input Data: ${stdin.trim() ? "Custom (stdin JSON)" : "Default Nexora Catalog Sample"}\n\n` +
+      `Input Data: ${stdin.trim() ? "Custom (stdin JSON)" : "Default Codeticz Catalog Sample"}\n\n` +
       `Output:\n` +
       (typeof rawResult === "string" ? rawResult : JSON.stringify(rawResult, null, 2));
 
@@ -284,7 +284,7 @@ function processSed(
   try {
     let inputText = stdin && stdin.trim()
       ? stdin
-      : "Hello World!\nWelcome to the Nexora Multi-Language Compiler.\nHello World once more.";
+      : "Hello World!\nWelcome to the Codeticz Multi-Language Compiler.\nHello World once more.";
 
     const lines = code.split("\n").map(l => l.trim()).filter(l => l && !l.startsWith("#"));
     if (lines.length === 0) {

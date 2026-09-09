@@ -4,7 +4,7 @@ const API_BASE = `${(import.meta.env.VITE_API_URL || '').replace(/\/$/, '')}/api
 
 export function getAuthToken(): string | null {
   if (typeof window === 'undefined') return null;
-  return localStorage.getItem('nexora_token');
+  return localStorage.getItem('codeticz_token') || localStorage.getItem('nexora_token');
 }
 
 export function getAuthHeaders(): Record<string, string> {

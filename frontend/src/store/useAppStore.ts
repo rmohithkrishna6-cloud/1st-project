@@ -21,8 +21,11 @@ interface AppState {
   transpileNotification: string | null;
   pendingLanguage: LanguageConfig | null;
   isConfirmLangSwitchOpen: boolean;
+  theme: 'dark' | 'light';
   
   // Actions
+  setTheme: (theme: 'dark' | 'light') => void;
+  toggleTheme: () => void;
   setUserStreak: (streak: number | null) => void;
   setLanguages: (languages: LanguageConfig[]) => void;
   setCurrentLanguage: (lang: LanguageConfig, preserveCode?: boolean) => void;
@@ -46,10 +49,36 @@ interface AppState {
   setTranspileNotification: (msg: string | null) => void;
 }
 
+const getInitialTheme = (): 'dark' | 'light' => {
+  if (typeof window === 'undefined') return 'dark';
+  try {
+    const saved = localStorage.getItem('codeticz_theme') as 'dark' | 'light' | null;
+    if (saved === 'dark' || saved === 'light') return saved;
+  } catch {}
+  return 'dark';
+};
+
+export const applyThemeToDOM = (theme: 'dark' | 'light') => {
+  if (typeof document === 'undefined') return;
+  document.documentElement.setAttribute('data-theme', theme);
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('light');
+  } else {
+    document.documentElement.classList.remove('dark');
+    document.documentElement.classList.add('light');
+  }
+};
+
+// Apply theme to DOM on script evaluation
+if (typeof window !== 'undefined') {
+  applyThemeToDOM(getInitialTheme());
+}
+
 const getInitialUser = (): User | null => {
   if (typeof window === 'undefined') return null;
   try {
-    const saved = localStorage.getItem('nexora_user');
+    const saved = localStorage.getItem('codeticz_user') || localStorage.getItem('nexora_user');
     return saved ? JSON.parse(saved) : null;
   } catch {
     return null;
@@ -59,9 +88,9 @@ const getInitialUser = (): User | null => {
 const getInitialStreak = (): number | null => {
   if (typeof window === 'undefined') return null;
   try {
-    const saved = localStorage.getItem('nexora_streak');
+    const saved = localStorage.getItem('codeticz_streak') || localStorage.getItem('nexora_streak');
     if (saved) return parseInt(saved, 10);
-    const user = localStorage.getItem('nexora_user');
+    const user = localStorage.getItem('codeticz_user') || localStorage.getItem('nexora_user');
     return user ? 5 : null;
   } catch {
     return null;
@@ -87,6 +116,24 @@ export const useAppStore = create<AppState>((set, get) => ({
   transpileNotification: null,
   pendingLanguage: null,
   isConfirmLangSwitchOpen: false,
+  theme: getInitialTheme(),
+
+  setTheme: (theme) => {
+    try {
+      localStorage.setItem('codeticz_theme', theme);
+    } catch {}
+    applyThemeToDOM(theme);
+    set({ theme });
+  },
+  toggleTheme: () => {
+    const current = get().theme;
+    const next = current === 'dark' ? 'light' : 'dark';
+    try {
+      localStorage.setItem('codeticz_theme', next);
+    } catch {}
+    applyThemeToDOM(next);
+    set({ theme: next });
+  },
 
   setLanguages: (languages) => set({ languages }),
   setCurrentLanguage: (lang, preserveCode = false) =>
@@ -202,8 +249,10 @@ export const useAppStore = create<AppState>((set, get) => ({
   setUserStreak: (streak) => {
     if (typeof window !== 'undefined') {
       if (streak !== null) {
+        localStorage.setItem('codeticz_streak', String(streak));
         localStorage.setItem('nexora_streak', String(streak));
       } else {
+        localStorage.removeItem('codeticz_streak');
         localStorage.removeItem('nexora_streak');
       }
     }
@@ -212,13 +261,18 @@ export const useAppStore = create<AppState>((set, get) => ({
   setUser: (user) => {
     if (typeof window !== 'undefined') {
       if (user) {
+        localStorage.setItem('codeticz_user', JSON.stringify(user));
         localStorage.setItem('nexora_user', JSON.stringify(user));
-        const saved = localStorage.getItem('nexora_streak');
+        const saved = localStorage.getItem('codeticz_streak') || localStorage.getItem('nexora_streak');
         const streakVal = saved ? parseInt(saved, 10) : 5;
+        localStorage.setItem('codeticz_streak', String(streakVal));
         localStorage.setItem('nexora_streak', String(streakVal));
         set({ user, userStreak: streakVal });
         return;
       } else {
+        localStorage.removeItem('codeticz_user');
+        localStorage.removeItem('codeticz_token');
+        localStorage.removeItem('codeticz_streak');
         localStorage.removeItem('nexora_user');
         localStorage.removeItem('nexora_token');
         localStorage.removeItem('nexora_streak');

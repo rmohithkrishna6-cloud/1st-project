@@ -71,11 +71,11 @@ const RAW_LANGUAGES: LanguageConfig[] = [
     monacoLanguage: "python",
     icon: "fa-brands fa-python",
     fileExtension: "py",
-    defaultCode: `# Nexora Python Sandbox
+    defaultCode: `# Codeticz Python Sandbox
 import sys
 
 def main():
-    print("Welcome to Nexora Python Compiler!")
+    print("Welcome to Codeticz Python Compiler!")
     
     # Read stdin if provided
     input_data = sys.stdin.read().strip()
@@ -112,11 +112,11 @@ if __name__ == "__main__":
     monacoLanguage: "javascript",
     icon: "fa-brands fa-js",
     fileExtension: "js",
-    defaultCode: `// Nexora JavaScript Sandbox
+    defaultCode: `// Codeticz JavaScript Sandbox
 const fs = require('fs');
 
 function main() {
-    console.log("🚀 Welcome to Nexora JavaScript Compiler!");
+    console.log("🚀 Welcome to Codeticz JavaScript Compiler!");
     
     // Read input from stdin
     try {
@@ -146,7 +146,7 @@ main();
     monacoLanguage: "typescript",
     icon: "fa-brands fa-js",
     fileExtension: "ts",
-    defaultCode: `// Nexora TypeScript Sandbox
+    defaultCode: `// Codeticz TypeScript Sandbox
 interface User {
   id: number;
   name: string;
@@ -159,7 +159,7 @@ function greetUser(user: User): string {
 
 const developer: User = {
   id: 101,
-  name: "Nexora Dev",
+  name: "Codeticz Dev",
   role: "Developer"
 };
 
@@ -174,13 +174,13 @@ console.log(greetUser(developer));
     monacoLanguage: "cpp",
     icon: "fa-solid fa-copyright",
     fileExtension: "cpp",
-    defaultCode: `// Nexora C++ Sandbox
+    defaultCode: `// Codeticz C++ Sandbox
 #include <iostream>
 #include <vector>
 #include <numeric>
 
 int main() {
-    std::cout << "⚡ Hello from Nexora C++ Execution Engine!" << std::endl;
+    std::cout << "⚡ Hello from Codeticz C++ Execution Engine!" << std::endl;
     
     std::vector<int> numbers = {10, 20, 30, 40, 50};
     int sum = std::accumulate(numbers.begin(), numbers.end(), 0);
@@ -198,11 +198,11 @@ int main() {
     monacoLanguage: "c",
     icon: "fa-solid fa-copyright",
     fileExtension: "c",
-    defaultCode: `/* Nexora C Sandbox */
+    defaultCode: `/* Codeticz C Sandbox */
 #include <stdio.h>
 
 int main() {
-    printf("Hello, Nexora C Compiler!\\n");
+    printf("Hello, Codeticz C Compiler!\\n");
     int a = 15;
     int b = 27;
     printf("Result of %d + %d = %d\\n", a, b, a + b);
@@ -218,10 +218,10 @@ int main() {
     monacoLanguage: "java",
     icon: "fa-brands fa-java",
     fileExtension: "java",
-    defaultCode: `// Nexora Java Sandbox
+    defaultCode: `// Codeticz Java Sandbox
 public class Main {
     public static void main(String[] args) {
-        System.out.println("☕ Welcome to Nexora Java Compiler!");
+        System.out.println("☕ Welcome to Codeticz Java Compiler!");
         
         int[] arr = {4, 1, 8, 3, 9, 2};
         java.util.Arrays.sort(arr);
@@ -243,7 +243,7 @@ public class Main {
     monacoLanguage: "go",
     icon: "fa-brands fa-golang",
     fileExtension: "go",
-    defaultCode: `// Nexora Go Sandbox
+    defaultCode: `// Codeticz Go Sandbox
 package main
 
 import (
@@ -252,8 +252,8 @@ import (
 )
 
 func main() {
-	fmt.Println("💙 Hello from Nexora Go Runner!")
-	msg := "nexora high performance compiler"
+	fmt.Println("💙 Hello from Codeticz Go Runner!")
+	msg := "Codeticz high performance compiler"
 	fmt.Println("Uppercase:", strings.ToUpper(msg))
 }
 `
@@ -266,9 +266,9 @@ func main() {
     monacoLanguage: "rust",
     icon: "fa-brands fa-rust",
     fileExtension: "rs",
-    defaultCode: `// Nexora Rust Sandbox
+    defaultCode: `// Codeticz Rust Sandbox
 fn main() {
-    println!("🦀 Hello, Rustaceans on Nexora!");
+    println!("🦀 Hello, Rustaceans on Codeticz!");
     let numbers = vec![1, 2, 3, 4, 5];
     let squared: Vec<i32> = numbers.iter().map(|x| x * x).collect();
     println!("Squared numbers: {:?}", squared);
@@ -284,8 +284,8 @@ fn main() {
     icon: "fa-brands fa-php",
     fileExtension: "php",
     defaultCode: `<?php
-// Nexora PHP Sandbox
-echo "🐘 Hello from Nexora PHP Engine!\n";
+// Codeticz PHP Sandbox
+echo "🐘 Hello from Codeticz PHP Engine!\n";
 $frameworks = ["Laravel", "Symfony", "ReactPHP"];
 echo "Popular PHP Frameworks: " . implode(", ", $frameworks) . "\n";
 ?>
@@ -299,10 +299,10 @@ echo "Popular PHP Frameworks: " . implode(", ", $frameworks) . "\n";
     monacoLanguage: "ruby",
     icon: "fa-solid fa-gem",
     fileExtension: "rb",
-    defaultCode: `# Nexora Ruby Sandbox
-puts "💎 Welcome to Nexora Ruby!"
+    defaultCode: `# Codeticz Ruby Sandbox
+puts "💎 Welcome to Codeticz Ruby!"
 
-words = ["nexora", "compiler", "fast", "secure"]
+words = ["Codeticz", "compiler", "fast", "secure"]
 capitalized = words.map(&:capitalize)
 
 puts "Capitalized: #{capitalized.join(', ')}"
@@ -316,7 +316,7 @@ puts "Capitalized: #{capitalized.join(', ')}"
     monacoLanguage: "sql",
     icon: "fa-solid fa-database",
     fileExtension: "sql",
-    defaultCode: `-- Nexora SQL Sandbox (In-Memory SQLite Engine)
+    defaultCode: `-- Codeticz SQL Sandbox (In-Memory SQLite Engine)
 CREATE TABLE users (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
@@ -376,9 +376,9 @@ SELECT * FROM users WHERE role LIKE '%Engineer%' OR role LIKE '%Architect%';
 </head>
 <body>
   <div class="card">
-    <h1>🚀 Nexora Web Preview</h1>
+    <h1>🚀 Codeticz Web Preview</h1>
     <p>Live render HTML, CSS, and JS directly in your browser.</p>
-    <button onclick="alert('Hello from Nexora Sandbox!')">Click Me</button>
+    <button onclick="alert('Hello from Codeticz Sandbox!')">Click Me</button>
   </div>
 </body>
 </html>
@@ -393,8 +393,8 @@ SELECT * FROM users WHERE role LIKE '%Engineer%' OR role LIKE '%Architect%';
     icon: "fa-solid fa-terminal",
     fileExtension: "sh",
     defaultCode: `#!/bin/bash
-# Nexora Shell Script Sandbox
-echo "🐚 Nexora Shell Environment"
+# Codeticz Shell Script Sandbox
+echo "🐚 Codeticz Shell Environment"
 echo "Current Date: $(date)"
 echo "Kernel: $(uname -s -m 2>/dev/null || echo 'Isolated Container')"
 `
@@ -408,11 +408,11 @@ echo "Kernel: $(uname -s -m 2>/dev/null || echo 'Isolated Container')"
     icon: "fa-solid fa-code",
     fileExtension: "pl",
     defaultCode: `#!/usr/bin/perl
-# Nexora Perl Sandbox
+# Codeticz Perl Sandbox
 use strict;
 use warnings;
 
-print "🐪 Hello from Nexora Perl Engine!\\n";
+print "🐪 Hello from Codeticz Perl Engine!\\n";
 my @languages = ("Python", "Perl", "Ruby", "C++");
 print "Languages: ", join(", ", @languages), "\\n";
 `
@@ -425,8 +425,8 @@ print "Languages: ", join(", ", @languages), "\\n";
     monacoLanguage: "lua",
     icon: "fa-solid fa-moon",
     fileExtension: "lua",
-    defaultCode: `-- Nexora Lua Sandbox
-print("🌙 Welcome to Nexora Lua Environment")
+    defaultCode: `-- Codeticz Lua Sandbox
+print("🌙 Welcome to Codeticz Lua Environment")
 
 function factorial(n)
     if n == 0 then return 1 end
@@ -444,11 +444,11 @@ print("Factorial of 6 is:", factorial(6))
     monacoLanguage: "swift",
     icon: "fa-brands fa-swift",
     fileExtension: "swift",
-    defaultCode: `// Nexora Swift Sandbox
+    defaultCode: `// Codeticz Swift Sandbox
 import Foundation
 
 func greet(name: String) -> String {
-    return "🚀 Hello, \\(name)! Welcome to Nexora Swift Execution Engine."
+    return "🚀 Hello, \\(name)! Welcome to Codeticz Swift Execution Engine."
 }
 
 print(greet(name: "Developer"))
@@ -466,13 +466,13 @@ print("Sum of numbers: \\(total)")
     monacoLanguage: "csharp",
     icon: "fa-solid fa-code",
     fileExtension: "cs",
-    defaultCode: `// Nexora C# Sandbox
+    defaultCode: `// Codeticz C# Sandbox
 using System;
 using System.Collections.Generic;
 
 class Program {
     static void Main() {
-        Console.WriteLine("Welcome to Nexora C# Sandbox!");
+        Console.WriteLine("Welcome to Codeticz C# Sandbox!");
         
         var fruits = new List<string> { "Apple", "Banana", "Cherry", "Dragonfruit" };
         Console.WriteLine("Fruits count: " + fruits.Count);
@@ -491,8 +491,8 @@ class Program {
     monacoLanguage: "r",
     icon: "fa-solid fa-chart-line",
     fileExtension: "r",
-    defaultCode: `# Nexora R Sandbox
-cat("📊 Hello from Nexora R Statistical Sandbox!\\n")
+    defaultCode: `# Codeticz R Sandbox
+cat("📊 Hello from Codeticz R Statistical Sandbox!\\n")
 
 data <- c(12, 25, 38, 44, 59)
 mean_val <- mean(data)
@@ -508,9 +508,9 @@ cat("Mean Value:", mean_val, "\\n")
     monacoLanguage: "dart",
     icon: "fa-solid fa-bullseye",
     fileExtension: "dart",
-    defaultCode: `// Nexora Dart Sandbox
+    defaultCode: `// Codeticz Dart Sandbox
 void main() {
-  print('🎯 Hello from Nexora Dart Sandbox!');
+  print('🎯 Hello from Codeticz Dart Sandbox!');
   
   final techStack = ['Flutter', 'Dart', 'Web', 'Server'];
   techStack.forEach((tech) => print('⚡ \$tech'));
@@ -525,14 +525,14 @@ void main() {
     monacoLanguage: "haskell",
     icon: "fa-solid fa-code",
     fileExtension: "hs",
-    defaultCode: `-- Nexora Haskell Sandbox
+    defaultCode: `-- Codeticz Haskell Sandbox
 factorial :: Integer -> Integer
 factorial 0 = 1
 factorial n = n * factorial (n - 1)
 
 main :: IO ()
 main = do
-    putStrLn "Hello from Nexora Functional Haskell Engine!"
+    putStrLn "Hello from Codeticz Functional Haskell Engine!"
     putStrLn $ "Factorial of 10 is: " ++ show (factorial 10)
 `
   },
@@ -544,8 +544,8 @@ main = do
     monacoLanguage: "elixir",
     icon: "fa-solid fa-code",
     fileExtension: "exs",
-    defaultCode: `# Nexora Elixir Sandbox
-IO.puts "💧 Hello from Nexora Concurrent Elixir Engine!"
+    defaultCode: `# Codeticz Elixir Sandbox
+IO.puts "💧 Hello from Codeticz Concurrent Elixir Engine!"
 
 list = [1, 2, 3, 4, 5]
 sum = Enum.reduce(list, 0, fn x, acc -> x + acc end)
@@ -560,9 +560,9 @@ IO.puts "Sum of #{inspect(list)} is #{sum}"
     monacoLanguage: "kotlin",
     icon: "fa-solid fa-code",
     fileExtension: "kt",
-    defaultCode: `// Nexora Kotlin Sandbox
+    defaultCode: `// Codeticz Kotlin Sandbox
 fun main() {
-    println("🚀 Welcome to Nexora Kotlin Compiler!")
+    println("🚀 Welcome to Codeticz Kotlin Compiler!")
     val numbers = listOf(1, 2, 3, 4, 5)
     val doubled = numbers.map { it * 2 }
     println("Original: $numbers")
@@ -578,9 +578,9 @@ fun main() {
     monacoLanguage: "scala",
     icon: "fa-solid fa-code",
     fileExtension: "scala",
-    defaultCode: `// Nexora Scala 3 Sandbox
+    defaultCode: `// Codeticz Scala 3 Sandbox
 @main def main(): Unit = {
-    println("🚀 Welcome to Nexora Scala Compiler!")
+    println("🚀 Welcome to Codeticz Scala Compiler!")
     val list = List(1, 2, 3, 4, 5)
     val squared = list.map(x => x * x)
     println(s"Original: $list")
@@ -596,8 +596,8 @@ fun main() {
     monacoLanguage: "groovy",
     icon: "fa-solid fa-code",
     fileExtension: "groovy",
-    defaultCode: `// Nexora Groovy Sandbox
-println "Hello from Nexora Groovy Sandbox!"
+    defaultCode: `// Codeticz Groovy Sandbox
+println "Hello from Codeticz Groovy Sandbox!"
 `
   },
   {
@@ -608,8 +608,8 @@ println "Hello from Nexora Groovy Sandbox!"
     monacoLanguage: "julia",
     icon: "fa-solid fa-square-root-variable",
     fileExtension: "jl",
-    defaultCode: `# Nexora Julia Sandbox
-println("Hello from Nexora Julia Sandbox!")
+    defaultCode: `# Codeticz Julia Sandbox
+println("Hello from Codeticz Julia Sandbox!")
 `
   },
   {
@@ -620,8 +620,8 @@ println("Hello from Nexora Julia Sandbox!")
     monacoLanguage: "matlab",
     icon: "fa-solid fa-square-root-variable",
     fileExtension: "m",
-    defaultCode: `% Nexora GNU Octave Sandbox
-disp("Hello from GNU Octave on Nexora!");
+    defaultCode: `% Codeticz GNU Octave Sandbox
+disp("Hello from GNU Octave on Codeticz!");
 a = [1, 2; 3, 4];
 disp("Matrix determinant:");
 disp(det(a));
@@ -635,8 +635,8 @@ disp(det(a));
     monacoLanguage: "nim",
     icon: "fa-solid fa-code",
     fileExtension: "nim",
-    defaultCode: `# Nexora Nim Sandbox
-echo "👑 Hello from Nexora Nim Execution Engine!"
+    defaultCode: `# Codeticz Nim Sandbox
+echo "👑 Hello from Codeticz Nim Execution Engine!"
 
 let numbers = @[10, 20, 30, 40, 50]
 echo "Numbers: ", numbers
@@ -650,8 +650,8 @@ echo "Numbers: ", numbers
     monacoLanguage: "crystal",
     icon: "fa-solid fa-gem",
     fileExtension: "cr",
-    defaultCode: `# Nexora Crystal Sandbox
-puts "🔮 Hello from Nexora Crystal Sandbox!"
+    defaultCode: `# Codeticz Crystal Sandbox
+puts "🔮 Hello from Codeticz Crystal Sandbox!"
 
 words = ["crystal", "fast", "compiled"]
 capitalized = words.map(&.upcase)
@@ -666,12 +666,12 @@ puts "Capitalized: #{capitalized.join(", ")}"
     monacoLanguage: "zig",
     icon: "fa-solid fa-bolt",
     fileExtension: "zig",
-    defaultCode: `// Nexora Zig Sandbox
+    defaultCode: `// Codeticz Zig Sandbox
 const std = @import("std");
 
 pub fn main() !void {
     const stdout = std.io.getStdOut().writer();
-    try stdout.print("⚡ Hello from Nexora Zig Execution Engine!\\n", .{});
+    try stdout.print("⚡ Hello from Codeticz Zig Execution Engine!\\n", .{});
 }
 `
   },
@@ -683,11 +683,11 @@ pub fn main() !void {
     monacoLanguage: "d",
     icon: "fa-solid fa-code",
     fileExtension: "d",
-    defaultCode: `// Nexora D Sandbox
+    defaultCode: `// Codeticz D Sandbox
 import std.stdio;
 
 void main() {
-    writeln("🎯 Hello from Nexora D Language Sandbox!");
+    writeln("🎯 Hello from Codeticz D Language Sandbox!");
     int[] numbers = [10, 20, 30, 40, 50];
     writeln("Numbers: ", numbers);
 }
@@ -701,9 +701,9 @@ void main() {
     monacoLanguage: "fortran",
     icon: "fa-solid fa-code",
     fileExtension: "f90",
-    defaultCode: `! Nexora Fortran Sandbox
+    defaultCode: `! Codeticz Fortran Sandbox
 program main
-    print *, "Hello from Nexora Fortran Engine!"
+    print *, "Hello from Codeticz Fortran Engine!"
 end program main
 `
   },
@@ -718,7 +718,7 @@ end program main
     defaultCode: `       IDENTIFICATION DIVISION.
        PROGRAM-ID. HELLO.
        PROCEDURE DIVISION.
-           DISPLAY 'Hello from Nexora COBOL Engine!'.
+           DISPLAY 'Hello from Codeticz COBOL Engine!'.
            STOP RUN.
 `
   },
@@ -730,11 +730,11 @@ end program main
     monacoLanguage: "ada",
     icon: "fa-solid fa-shield-halved",
     fileExtension: "adb",
-    defaultCode: `-- Nexora Ada Sandbox (Pending Cloud Deployment)
+    defaultCode: `-- Codeticz Ada Sandbox (Pending Cloud Deployment)
 with Ada.Text_IO; use Ada.Text_IO;
 procedure Hello is
 begin
-    Put_Line ("Hello from Nexora Ada Sandbox!");
+    Put_Line ("Hello from Codeticz Ada Sandbox!");
 end Hello;
 `
   },
@@ -746,10 +746,10 @@ end Hello;
     monacoLanguage: "prolog",
     icon: "fa-solid fa-brain",
     fileExtension: "plg",
-    defaultCode: `% Nexora Prolog Sandbox
+    defaultCode: `% Codeticz Prolog Sandbox
 :- initialization(main).
 main :-
-    write('Hello from Nexora Prolog Engine!'), nl,
+    write('Hello from Codeticz Prolog Engine!'), nl,
     halt.
 `
   },
@@ -761,8 +761,8 @@ main :-
     monacoLanguage: "lisp",
     icon: "fa-solid fa-code",
     fileExtension: "lisp",
-    defaultCode: `;; Nexora Common Lisp Sandbox
-(format t "Hello from Nexora Common Lisp Engine!~%")
+    defaultCode: `;; Codeticz Common Lisp Sandbox
+(format t "Hello from Codeticz Common Lisp Engine!~%")
 `
   },
   {
@@ -773,8 +773,8 @@ main :-
     monacoLanguage: "scheme",
     icon: "fa-solid fa-code",
     fileExtension: "scm",
-    defaultCode: `;; Nexora Scheme Sandbox (Pending Cloud Deployment)
-(display "Hello from Nexora Scheme Engine!")
+    defaultCode: `;; Codeticz Scheme Sandbox (Pending Cloud Deployment)
+(display "Hello from Codeticz Scheme Engine!")
 (newline)
 `
   },
@@ -787,8 +787,8 @@ main :-
     icon: "fa-solid fa-code",
     fileExtension: "rkt",
     defaultCode: `#lang racket
-; Nexora Racket Sandbox
-(displayln "Hello from Nexora Racket Engine!")
+; Codeticz Racket Sandbox
+(displayln "Hello from Codeticz Racket Engine!")
 `
   },
   {
@@ -799,8 +799,8 @@ main :-
     monacoLanguage: "ocaml",
     icon: "fa-solid fa-code",
     fileExtension: "ml",
-    defaultCode: `(* Nexora OCaml Sandbox *)
-print_endline "Hello from Nexora OCaml Engine!";;
+    defaultCode: `(* Codeticz OCaml Sandbox *)
+print_endline "Hello from Codeticz OCaml Engine!";;
 `
   },
   {
@@ -812,7 +812,7 @@ print_endline "Hello from Nexora OCaml Engine!";;
     icon: "fa-solid fa-microchip",
     fileExtension: "asm",
     defaultCode: `SECTION .data
-    msg db "Hello from Nexora NASM Assembly Engine!", 10
+    msg db "Hello from Codeticz NASM Assembly Engine!", 10
     len equ $ - msg
 
 SECTION .text
@@ -838,10 +838,10 @@ _start:
     monacoLanguage: "pascal",
     icon: "fa-solid fa-code",
     fileExtension: "pas",
-    defaultCode: `// Nexora Pascal Sandbox
+    defaultCode: `// Codeticz Pascal Sandbox
 program Hello;
 begin
-  writeln('Hello from Nexora Pascal Engine!');
+  writeln('Hello from Codeticz Pascal Engine!');
 end.
 `
   },
@@ -853,8 +853,8 @@ end.
     monacoLanguage: "basic",
     icon: "fa-solid fa-code",
     fileExtension: "bas",
-    defaultCode: `' Nexora FreeBASIC Sandbox
-Print "Hello from Nexora FreeBASIC Engine!"
+    defaultCode: `' Codeticz FreeBASIC Sandbox
+Print "Hello from Codeticz FreeBASIC Engine!"
 `
   },
   {
@@ -865,8 +865,8 @@ Print "Hello from Nexora FreeBASIC Engine!"
     monacoLanguage: "forth",
     icon: "fa-solid fa-code",
     fileExtension: "fth",
-    defaultCode: `\\ Nexora Forth Sandbox
-.( Hello from Nexora Forth Engine! ) CR
+    defaultCode: `\\ Codeticz Forth Sandbox
+.( Hello from Codeticz Forth Engine! ) CR
 BYE
 `
   },
@@ -878,12 +878,12 @@ BYE
     monacoLanguage: "erlang",
     icon: "fa-solid fa-code",
     fileExtension: "erl",
-    defaultCode: `% Nexora Erlang Sandbox
+    defaultCode: `% Codeticz Erlang Sandbox
 -module(main).
 -export([main/1]).
 
 main(_Args) ->
-    io:format("Hello from Nexora Erlang Engine!~n").
+    io:format("Hello from Codeticz Erlang Engine!~n").
 `
   },
   {
@@ -894,10 +894,10 @@ main(_Args) ->
     monacoLanguage: "fsharp",
     icon: "fa-solid fa-code",
     fileExtension: "fs",
-    defaultCode: `// Nexora F# Sandbox (Pending Cloud Deployment)
+    defaultCode: `// Codeticz F# Sandbox (Pending Cloud Deployment)
 open System
 
-printfn "Hello from Nexora F# Engine!"
+printfn "Hello from Codeticz F# Engine!"
 `
   },
   {
@@ -908,8 +908,8 @@ printfn "Hello from Nexora F# Engine!"
     monacoLanguage: "clojure",
     icon: "fa-solid fa-code",
     fileExtension: "clj",
-    defaultCode: `;; Nexora Clojure Sandbox (Pending Cloud Deployment - Startup Timeout)
-(println "Hello from Nexora Clojure Engine!")
+    defaultCode: `;; Codeticz Clojure Sandbox (Pending Cloud Deployment - Startup Timeout)
+(println "Hello from Codeticz Clojure Engine!")
 `
   },
   {
@@ -920,8 +920,8 @@ printfn "Hello from Nexora F# Engine!"
     monacoLanguage: "reason",
     icon: "fa-solid fa-code",
     fileExtension: "re",
-    defaultCode: `/* Nexora Reason Sandbox (Pending Cloud Deployment) */
-Js.log("Hello from Nexora Reason Sandbox!");
+    defaultCode: `/* Codeticz Reason Sandbox (Pending Cloud Deployment) */
+Js.log("Hello from Codeticz Reason Sandbox!");
 `
   },
   {
@@ -932,11 +932,11 @@ Js.log("Hello from Nexora Reason Sandbox!");
     monacoLanguage: "haskell",
     icon: "fa-solid fa-code",
     fileExtension: "purs",
-    defaultCode: `-- Nexora PureScript Sandbox (Pending Cloud Deployment)
+    defaultCode: `-- Codeticz PureScript Sandbox (Pending Cloud Deployment)
 module Main where
 import Effect.Console (log)
 
-main = log "Hello from Nexora PureScript Engine!"
+main = log "Hello from Codeticz PureScript Engine!"
 `
   },
   {
@@ -947,11 +947,11 @@ main = log "Hello from Nexora PureScript Engine!"
     monacoLanguage: "idris",
     icon: "fa-solid fa-code",
     fileExtension: "idr",
-    defaultCode: `-- Nexora Idris Sandbox (Pending Cloud Deployment)
+    defaultCode: `-- Codeticz Idris Sandbox (Pending Cloud Deployment)
 module Main
 
 main : IO ()
-main = putStrLn "Hello from Nexora Idris Engine!"
+main = putStrLn "Hello from Codeticz Idris Engine!"
 `
   },
   {
@@ -962,12 +962,12 @@ main = putStrLn "Hello from Nexora Idris Engine!"
     monacoLanguage: "objective-c",
     icon: "fa-brands fa-apple",
     fileExtension: "m",
-    defaultCode: `// Nexora Objective-C Sandbox (Pending Cloud Deployment)
+    defaultCode: `// Codeticz Objective-C Sandbox (Pending Cloud Deployment)
 #import <Foundation/Foundation.h>
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        NSLog(@"Hello from Nexora Objective-C Sandbox!");
+        NSLog(@"Hello from Codeticz Objective-C Sandbox!");
     }
     return 0;
 }
@@ -981,12 +981,12 @@ int main(int argc, const char * argv[]) {
     monacoLanguage: "vb",
     icon: "fa-solid fa-code",
     fileExtension: "vb",
-    defaultCode: `' Nexora Visual Basic Sandbox
+    defaultCode: `' Codeticz Visual Basic Sandbox
 Imports System
 
 Module Program
     Sub Main()
-        Console.WriteLine("Hello from Nexora Visual Basic Engine!")
+        Console.WriteLine("Hello from Codeticz Visual Basic Engine!")
     End Sub
 End Module
 `
@@ -999,9 +999,9 @@ End Module
     monacoLanguage: "shell",
     icon: "fa-solid fa-terminal",
     fileExtension: "awk",
-    defaultCode: `# Nexora Awk Sandbox
+    defaultCode: `# Codeticz Awk Sandbox
 BEGIN {
-    print "Hello from Nexora Awk Engine!"
+    print "Hello from Codeticz Awk Engine!"
 }
 `
   },
@@ -1013,8 +1013,8 @@ BEGIN {
     monacoLanguage: "tcl",
     icon: "fa-solid fa-code",
     fileExtension: "tcl",
-    defaultCode: `# Nexora Tcl Sandbox (Pending Cloud Deployment)
-puts "Hello from Nexora Tcl Sandbox!"
+    defaultCode: `# Codeticz Tcl Sandbox (Pending Cloud Deployment)
+puts "Hello from Codeticz Tcl Sandbox!"
 `
   },
   {
@@ -1025,8 +1025,8 @@ puts "Hello from Nexora Tcl Sandbox!"
     monacoLanguage: "basic",
     icon: "fa-solid fa-code",
     fileExtension: "bas",
-    defaultCode: `' Nexora QBasic Sandbox
-PRINT "Hello from Nexora QBasic Engine!"
+    defaultCode: `' Codeticz QBasic Sandbox
+PRINT "Hello from Codeticz QBasic Engine!"
 `
   },
   {
@@ -1037,8 +1037,8 @@ PRINT "Hello from Nexora QBasic Engine!"
     monacoLanguage: "smalltalk",
     icon: "fa-solid fa-code",
     fileExtension: "st",
-    defaultCode: `"Nexora Smalltalk Sandbox"
-Transcript show: 'Hello from Nexora Smalltalk Engine!'; cr.
+    defaultCode: `"Codeticz Smalltalk Sandbox"
+Transcript show: 'Hello from Codeticz Smalltalk Engine!'; cr.
 `
   },
   {
@@ -1050,7 +1050,7 @@ Transcript show: 'Hello from Nexora Smalltalk Engine!'; cr.
     icon: "fa-solid fa-code",
     fileExtension: "json",
     defaultCode: `{
-  "appName": "Nexora Compiler Platform",
+  "appName": "Codeticz Compiler Platform",
   "version": "2.4.0",
   "features": [
     "Multi-language execution",
@@ -1073,7 +1073,7 @@ Transcript show: 'Hello from Nexora Smalltalk Engine!'; cr.
     icon: "fa-solid fa-code",
     fileExtension: "xml",
     defaultCode: `<?xml version="1.0" encoding="UTF-8"?>
-<project name="Nexora" version="1.0">
+<project name="Codeticz" version="1.0">
   <dependencies>
     <dependency name="express" version="4.21.2" />
     <dependency name="sqlite3" version="6.0.1" />
@@ -1090,8 +1090,8 @@ Transcript show: 'Hello from Nexora Smalltalk Engine!'; cr.
     monacoLanguage: "yaml",
     icon: "fa-solid fa-file-code",
     fileExtension: "yaml",
-    defaultCode: `# Nexora YAML Sandbox
-service: nexora-api
+    defaultCode: `# Codeticz YAML Sandbox
+service: Codeticz-api
 version: "1.0.0"
 environment: production
 database:
@@ -1113,9 +1113,9 @@ services:
     monacoLanguage: "markdown",
     icon: "fa-brands fa-markdown",
     fileExtension: "md",
-    defaultCode: `# ⚡ Welcome to Nexora Sandbox
+    defaultCode: `# ⚡ Welcome to Codeticz Sandbox
 
-Nexora provides high-performance code compilation, query evaluation, and data validation.
+Codeticz provides high-performance code compilation, query evaluation, and data validation.
 
 ## Core Features
 - **Multi-Language Support**: Polyglot execution across 50+ languages.
@@ -1159,7 +1159,7 @@ Nexora provides high-performance code compilation, query evaluation, and data va
     fileExtension: "pony",
     defaultCode: `actor Main
   new create(env: Env) =>
-    env.out.print("Hello from Nexora Pony Engine!")
+    env.out.print("Hello from Codeticz Pony Engine!")
 `
   },
   {
@@ -1170,8 +1170,8 @@ Nexora provides high-performance code compilation, query evaluation, and data va
     monacoLanguage: "plaintext",
     icon: "fa-solid fa-atom",
     fileExtension: "chpl",
-    defaultCode: `// Nexora Chapel Sandbox (Pending Cloud Deployment)
-writeln("Hello from Nexora Chapel Sandbox!");
+    defaultCode: `// Codeticz Chapel Sandbox (Pending Cloud Deployment)
+writeln("Hello from Codeticz Chapel Sandbox!");
 `
   },
   {
@@ -1182,11 +1182,11 @@ writeln("Hello from Nexora Chapel Sandbox!");
     monacoLanguage: "plaintext",
     icon: "fa-solid fa-cloud",
     fileExtension: "bal",
-    defaultCode: `// Nexora Ballerina Sandbox (Pending Cloud Deployment)
+    defaultCode: `// Codeticz Ballerina Sandbox (Pending Cloud Deployment)
 import ballerina/io;
 
 public function main() {
-    io:println("Hello from Nexora Ballerina Sandbox!");
+    io:println("Hello from Codeticz Ballerina Sandbox!");
 }
 `
   },
@@ -1198,11 +1198,11 @@ public function main() {
     monacoLanguage: "rust",
     icon: "fa-solid fa-code",
     fileExtension: "gleam",
-    defaultCode: `// Nexora Gleam WebAssembly Sandbox
+    defaultCode: `// Codeticz Gleam WebAssembly Sandbox
 import gleam/io
 
 pub fn main() {
-  io.println("Hello from Nexora Gleam Sandbox!")
+  io.println("Hello from Codeticz Gleam Sandbox!")
 }
 `
   },
@@ -1216,7 +1216,7 @@ pub fn main() {
     fileExtension: "hack",
     defaultCode: `<<__EntryPoint>>
 function main(): void {
-  echo "Hello from Nexora Hack Sandbox!\\n";
+  echo "Hello from Codeticz Hack Sandbox!\\n";
 }
 `
   },
@@ -1228,9 +1228,9 @@ function main(): void {
     monacoLanguage: "forth",
     icon: "fa-solid fa-code",
     fileExtension: "factor",
-    defaultCode: `! Nexora Factor Sandbox (Pending Cloud Deployment)
+    defaultCode: `! Codeticz Factor Sandbox (Pending Cloud Deployment)
 USING: io ;
-"Hello from Nexora Factor Sandbox!" print
+"Hello from Codeticz Factor Sandbox!" print
 `
   },
   {
@@ -1241,7 +1241,7 @@ USING: io ;
     monacoLanguage: "coq",
     icon: "fa-solid fa-graduation-cap",
     fileExtension: "v",
-    defaultCode: `(* Nexora Coq Proof Assistant Sandbox (Pending Cloud Deployment) *)
+    defaultCode: `(* Codeticz Coq Proof Assistant Sandbox (Pending Cloud Deployment) *)
 Theorem hello_coq : True.
 Proof. exact I. Qed.
 `
@@ -1254,7 +1254,7 @@ Proof. exact I. Qed.
     monacoLanguage: "haskell",
     icon: "fa-solid fa-graduation-cap",
     fileExtension: "agda",
-    defaultCode: `-- Nexora Agda Sandbox (Pending Cloud Deployment)
+    defaultCode: `-- Codeticz Agda Sandbox (Pending Cloud Deployment)
 module Hello where
 `
   },
@@ -1266,8 +1266,8 @@ module Hello where
     monacoLanguage: "lean",
     icon: "fa-solid fa-graduation-cap",
     fileExtension: "lean",
-    defaultCode: `-- Nexora Lean Theorem Prover (Pending Cloud Deployment)
-#eval "Hello from Nexora Lean Sandbox!"
+    defaultCode: `-- Codeticz Lean Theorem Prover (Pending Cloud Deployment)
+#eval "Hello from Codeticz Lean Sandbox!"
 `
   },
   {
@@ -1278,7 +1278,7 @@ module Hello where
     monacoLanguage: "css",
     icon: "fa-brands fa-css3-alt",
     fileExtension: "css",
-    defaultCode: `/* Nexora CSS Sandbox */
+    defaultCode: `/* Codeticz CSS Sandbox */
 .card {
   background: #0E2117;
   color: #B4FF00;
@@ -1296,7 +1296,7 @@ module Hello where
     monacoLanguage: "scss",
     icon: "fa-brands fa-sass",
     fileExtension: "scss",
-    defaultCode: `// Nexora SCSS Sandbox
+    defaultCode: `// Codeticz SCSS Sandbox
 $primary-color: #B4FF00;
 $bg-dark: #0B1A12;
 
@@ -1316,7 +1316,7 @@ $bg-dark: #0B1A12;
     monacoLanguage: "less",
     icon: "fa-brands fa-less",
     fileExtension: "less",
-    defaultCode: `// Nexora Less Sandbox
+    defaultCode: `// Codeticz Less Sandbox
 @brand-color: #B4FF00;
 
 #main {
@@ -1332,7 +1332,7 @@ $bg-dark: #0B1A12;
     monacoLanguage: "stylus",
     icon: "fa-solid fa-paintbrush",
     fileExtension: "styl",
-    defaultCode: `// Nexora Stylus Sandbox
+    defaultCode: `// Codeticz Stylus Sandbox
 brand-color = #B4FF00
 
 body
@@ -1347,7 +1347,7 @@ body
     monacoLanguage: "css",
     icon: "fa-solid fa-sliders",
     fileExtension: "pcss",
-    defaultCode: `/* Nexora PostCSS Sandbox */
+    defaultCode: `/* Codeticz PostCSS Sandbox */
 :root {
   --primary: #B4FF00;
 }
@@ -1364,7 +1364,7 @@ body
     monacoLanguage: "mysql",
     icon: "fa-solid fa-database",
     fileExtension: "sql",
-    defaultCode: `-- Nexora MySQL Sandbox
+    defaultCode: `-- Codeticz MySQL Sandbox
 CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -1372,8 +1372,8 @@ CREATE TABLE products (
 );
 
 INSERT INTO products (name, price) VALUES 
-('Nexora Pro Subscription', 19.99),
-('Nexora Enterprise Token', 99.00);
+('Codeticz Pro Subscription', 19.99),
+('Codeticz Enterprise Token', 99.00);
 
 SELECT * FROM products WHERE price > 10.00;
 `
@@ -1386,7 +1386,7 @@ SELECT * FROM products WHERE price > 10.00;
     monacoLanguage: "pgsql",
     icon: "fa-solid fa-database",
     fileExtension: "sql",
-    defaultCode: `-- Nexora PostgreSQL Sandbox
+    defaultCode: `-- Codeticz PostgreSQL Sandbox
 CREATE TABLE servers (
     id SERIAL PRIMARY KEY,
     hostname VARCHAR(100) NOT NULL,
@@ -1408,7 +1408,7 @@ SELECT * FROM servers;
     monacoLanguage: "javascript",
     icon: "fa-solid fa-leaf",
     fileExtension: "js",
-    defaultCode: `// Nexora MongoDB Collection Query Sandbox
+    defaultCode: `// Codeticz MongoDB Collection Query Sandbox
 db.users.find({ "status": "Active" })
 `
   },
@@ -1420,7 +1420,7 @@ db.users.find({ "status": "Active" })
     monacoLanguage: "graphql",
     icon: "fa-solid fa-diagram-project",
     fileExtension: "gql",
-    defaultCode: `# Nexora GraphQL Query Sandbox
+    defaultCode: `# Codeticz GraphQL Query Sandbox
 query GetUserData {
   user(id: "usr-101") {
     id
@@ -1445,7 +1445,7 @@ import { View, Text, StyleSheet } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>📱 Welcome to Nexora React Native</Text>
+      <Text style={styles.title}>📱 Welcome to Codeticz React Native</Text>
       <Text style={styles.subtitle}>Mobile Viewport Live Preview</Text>
     </View>
   );
@@ -1479,7 +1479,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('Nexora Flutter Sandbox')),
+        appBar: AppBar(title: const Text('Codeticz Flutter Sandbox')),
         body: const Center(
           child: Text('⚡ Flutter Widget Hierarchy Validated'),
         ),
@@ -1499,7 +1499,7 @@ class MyApp extends StatelessWidget {
     fileExtension: "html",
     defaultCode: `<ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Nexora Ionic Mobile UI</ion-title>
+    <ion-title>Codeticz Ionic Mobile UI</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -1528,7 +1528,7 @@ class MyApp extends StatelessWidget {
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Nexora Cordova App</title>
+  <title>Codeticz Cordova App</title>
   <style>
     body { background: #1e1e1e; color: #fff; font-family: sans-serif; text-align: center; padding: 20px; }
     h1 { color: #e44d26; }
@@ -1555,7 +1555,7 @@ class MyApp extends StatelessWidget {
     icon: "fa-solid fa-tablet-screen-button",
     fileExtension: "xml",
     defaultCode: `<Page xmlns="http://schemas.nativescript.org/tns.xsd">
-  <ActionBar title="Nexora NativeScript" class="action-bar" />
+  <ActionBar title="Codeticz NativeScript" class="action-bar" />
   <StackLayout class="p-20">
     <Label text="⚡ NativeScript XML Layout Syntax Validated" class="h2 text-center" textWrap="true" />
     <Button text="Tap Me" tap="onTap" class="btn btn-primary" />
@@ -1571,7 +1571,7 @@ class MyApp extends StatelessWidget {
     monacoLanguage: "plaintext",
     icon: "fa-solid fa-brain",
     fileExtension: "bf",
-    defaultCode: `// Nexora Brainfuck Sandbox
+    defaultCode: `// Codeticz Brainfuck Sandbox
 // Prints 'Hello World!' to standard output
 ++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.
 `
@@ -1584,7 +1584,7 @@ class MyApp extends StatelessWidget {
     monacoLanguage: "plaintext",
     icon: "fa-solid fa-border-all",
     fileExtension: "bfg",
-    defaultCode: `// Nexora Befunge-93 2D Grid Sandbox
+    defaultCode: `// Codeticz Befunge-93 2D Grid Sandbox
 // Prints 'Hello World!' using 2D direction vectors
 ">:#,<_@
 !dlroW ,olleH
@@ -1598,7 +1598,7 @@ class MyApp extends StatelessWidget {
     monacoLanguage: "plaintext",
     icon: "fa-solid fa-[#B4FF00]",
     fileExtension: "ws",
-    defaultCode: `[Nexora Whitespace Stack Sandbox]
+    defaultCode: `[Codeticz Whitespace Stack Sandbox]
    	 	 	
  	 
  
@@ -1744,7 +1744,7 @@ r r r r r r r r r
           "next": null,
           "parent": "event_whenflagclicked",
           "inputs": {
-            "MESSAGE": [1, [10, "Hello from Nexora Scratch Engine!"]]
+            "MESSAGE": [1, [10, "Hello from Codeticz Scratch Engine!"]]
           },
           "fields": {},
           "shadow": false,
@@ -1780,7 +1780,7 @@ r r r r r r r r r
   "meta": {
     "semver": "3.0.0",
     "vm": "0.2.0",
-    "agent": "Nexora Scratch Engine"
+    "agent": "Codeticz Scratch Engine"
   }
 }
 `
@@ -1793,14 +1793,14 @@ r r r r r r r r r
     monacoLanguage: "xml",
     icon: "fa-solid fa-bolt",
     fileExtension: "xml",
-    defaultCode: `<project name="Nexora Snap Project" version="2">
+    defaultCode: `<project name="Codeticz Snap Project" version="2">
   <stage name="Stage" width="480" height="360">
     <sprites>
       <sprite name="Sprite" idx="1" x="0" y="0">
         <scripts>
           <script x="20" y="20">
             <block s="doSayFor">
-              <l>Hello from Nexora Snap! Engine</l>
+              <l>Hello from Codeticz Snap! Engine</l>
               <l>2</l>
             </block>
           </script>
@@ -1819,7 +1819,7 @@ r r r r r r r r r
     monacoLanguage: "plaintext",
     icon: "fa-solid fa-staff-snake",
     fileExtension: "logo",
-    defaultCode: `// Nexora Logo Turtle Graphics Sandbox
+    defaultCode: `// Codeticz Logo Turtle Graphics Sandbox
 // Draw a colorful flower pattern
 setcolor #B4FF00
 repeat 36 [
@@ -1836,7 +1836,7 @@ repeat 36 [
     monacoLanguage: "javascript",
     icon: "fa-solid fa-robot",
     fileExtension: "karel",
-    defaultCode: `// Nexora Karel the Robot Grid Simulator
+    defaultCode: `// Codeticz Karel the Robot Grid Simulator
 function main() {
     move();
     putBeeper();
@@ -1875,11 +1875,11 @@ main();
     monacoLanguage: "java",
     icon: "fa-solid fa-cube",
     fileExtension: "a3w",
-    defaultCode: `// Nexora Alice 3D Scene Setup Procedure
+    defaultCode: `// Codeticz Alice 3D Scene Setup Procedure
 public class Scene extends SScene {
     public void myFirstMethod() {
         this.camera.move(MoveDirection.FORWARD, 2.0);
-        this.ground.say("Welcome to Nexora Alice 3D World!");
+        this.ground.say("Welcome to Codeticz Alice 3D World!");
     }
 }
 `
@@ -1892,7 +1892,7 @@ public class Scene extends SScene {
     monacoLanguage: "dockerfile",
     icon: "fa-brands fa-docker",
     fileExtension: "dockerfile",
-    defaultCode: `# Nexora Dockerfile Sandbox
+    defaultCode: `# Codeticz Dockerfile Sandbox
 FROM node:20-alpine
 WORKDIR /app
 COPY package*.json ./
@@ -1910,24 +1910,24 @@ CMD ["node", "server.js"]
     monacoLanguage: "yaml",
     icon: "fa-solid fa-dharmachakra",
     fileExtension: "yaml",
-    defaultCode: `# Nexora Kubernetes Manifest Sandbox
+    defaultCode: `# Codeticz Kubernetes Manifest Sandbox
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nexora-app-deployment
+  name: Codeticz-app-deployment
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nexora
+      app: Codeticz
   template:
     metadata:
       labels:
-        app: nexora
+        app: Codeticz
     spec:
       containers:
-      - name: nexora-server
-        image: nexora/runner:latest
+      - name: Codeticz-server
+        image: Codeticz/runner:latest
         ports:
         - containerPort: 3000
 `
@@ -1940,13 +1940,13 @@ spec:
     monacoLanguage: "hcl",
     icon: "fa-solid fa-cloud-arrow-up",
     fileExtension: "tf",
-    defaultCode: `# Nexora Terraform Infrastructure Sandbox
+    defaultCode: `# Codeticz Terraform Infrastructure Sandbox
 provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_s3_bucket" "nexora_assets" {
-  bucket = "nexora-cloud-storage"
+resource "aws_s3_bucket" "Codeticz_assets" {
+  bucket = "Codeticz-cloud-storage"
   acl    = "private"
 }
 `
@@ -1959,11 +1959,11 @@ resource "aws_s3_bucket" "nexora_assets" {
     monacoLanguage: "ini",
     icon: "fa-solid fa-gear",
     fileExtension: "toml",
-    defaultCode: `# Nexora TOML Config Sandbox
+    defaultCode: `# Codeticz TOML Config Sandbox
 [package]
-name = "nexora-compiler"
+name = "Codeticz-compiler"
 version = "1.0.0"
-authors = ["Nexora Team"]
+authors = ["Codeticz Team"]
 
 [dependencies]
 express = "^4.18.2"
@@ -1978,14 +1978,14 @@ monaco-editor = "^0.45.0"
     monacoLanguage: "ini",
     icon: "fa-solid fa-sliders",
     fileExtension: "ini",
-    defaultCode: `; Nexora INI Configuration File Sandbox
+    defaultCode: `; Codeticz INI Configuration File Sandbox
 [server]
 host = localhost
 port = 3000
 
 [database]
 engine = postgresql
-url = postgresql://nexora:secret@localhost:5432/nexoradb
+url = postgresql://Codeticz:secret@localhost:5432/Codeticzdb
 `
   },
   {
@@ -1996,10 +1996,10 @@ url = postgresql://nexora:secret@localhost:5432/nexoradb
     monacoLanguage: "protobuf",
     icon: "fa-solid fa-network-wired",
     fileExtension: "proto",
-    defaultCode: `// Nexora Protocol Buffers Proto3 Sandbox
+    defaultCode: `// Codeticz Protocol Buffers Proto3 Sandbox
 syntax = "proto3";
 
-package nexora.v1;
+package Codeticz.v1;
 
 message ExecutionRequest {
   string language_id = 1;
@@ -2022,7 +2022,7 @@ message ExecutionResponse {
     monacoLanguage: "plaintext",
     icon: "fa-solid fa-shield",
     fileExtension: "rego",
-    defaultCode: `# Nexora Open Policy Agent Rego Sandbox
+    defaultCode: `# Codeticz Open Policy Agent Rego Sandbox
 package policy.allow
 
 default allow = false
@@ -2040,8 +2040,8 @@ allow {
     monacoLanguage: "plaintext",
     icon: "fa-solid fa-database",
     fileExtension: "redis",
-    defaultCode: `# Nexora Redis CLI Command Sandbox
-SET user:101 "Nexora Developer"
+    defaultCode: `# Codeticz Redis CLI Command Sandbox
+SET user:101 "Codeticz Developer"
 GET user:101
 INCR total_executions
 `
@@ -2054,7 +2054,7 @@ INCR total_executions
     monacoLanguage: "cypher",
     icon: "fa-solid fa-diagram-project",
     fileExtension: "cyp",
-    defaultCode: `// Nexora Cypher Graph Sandbox (In-Memory Subset)
+    defaultCode: `// Codeticz Cypher Graph Sandbox (In-Memory Subset)
 // Supported: CREATE, MATCH, WHERE, RETURN (Nodes, Properties, Relationships)
 // Note: ORDER BY, LIMIT, and Aggregations (e.g., count()) are not supported in this lightweight engine.
 
@@ -2075,8 +2075,8 @@ RETURN p.name, m.title, r.role
     monacoLanguage: "sql",
     icon: "fa-solid fa-table-cells",
     fileExtension: "cql",
-    defaultCode: `-- Nexora Cassandra Query Language Sandbox
-SELECT * FROM nexora_keyspace.user_metrics
+    defaultCode: `-- Codeticz Cassandra Query Language Sandbox
+SELECT * FROM Codeticz_keyspace.user_metrics
 WHERE user_id = 101;
 `
   },
@@ -2091,7 +2091,7 @@ WHERE user_id = 101;
     defaultCode: `<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" fill="#0E2117" rx="16"/>
   <circle cx="100" cy="100" r="50" fill="#B4FF00" />
-  <text x="170" y="110" font-family="sans-serif" font-size="22" font-weight="bold" fill="#ffffff">Nexora SVG Render</text>
+  <text x="170" y="110" font-family="sans-serif" font-size="22" font-weight="bold" fill="#ffffff">Codeticz SVG Render</text>
 </svg>
 `
   },
@@ -2106,7 +2106,7 @@ WHERE user_id = 101;
     defaultCode: `doctype html
 html(lang="en")
   head
-    title Nexora Pug Template
+    title Codeticz Pug Template
   body
     h1.title ⚡ Rendered Pug HTML Template
     p Compiled from Pug source code cleanly.
@@ -2150,8 +2150,8 @@ html(lang="en")
     monacoLanguage: "powershell",
     icon: "fa-solid fa-terminal",
     fileExtension: "ps1",
-    defaultCode: `# Nexora PowerShell Sandbox
-Write-Output "⚡ Hello from Nexora PowerShell Core Sandbox!"
+    defaultCode: `# Codeticz PowerShell Sandbox
+Write-Output "⚡ Hello from Codeticz PowerShell Core Sandbox!"
 $numbers = 1..5
 $sum = ($numbers | Measure-Object -Sum).Sum
 Write-Output "Sum of numbers 1 to 5: $sum"
@@ -2165,9 +2165,9 @@ Write-Output "Sum of numbers 1 to 5: $sum"
     monacoLanguage: "v",
     icon: "fa-solid fa-bolt",
     fileExtension: "v",
-    defaultCode: `// Nexora Vlang Sandbox
+    defaultCode: `// Codeticz Vlang Sandbox
 fn main() {
-	println('Hello from Nexora Vlang Engine!')
+	println('Hello from Codeticz Vlang Engine!')
 }
 `
   },
@@ -2179,7 +2179,7 @@ fn main() {
     monacoLanguage: "coffeescript",
     icon: "fa-solid fa-mug-saucer",
     fileExtension: "coffee",
-    defaultCode: `# Nexora CoffeeScript Sandbox
+    defaultCode: `# Codeticz CoffeeScript Sandbox
 square = (x) -> x * x
 numbers = [1, 2, 3, 4, 5]
 squares = (square n for n in numbers)
@@ -2205,7 +2205,7 @@ console.log "Squares:", squares
     monacoLanguage: "shell",
     icon: "fa-solid fa-filter",
     fileExtension: "sed",
-    defaultCode: `s/World/Nexora/g
+    defaultCode: `s/World/Codeticz/g
 `
   },
   {
@@ -2216,7 +2216,7 @@ console.log "Squares:", squares
     monacoLanguage: "plaintext",
     icon: "fa-solid fa-clock",
     fileExtension: "cron",
-    defaultCode: `# Nexora Cron Expression Evaluator
+    defaultCode: `# Codeticz Cron Expression Evaluator
 0 0 * * *
 `
   },
@@ -2228,9 +2228,9 @@ console.log "Squares:", squares
     monacoLanguage: "applescript",
     icon: "fa-brands fa-apple",
     fileExtension: "scpt",
-    defaultCode: `-- Nexora AppleScript Sandbox
+    defaultCode: `-- Codeticz AppleScript Sandbox
 tell application "System Events"
-	display dialog "Hello from Nexora AppleScript!"
+	display dialog "Hello from Codeticz AppleScript!"
 end tell
 `
   },
@@ -2242,9 +2242,9 @@ end tell
     monacoLanguage: "autohotkey",
     icon: "fa-solid fa-keyboard",
     fileExtension: "ahk",
-    defaultCode: `; Nexora AutoHotkey Automation Sandbox
+    defaultCode: `; Codeticz AutoHotkey Automation Sandbox
 ^!n::
-  MsgBox, Hello from Nexora AutoHotkey Sandbox!
+  MsgBox, Hello from Codeticz AutoHotkey Sandbox!
 return
 `
   },
@@ -2256,12 +2256,12 @@ return
     monacoLanguage: "actionscript",
     icon: "fa-solid fa-bolt",
     fileExtension: "as",
-    defaultCode: `// Nexora ActionScript 3.0 Sandbox
+    defaultCode: `// Codeticz ActionScript 3.0 Sandbox
 package {
     import flash.display.Sprite;
     public class Main extends Sprite {
         public function Main() {
-            trace("Hello from Nexora ActionScript 3.0!");
+            trace("Hello from Codeticz ActionScript 3.0!");
         }
     }
 }
@@ -2275,7 +2275,7 @@ package {
     monacoLanguage: "plaintext",
     icon: "fa-solid fa-infinity",
     fileExtension: "mac",
-    defaultCode: `/* Nexora Maxima CAS Sandbox */
+    defaultCode: `/* Codeticz Maxima CAS Sandbox */
 integrate(x^2, x);
 factor(x^2 - 1);
 `
@@ -2291,8 +2291,8 @@ factor(x^2 - 1);
     defaultCode: `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-contract NexoraToken {
-    string public name = "Nexora Token";
+contract CodeticzToken {
+    string public name = "Codeticz Token";
     uint256 public totalSupply = 1000000;
 }
 `
@@ -2309,7 +2309,7 @@ contract NexoraToken {
 +++ b/main.js
 @@ -1,3 +1,3 @@
 -console.log("Hello World");
-+console.log("Hello Nexora 128 Languages!");
++console.log("Hello Codeticz 128 Languages!");
 `
   },
   {
@@ -2322,7 +2322,7 @@ contract NexoraToken {
     fileExtension: "lol",
     defaultCode: `HAI 1.2
 CAN HAS STDIO?
-VISIBLE "HAI NEXORA LOLCODE WORLD!"
+VISIBLE "HAI Codeticz LOLCODE WORLD!"
 KTHXBYE
 `
   },
@@ -2349,7 +2349,7 @@ moo
     monacoLanguage: "plaintext",
     icon: "fa-solid fa-guitar",
     fileExtension: "rock",
-    defaultCode: `Say "Hello from Nexora Rockstar Sandbox!"
+    defaultCode: `Say "Hello from Codeticz Rockstar Sandbox!"
 `
   },
   {
@@ -2361,7 +2361,7 @@ moo
     icon: "fa-solid fa-face-smile",
     fileExtension: "emojic",
     defaultCode: `🏁 🍇
-  😀 🔤Hello from Nexora Emojicode Sandbox!🔤❗️
+  😀 🔤Hello from Codeticz Emojicode Sandbox!🔤❗️
 🍉
 `
   },
@@ -2373,7 +2373,7 @@ moo
     monacoLanguage: "mips",
     icon: "fa-solid fa-microchip",
     fileExtension: "asm",
-    defaultCode: `; Nexora x86-64 NASM Assembly Sandbox
+    defaultCode: `; Codeticz x86-64 NASM Assembly Sandbox
 section .data
     msg db 'Hello from NASM64 Assembly!', 10
 
@@ -2400,7 +2400,7 @@ _start:
     monacoLanguage: "mips",
     icon: "fa-solid fa-microchip",
     fileExtension: "s",
-    defaultCode: `// Nexora ARM64 Assembly Sandbox
+    defaultCode: `// Codeticz ARM64 Assembly Sandbox
 .global _start
 .section .text
 

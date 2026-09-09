@@ -1,46 +1,51 @@
 import React, { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useAppStore } from '../store/useAppStore';
 
-interface Star {
-  x: number;
-  y: number;
-  z: number;
-  prevZ: number;
-  size: number;
-  color: string;
-  glowColor: string;
-  twinkleSpeed: number;
-  twinklePhase: number;
+interface SilkRibbon {
+  baseYRatio: number;
+  shearAngle: number;
+  thickness: number;
+  amplitude1: number;
+  amplitude2: number;
+  amplitude3: number;
+  freq1: number;
+  freq2: number;
+  freq3: number;
+  speed1: number;
+  speed2: number;
+  speed3: number;
+  phase1: number;
+  phase2: number;
+  phase3: number;
+  crestColor: string;
+  crestGlow: string;
+  crestWidth: number;
+  gradColorStart: string;
+  gradColorMid: string;
+  gradColorEnd: string;
 }
 
-interface Comet {
+interface SilkMote {
   x: number;
   y: number;
+  radius: number;
   vx: number;
   vy: number;
-  length: number;
-  size: number;
   color: string;
-  alpha: number;
-  life: number;
-  maxLife: number;
+  glowColor: string;
+  phase: number;
+  phaseSpeed: number;
+  baseAlpha: number;
 }
 
-interface FloatingGlyph {
-  x: number;
-  y: number;
-  z: number;
-  text: string;
-  color: string;
-  rotation: number;
-  rotSpeed: number;
-}
-
-const GLYPHS = ['< />', '{ }', '0101', 'λ', '⚡', 'fn()', 'async', '=>', '::', '◈', '&&', 'git'];
-
-export const MotionBackground: React.FC = () => {
+const MotionBackgroundContent: React.FC = () => {
+  const { theme } = useAppStore();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const mousePos = useRef({ x: -1000, y: -1000, targetX: -1000, targetY: -1000 });
 
   useEffect(() => {
+    const isDark = theme === 'dark';
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d', { alpha: false });
@@ -50,261 +55,463 @@ export const MotionBackground: React.FC = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    let cx = width / 2;
-    let cy = height / 2;
-    let targetCx = cx;
-    let targetCy = cy;
-
     const handleResize = () => {
       if (!canvas) return;
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
-      cx = width / 2;
-      cy = height / 2;
-      targetCx = cx;
-      targetCy = cy;
     };
 
     window.addEventListener('resize', handleResize);
 
-    // Subtle parallax mouse steering (tilts the cosmic camera gently)
     const handleMouseMove = (e: MouseEvent) => {
-      targetCx = width / 2 + (e.clientX - width / 2) * 0.1;
-      targetCy = height / 2 + (e.clientY - height / 2) * 0.1;
+      mousePos.current.targetX = e.clientX;
+      mousePos.current.targetY = e.clientY;
+    };
+
+    const handleMouseLeave = () => {
+      mousePos.current.targetX = -1000;
+      mousePos.current.targetY = -1000;
     };
 
     window.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseleave', handleMouseLeave);
 
-    // Constant, steady cosmic cruise speed (never accelerates on scroll or wheel)
-    const speed = 2.0;
-
-    // Initialize 3D Space Starfield
-    const maxZ = 1500;
-    const fov = 340;
-    const starCount = Math.min(650, Math.floor((width * height) / 2200) + 180);
-    const stars: Star[] = [];
-
-    const starTypes = [
-      { color: '#FFFFFF', glow: 'rgba(255,255,255,0.45)', weight: 5 },
-      { color: '#EAFBFF', glow: 'rgba(234,251,255,0.45)', weight: 3 },
-      { color: '#B4FF00', glow: 'rgba(180,255,0,0.5)', weight: 3 },
-      { color: '#00F2FE', glow: 'rgba(0,242,254,0.5)', weight: 2 },
-      { color: '#FFD966', glow: 'rgba(255,217,102,0.45)', weight: 1 },
+    // 6 Layered Silk Ribbons in Codeticz Theme
+    const darkRibbons: SilkRibbon[] = [
+      {
+        baseYRatio: 0.78,
+        shearAngle: 0.07,
+        thickness: 280,
+        amplitude1: 85,
+        amplitude2: 40,
+        amplitude3: 16,
+        freq1: 0.0009,
+        freq2: 0.0018,
+        freq3: 0.0036,
+        speed1: 0.0004,
+        speed2: -0.0003,
+        speed3: 0.0005,
+        phase1: 0,
+        phase2: 1.2,
+        phase3: 2.5,
+        crestColor: 'rgba(255, 90, 31, 0.35)',
+        crestGlow: 'rgba(255, 90, 31, 0.2)',
+        crestWidth: 1.0,
+        gradColorStart: 'rgba(26, 32, 44, 0.45)',
+        gradColorMid: 'rgba(18, 22, 32, 0.35)',
+        gradColorEnd: 'rgba(8, 10, 15, 0)',
+      },
+      {
+        baseYRatio: 0.58,
+        shearAngle: -0.06,
+        thickness: 190,
+        amplitude1: 76,
+        amplitude2: 36,
+        amplitude3: 14,
+        freq1: 0.0013,
+        freq2: 0.0026,
+        freq3: 0.0042,
+        speed1: 0.0005,
+        speed2: -0.0004,
+        speed3: 0.0007,
+        phase1: 1.8,
+        phase2: 0.5,
+        phase3: 3.1,
+        crestColor: 'rgba(255, 90, 31, 0.8)',
+        crestGlow: 'rgba(255, 90, 31, 0.5)',
+        crestWidth: 1.3,
+        gradColorStart: 'rgba(255, 90, 31, 0.32)',
+        gradColorMid: 'rgba(255, 48, 79, 0.16)',
+        gradColorEnd: 'rgba(8, 10, 15, 0)',
+      },
+      {
+        baseYRatio: 0.44,
+        shearAngle: 0.04,
+        thickness: 240,
+        amplitude1: 95,
+        amplitude2: 45,
+        amplitude3: 18,
+        freq1: 0.0008,
+        freq2: 0.0016,
+        freq3: 0.0032,
+        speed1: -0.0003,
+        speed2: 0.0004,
+        speed3: -0.0006,
+        phase1: 3.4,
+        phase2: 2.1,
+        phase3: 0.8,
+        crestColor: 'rgba(244, 247, 251, 0.65)',
+        crestGlow: 'rgba(244, 247, 251, 0.35)',
+        crestWidth: 1.1,
+        gradColorStart: 'rgba(244, 247, 251, 0.16)',
+        gradColorMid: 'rgba(244, 247, 251, 0.06)',
+        gradColorEnd: 'rgba(8, 10, 15, 0)',
+      },
+      {
+        baseYRatio: 0.32,
+        shearAngle: -0.08,
+        thickness: 160,
+        amplitude1: 65,
+        amplitude2: 30,
+        amplitude3: 12,
+        freq1: 0.0015,
+        freq2: 0.003,
+        freq3: 0.005,
+        speed1: 0.0006,
+        speed2: -0.0005,
+        speed3: 0.0008,
+        phase1: 0.9,
+        phase2: 3.7,
+        phase3: 1.4,
+        crestColor: 'rgba(255, 48, 79, 0.75)',
+        crestGlow: 'rgba(255, 48, 79, 0.45)',
+        crestWidth: 1.2,
+        gradColorStart: 'rgba(255, 48, 79, 0.28)',
+        gradColorMid: 'rgba(255, 90, 31, 0.14)',
+        gradColorEnd: 'rgba(8, 10, 15, 0)',
+      },
+      {
+        baseYRatio: 0.22,
+        shearAngle: 0.05,
+        thickness: 130,
+        amplitude1: 55,
+        amplitude2: 26,
+        amplitude3: 10,
+        freq1: 0.0018,
+        freq2: 0.0035,
+        freq3: 0.006,
+        speed1: -0.0005,
+        speed2: 0.0006,
+        speed3: -0.0007,
+        phase1: 2.3,
+        phase2: 1.1,
+        phase3: 4.2,
+        crestColor: 'rgba(255, 90, 31, 0.85)',
+        crestGlow: 'rgba(255, 90, 31, 0.55)',
+        crestWidth: 1.4,
+        gradColorStart: 'rgba(255, 90, 31, 0.3)',
+        gradColorMid: 'rgba(244, 247, 251, 0.1)',
+        gradColorEnd: 'rgba(8, 10, 15, 0)',
+      },
+      {
+        baseYRatio: 0.88,
+        shearAngle: -0.04,
+        thickness: 320,
+        amplitude1: 100,
+        amplitude2: 50,
+        amplitude3: 20,
+        freq1: 0.0007,
+        freq2: 0.0014,
+        freq3: 0.0028,
+        speed1: 0.0003,
+        speed2: -0.0002,
+        speed3: 0.0004,
+        phase1: 4.1,
+        phase2: 0.8,
+        phase3: 2.9,
+        crestColor: 'rgba(255, 48, 79, 0.3)',
+        crestGlow: 'rgba(255, 48, 79, 0.18)',
+        crestWidth: 0.9,
+        gradColorStart: 'rgba(18, 22, 32, 0.5)',
+        gradColorMid: 'rgba(26, 32, 44, 0.25)',
+        gradColorEnd: 'rgba(8, 10, 15, 0)',
+      },
     ];
 
-    const pickStarType = () => {
-      const total = starTypes.reduce((acc, t) => acc + t.weight, 0);
-      let rand = Math.random() * total;
-      for (const t of starTypes) {
-        if (rand < t.weight) return t;
-        rand -= t.weight;
+    const lightRibbons: SilkRibbon[] = [
+      {
+        baseYRatio: 0.78,
+        shearAngle: 0.07,
+        thickness: 280,
+        amplitude1: 85,
+        amplitude2: 40,
+        amplitude3: 16,
+        freq1: 0.0009,
+        freq2: 0.0018,
+        freq3: 0.0036,
+        speed1: 0.0004,
+        speed2: -0.0003,
+        speed3: 0.0005,
+        phase1: 0,
+        phase2: 1.2,
+        phase3: 2.5,
+        crestColor: 'rgba(255, 90, 31, 0.25)',
+        crestGlow: 'rgba(255, 90, 31, 0.15)',
+        crestWidth: 1.0,
+        gradColorStart: 'rgba(255, 90, 31, 0.05)',
+        gradColorMid: 'rgba(255, 90, 31, 0.02)',
+        gradColorEnd: 'rgba(248, 250, 252, 0)',
+      },
+      {
+        baseYRatio: 0.58,
+        shearAngle: -0.06,
+        thickness: 190,
+        amplitude1: 76,
+        amplitude2: 36,
+        amplitude3: 14,
+        freq1: 0.0013,
+        freq2: 0.0026,
+        freq3: 0.0042,
+        speed1: 0.0005,
+        speed2: -0.0004,
+        speed3: 0.0007,
+        phase1: 1.8,
+        phase2: 0.5,
+        phase3: 3.1,
+        crestColor: 'rgba(255, 90, 31, 0.4)',
+        crestGlow: 'rgba(255, 90, 31, 0.2)',
+        crestWidth: 1.2,
+        gradColorStart: 'rgba(255, 90, 31, 0.08)',
+        gradColorMid: 'rgba(255, 48, 79, 0.04)',
+        gradColorEnd: 'rgba(248, 250, 252, 0)',
+      },
+      {
+        baseYRatio: 0.44,
+        shearAngle: 0.04,
+        thickness: 240,
+        amplitude1: 95,
+        amplitude2: 45,
+        amplitude3: 18,
+        freq1: 0.0008,
+        freq2: 0.0016,
+        freq3: 0.0032,
+        speed1: -0.0003,
+        speed2: 0.0004,
+        speed3: -0.0006,
+        phase1: 3.4,
+        phase2: 2.1,
+        phase3: 0.8,
+        crestColor: 'rgba(255, 120, 60, 0.3)',
+        crestGlow: 'rgba(255, 120, 60, 0.15)',
+        crestWidth: 1.0,
+        gradColorStart: 'rgba(255, 120, 60, 0.06)',
+        gradColorMid: 'rgba(255, 120, 60, 0.02)',
+        gradColorEnd: 'rgba(248, 250, 252, 0)',
+      },
+      {
+        baseYRatio: 0.32,
+        shearAngle: -0.08,
+        thickness: 160,
+        amplitude1: 65,
+        amplitude2: 30,
+        amplitude3: 12,
+        freq1: 0.0015,
+        freq2: 0.003,
+        freq3: 0.005,
+        speed1: 0.0006,
+        speed2: -0.0005,
+        speed3: 0.0008,
+        phase1: 0.9,
+        phase2: 3.7,
+        phase3: 1.4,
+        crestColor: 'rgba(255, 48, 79, 0.3)',
+        crestGlow: 'rgba(255, 48, 79, 0.15)',
+        crestWidth: 1.0,
+        gradColorStart: 'rgba(255, 48, 79, 0.05)',
+        gradColorMid: 'rgba(255, 48, 79, 0.02)',
+        gradColorEnd: 'rgba(248, 250, 252, 0)',
+      },
+      {
+        baseYRatio: 0.22,
+        shearAngle: 0.05,
+        thickness: 130,
+        amplitude1: 55,
+        amplitude2: 26,
+        amplitude3: 10,
+        freq1: 0.0018,
+        freq2: 0.0035,
+        freq3: 0.006,
+        speed1: -0.0005,
+        speed2: 0.0006,
+        speed3: -0.0007,
+        phase1: 2.3,
+        phase2: 1.1,
+        phase3: 4.2,
+        crestColor: 'rgba(255, 90, 31, 0.35)',
+        crestGlow: 'rgba(255, 90, 31, 0.15)',
+        crestWidth: 1.1,
+        gradColorStart: 'rgba(255, 90, 31, 0.06)',
+        gradColorMid: 'rgba(255, 90, 31, 0.02)',
+        gradColorEnd: 'rgba(248, 250, 252, 0)',
+      },
+      {
+        baseYRatio: 0.88,
+        shearAngle: -0.04,
+        thickness: 320,
+        amplitude1: 100,
+        amplitude2: 50,
+        amplitude3: 20,
+        freq1: 0.0007,
+        freq2: 0.0014,
+        freq3: 0.0028,
+        speed1: 0.0003,
+        speed2: -0.0002,
+        speed3: 0.0004,
+        phase1: 4.1,
+        phase2: 0.8,
+        phase3: 2.9,
+        crestColor: 'rgba(255, 90, 31, 0.2)',
+        crestGlow: 'rgba(255, 90, 31, 0.1)',
+        crestWidth: 0.8,
+        gradColorStart: 'rgba(255, 90, 31, 0.04)',
+        gradColorMid: 'rgba(241, 245, 249, 0.02)',
+        gradColorEnd: 'rgba(248, 250, 252, 0)',
       }
-      return starTypes[0];
-    };
+    ];
 
-    for (let i = 0; i < starCount; i++) {
-      const z = Math.random() * maxZ;
-      const type = pickStarType();
-      stars.push({
-        x: (Math.random() - 0.5) * width * 3.4,
-        y: (Math.random() - 0.5) * height * 3.4,
-        z,
-        prevZ: z,
-        size: Math.random() * 1.7 + 0.8,
-        color: type.color,
-        glowColor: type.glow,
-        twinkleSpeed: Math.random() * 0.05 + 0.015,
-        twinklePhase: Math.random() * Math.PI * 2,
+    const ribbons = isDark ? darkRibbons : lightRibbons;
+
+    // Ambient Luminous Silk Motes
+    const motes: SilkMote[] = [];
+    const moteCount = isDark ? 26 : 18;
+    for (let i = 0; i < moteCount; i++) {
+      const isWhite = Math.random() > 0.4;
+      motes.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 2.0 + 1.2,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.25,
+        color: isDark ? (isWhite ? '#F4F7FB' : '#FF5A1F') : '#FF5A1F',
+        glowColor: isDark
+          ? (isWhite ? 'rgba(244, 247, 251, 0.6)' : 'rgba(255, 90, 31, 0.55)')
+          : 'rgba(255, 90, 31, 0.35)',
+        phase: Math.random() * Math.PI * 2,
+        phaseSpeed: Math.random() * 0.02 + 0.01,
+        baseAlpha: isDark ? (Math.random() * 0.35 + 0.18) : (Math.random() * 0.2 + 0.1),
       });
     }
 
-    // Initialize Floating Cosmic Code Glyphs
-    const glyphs: FloatingGlyph[] = [];
-    const glyphCount = 14;
-    for (let i = 0; i < glyphCount; i++) {
-      glyphs.push({
-        x: (Math.random() - 0.5) * width * 2.6,
-        y: (Math.random() - 0.5) * height * 2.6,
-        z: Math.random() * maxZ + 200,
-        text: GLYPHS[Math.floor(Math.random() * GLYPHS.length)],
-        color: Math.random() > 0.45 ? '#B4FF00' : '#00F2FE',
-        rotation: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * 0.012,
-      });
-    }
+    let time = 0;
 
-    // Cosmic Shooting Stars / Comets System
-    const comets: Comet[] = [];
-    let cometTimer = 100;
-
-    const spawnComet = () => {
-      const angle = (Math.PI / 4) + (Math.random() - 0.5) * 0.35; // diagonal fall
-      const cometSpeed = Math.random() * 8 + 14;
-      const fromTop = Math.random() > 0.4;
-      const startX = fromTop ? Math.random() * width * 0.9 : -40;
-      const startY = fromTop ? -30 : Math.random() * (height * 0.5);
-
-      comets.push({
-        x: startX,
-        y: startY,
-        vx: Math.cos(angle) * cometSpeed,
-        vy: Math.sin(angle) * cometSpeed,
-        length: Math.random() * 120 + 90,
-        size: Math.random() * 2 + 1.6,
-        color: Math.random() > 0.4 ? '#B4FF00' : '#00F2FE',
-        alpha: 1,
-        life: 0,
-        maxLife: Math.random() * 55 + 45,
-      });
-    };
-
-    // Main Space Animation Render Loop (Constant Steady Motion)
     const render = () => {
-      // Camera focal point smoothing
-      cx += (targetCx - cx) * 0.05;
-      cy += (targetCy - cy) * 0.05;
+      time += 1;
 
-      // Deep space background gradient
-      const bgGrad = ctx.createRadialGradient(cx, cy, 20, cx, cy, Math.max(width, height) * 0.85);
-      bgGrad.addColorStop(0, '#0d281a');
-      bgGrad.addColorStop(0.5, '#071810');
-      bgGrad.addColorStop(1, '#040e09');
+      // Mouse lerping for smooth silk interaction
+      mousePos.current.x += (mousePos.current.targetX - mousePos.current.x) * 0.04;
+      mousePos.current.y += (mousePos.current.targetY - mousePos.current.y) * 0.04;
+
+      // 1. Radial Background Gradient
+      const bgGrad = ctx.createRadialGradient(
+        width * 0.5,
+        height * 0.35,
+        20,
+        width * 0.5,
+        height * 0.35,
+        Math.max(width, height) * 0.88
+      );
+      if (isDark) {
+        bgGrad.addColorStop(0, '#10141E');
+        bgGrad.addColorStop(0.5, '#080A0F');
+        bgGrad.addColorStop(1, '#05060A');
+      } else {
+        bgGrad.addColorStop(0, '#FFFFFF');
+        bgGrad.addColorStop(0.6, '#F8FAFC');
+        bgGrad.addColorStop(1, '#EDF2F7');
+      }
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, width, height);
 
-      // 1. RENDER 3D STARS (Radiant, steady glowing stars in motion)
-      for (let i = 0; i < stars.length; i++) {
-        const star = stars[i];
+      // 2. Render Layered Silk Ribbons
+      for (let r = 0; r < ribbons.length; r++) {
+        const ribbon = ribbons[r];
+        const step = 10;
+        const pointsTop: { x: number; y: number }[] = [];
+        const pointsBottom: { x: number; y: number }[] = [];
 
-        star.prevZ = star.z;
-        star.z -= speed;
-        star.twinklePhase += star.twinkleSpeed;
+        for (let x = -20; x <= width + 20; x += step) {
+          const baseY = height * ribbon.baseYRatio + (x - width * 0.5) * ribbon.shearAngle;
 
-        // Recycle star when it flies past camera
-        if (star.z <= 12) {
-          star.z = maxZ;
-          star.prevZ = maxZ;
-          star.x = (Math.random() - 0.5) * width * 3.4;
-          star.y = (Math.random() - 0.5) * height * 3.4;
+          const h1 = Math.sin(x * ribbon.freq1 + time * ribbon.speed1 + ribbon.phase1) * ribbon.amplitude1;
+          const h2 = Math.cos(x * ribbon.freq2 + time * ribbon.speed2 + ribbon.phase2) * ribbon.amplitude2;
+          const h3 = Math.sin(x * ribbon.freq3 + time * ribbon.speed3 + ribbon.phase3) * ribbon.amplitude3;
+
+          // Tactile mouse billowing
+          const dx = x - mousePos.current.x;
+          const dy = baseY - mousePos.current.y;
+          const distSq = dx * dx;
+          let mouseDisp = 0;
+          if (distSq < 150000) {
+            const influence = Math.exp(-distSq / (2 * 130 * 130));
+            mouseDisp = -dy * 0.22 * influence;
+          }
+
+          const yTop = baseY + h1 + h2 + h3 + mouseDisp;
+          const thickness =
+            ribbon.thickness +
+            Math.sin(x * ribbon.freq2 * 0.7 + time * ribbon.speed1 * 0.8) * (ribbon.thickness * 0.28);
+          const yBottom = yTop + thickness;
+
+          pointsTop.push({ x, y: yTop });
+          pointsBottom.push({ x, y: yBottom });
         }
 
-        // 3D Perspective Projection
-        const k = fov / star.z;
-        const sx = cx + star.x * k;
-        const sy = cy + star.y * k;
-
-        // Screen boundary check
-        if (sx < -60 || sx > width + 60 || sy < -60 || sy > height + 60) {
-          star.z = maxZ;
-          star.prevZ = maxZ;
-          continue;
-        }
-
-        const depthRatio = 1 - star.z / maxZ; // 0 (far) to 1 (near)
-        const twinkle = Math.sin(star.twinklePhase) * 0.25;
-        const alpha = Math.min(1, Math.max(0.15, depthRatio * 1.2 + twinkle));
-        const radius = Math.max(0.7, depthRatio * star.size * 1.6);
-
-        // Soft atmospheric starlight glow for closer stars
-        if (depthRatio > 0.45) {
-          ctx.beginPath();
-          ctx.arc(sx, sy, radius * 2.8, 0, Math.PI * 2);
-          ctx.fillStyle = star.glowColor;
-          ctx.globalAlpha = alpha * 0.35;
-          ctx.fill();
-        }
-
-        // Crisp brilliant star core
+        // Draw Silk Ribbon Body
         ctx.beginPath();
-        ctx.arc(sx, sy, radius, 0, Math.PI * 2);
-        ctx.fillStyle = star.color;
-        ctx.globalAlpha = alpha;
+        ctx.moveTo(pointsTop[0].x, pointsTop[0].y);
+        for (let i = 1; i < pointsTop.length; i++) {
+          ctx.lineTo(pointsTop[i].x, pointsTop[i].y);
+        }
+        for (let i = pointsBottom.length - 1; i >= 0; i--) {
+          ctx.lineTo(pointsBottom[i].x, pointsBottom[i].y);
+        }
+        ctx.closePath();
+
+        const avgY = height * ribbon.baseYRatio;
+        const ribbonGrad = ctx.createLinearGradient(
+          0,
+          avgY - ribbon.amplitude1,
+          0,
+          avgY + ribbon.thickness + ribbon.amplitude1
+        );
+        ribbonGrad.addColorStop(0, ribbon.gradColorStart);
+        ribbonGrad.addColorStop(0.35, ribbon.gradColorMid);
+        ribbonGrad.addColorStop(1, ribbon.gradColorEnd);
+
+        ctx.fillStyle = ribbonGrad;
         ctx.fill();
-      }
 
-      // 2. RENDER FLOATING CODE GLYPHS
-      for (let i = 0; i < glyphs.length; i++) {
-        const g = glyphs[i];
-        g.z -= speed * 0.7;
-        g.rotation += g.rotSpeed;
-
-        if (g.z <= 25) {
-          g.z = maxZ;
-          g.x = (Math.random() - 0.5) * width * 2.6;
-          g.y = (Math.random() - 0.5) * height * 2.6;
-        }
-
-        const k = fov / g.z;
-        const gx = cx + g.x * k;
-        const gy = cy + g.y * k;
-
-        if (gx > 0 && gx < width && gy > 0 && gy < height) {
-          const depthRatio = 1 - g.z / maxZ;
-          const alpha = Math.min(0.65, depthRatio * 0.8);
-
-          ctx.save();
-          ctx.translate(gx, gy);
-          ctx.rotate(g.rotation);
-          ctx.font = `600 ${Math.floor(Math.max(9, depthRatio * 17))}px 'Fira Code', monospace`;
-          ctx.fillStyle = g.color;
-          ctx.globalAlpha = alpha;
-          ctx.shadowColor = g.color;
-          ctx.shadowBlur = depthRatio * 10;
-          ctx.fillText(g.text, 0, 0);
-          ctx.restore();
-        }
-      }
-
-      // 3. RENDER SHOOTING COMETS
-      cometTimer--;
-      if (cometTimer <= 0) {
-        spawnComet();
-        cometTimer = Math.floor(Math.random() * 180 + 120);
-      }
-
-      for (let i = comets.length - 1; i >= 0; i--) {
-        const c = comets[i];
-        c.life++;
-        c.x += c.vx;
-        c.y += c.vy;
-
-        const progress = c.life / c.maxLife;
-        c.alpha = progress < 0.2 ? progress / 0.2 : 1 - (progress - 0.2) / 0.8;
-
-        if (c.life >= c.maxLife || c.x > width + 100 || c.y > height + 100) {
-          comets.splice(i, 1);
-          continue;
-        }
-
-        // Comet radiant tail
-        const tailX = c.x - (c.vx / 14) * c.length;
-        const tailY = c.y - (c.vy / 14) * c.length;
-
-        const grad = ctx.createLinearGradient(tailX, tailY, c.x, c.y);
-        grad.addColorStop(0, 'rgba(0, 0, 0, 0)');
-        grad.addColorStop(0.65, c.color === '#B4FF00' ? 'rgba(180, 255, 0, 0.45)' : 'rgba(0, 242, 254, 0.45)');
-        grad.addColorStop(1, '#FFFFFF');
-
+        // Stroke Lit Silk Crest (High-Tech Luminous Folds)
         ctx.beginPath();
-        ctx.moveTo(tailX, tailY);
-        ctx.lineTo(c.x, c.y);
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = c.size;
-        ctx.globalAlpha = Math.max(0, c.alpha * 0.9);
+        ctx.moveTo(pointsTop[0].x, pointsTop[0].y);
+        for (let i = 1; i < pointsTop.length; i++) {
+          ctx.lineTo(pointsTop[i].x, pointsTop[i].y);
+        }
+        ctx.strokeStyle = ribbon.crestColor;
+        ctx.lineWidth = ribbon.crestWidth;
+        ctx.shadowColor = ribbon.crestGlow;
+        ctx.shadowBlur = 8;
         ctx.stroke();
+        ctx.shadowBlur = 0;
+      }
 
-        // Glowing nucleus head
+      // 3. Render Ambient Floating Silk Light Motes
+      for (let i = 0; i < motes.length; i++) {
+        const m = motes[i];
+        m.phase += m.phaseSpeed;
+        m.x += m.vx;
+        m.y += m.vy + Math.sin(m.phase) * 0.3;
+
+        if (m.x < -20) m.x = width + 20;
+        if (m.x > width + 20) m.x = -20;
+        if (m.y < -20) m.y = height + 20;
+        if (m.y > height + 20) m.y = -20;
+
+        const pulse = Math.sin(m.phase) * 0.2;
+        const alpha = Math.max(0.1, Math.min(0.8, m.baseAlpha + pulse));
+
         ctx.beginPath();
-        ctx.arc(c.x, c.y, c.size * 1.5, 0, Math.PI * 2);
-        ctx.fillStyle = '#FFFFFF';
-        ctx.shadowColor = c.color;
-        ctx.shadowBlur = 14;
-        ctx.globalAlpha = Math.max(0, c.alpha);
+        ctx.arc(m.x, m.y, m.radius, 0, Math.PI * 2);
+        ctx.fillStyle = m.color;
+        ctx.globalAlpha = alpha;
+        ctx.shadowColor = m.glowColor;
+        ctx.shadowBlur = 8;
         ctx.fill();
       }
 
-      // Reset alpha
       ctx.globalAlpha = 1;
+      ctx.shadowBlur = 0;
+
       animationFrameId = requestAnimationFrame(render);
     };
 
@@ -314,18 +521,34 @@ export const MotionBackground: React.FC = () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, []);
+  }, [theme]);
 
   return (
     <div id="motion-bg">
-      {/* 3D Deep Space Canvas Layer */}
+      {/* 1. Smooth Silky Wave Canvas Layer */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
-      {/* Cosmic Nebula Clouds (Atmospheric glow) */}
-      <div className="blob" id="blob-1" style={{ top: '-10%', left: '-8%', opacity: 0.14 }} />
-      <div className="blob blob-cyan" id="blob-2" style={{ bottom: '-15%', right: '-8%', opacity: 0.12 }} />
-      <div className="blob blob-violet" style={{ top: '40%', left: '30%', opacity: 0.08 }} />
+      {/* 2. Atmospheric Nebula Blobs (Subtle Orange & Ember Accents) */}
+      <div className="blob" id="blob-1" style={{ top: '-10%', left: '-8%' }} />
+      <div className="blob blob-cream" id="blob-2" style={{ bottom: '-15%', right: '-8%' }} />
+      <div className="blob blob-crimson-deep" style={{ top: '40%', left: '30%' }} />
     </div>
   );
 };
+
+export const MotionBackground: React.FC = () => {
+  const { theme } = useAppStore();
+  const location = useLocation();
+  const isEditorPage = location.pathname.startsWith('/editor');
+
+  // Pause canvas and save GPU cycles on the code editor page
+  if (isEditorPage) {
+    return <div id="motion-bg" className={theme === 'dark' ? 'bg-[#080A0F]' : 'bg-[#F8FAFC]'} />;
+  }
+
+  return <MotionBackgroundContent key={theme} />;
+};
+
+export default MotionBackground;

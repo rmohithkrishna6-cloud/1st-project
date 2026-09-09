@@ -1,7 +1,7 @@
 {
-  "name": "nexora-backend",
+  "name": "codeticz-backend",
   "version": "1.0.0",
-  "description": "Nexora Code Execution & Compiler API Engine",
+  "description": "Codeticz Code Execution & Compiler API Engine",
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",

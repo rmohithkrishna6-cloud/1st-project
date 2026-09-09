@@ -11,7 +11,12 @@ export async function seedPrismaDatabase() {
   try {
     // Check if seed user exists
     const existingUser = await prisma.user.findFirst({
-      where: { email: "developer@nexora.com" },
+      where: {
+        OR: [
+          { email: "developer@codeticz.com" },
+          { email: "developer@nexora.com" }
+        ]
+      },
     });
 
     let userId = existingUser?.id;
@@ -20,10 +25,10 @@ export async function seedPrismaDatabase() {
       const newUser = await prisma.user.create({
         data: {
           id: "usr-demo-123",
-          email: "developer@nexora.com",
+          email: "developer@codeticz.com",
           passwordHash: bcrypt.hashSync("demo123hash", 10),
           displayName: "Mohith Krishna R",
-          avatarUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=nexora",
+          avatarUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=codeticz",
           plan: "free",
         },
       });
@@ -56,9 +61,9 @@ export async function seedPrismaDatabase() {
           {
             id: "demo-web-sandbox",
             userId: userId,
-            title: "Nexora Lime UI Card (HTML/CSS)",
+            title: "Codeticz Lime UI Card (HTML/CSS)",
             language: "html",
-            code: `<!DOCTYPE html>\n<html>\n<head>\n  <style>\n    body { background: #0B1A12; color: white; font-family: sans-serif; display: grid; place-items: center; height: 100vh; margin: 0; }\n    .card { background: #0E2117; padding: 2rem; border-radius: 16px; border: 1px solid rgba(180, 255, 0, 0.3); text-align: center; }\n    h2 { color: #B4FF00; margin: 0 0 10px 0; }\n  </style>\n</head>\n<body>\n  <div class="card">\n    <h2>⚡ Nexora Live Preview</h2>\n    <p>Realtime HTML, CSS, and JS web sandbox rendering</p>\n  </div>\n</body>\n</html>`,
+            code: `<!DOCTYPE html>\n<html>\n<head>\n  <style>\n    body { background: #0B1A12; color: white; font-family: sans-serif; display: grid; place-items: center; height: 100vh; margin: 0; }\n    .card { background: #0E2117; padding: 2rem; border-radius: 16px; border: 1px solid rgba(180, 255, 0, 0.3); text-align: center; }\n    h2 { color: #B4FF00; margin: 0 0 10px 0; }\n  </style>\n</head>\n<body>\n  <div class="card">\n    <h2>⚡ Codeticz Live Preview</h2>\n    <p>Realtime HTML, CSS, and JS web sandbox rendering</p>\n  </div>\n</body>\n</html>`,
             stdin: "",
             visibility: "public",
             viewCount: 95,

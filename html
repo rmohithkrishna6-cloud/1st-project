@@ -11,22 +11,24 @@
         referrerpolicy="no-referrer"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexora | Online Compiler</title>
+    <title>Codeticz | Online Compiler</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --primary: #B4FF00;
-            --deep-matrix: #0B1A12;
-            --surface: #0E2117;
+            --primary: #9a0002;
+            --primary-glow: #c40003;
+            --cream: #efe6dd;
+            --deep-matrix: #0c0405;
+            --surface: #18090b;
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--deep-matrix);
-            color: white;
+            color: #efe6dd;
             overflow-x: hidden;
             cursor: default;
         }
@@ -34,29 +36,29 @@
         /* Neomorphism Effects */
         .neo-flat {
             background: var(--surface);
-            box-shadow: 10px 10px 20px #050d09, -10px -10px 20px #173525;
+            box-shadow: 10px 10px 20px #040102, -10px -10px 20px #240d10;
             border-radius: 20px;
         }
 
         .neo-inset {
             background: var(--surface);
-            box-shadow: inset 8px 8px 16px #050d09, inset -8px -8px 16px #173525;
+            box-shadow: inset 8px 8px 16px #040102, inset -8px -8px 16px #240d10;
             border-radius: 20px;
         }
 
         .neo-button {
-            background: linear-gradient(145deg, #a3e600, #b4ff00);
-            box-shadow: 6px 6px 12px #050d09, -6px -6px 12px #173525;
+            background: linear-gradient(145deg, #9a0002, #c40003);
+            box-shadow: 6px 6px 12px #040102, -6px -6px 12px #240d10;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #0B1A12;
+            border: 1px solid rgba(239, 230, 221, 0.2);
+            color: #efe6dd;
         }
 
         .neo-button:hover {
-            background: #ffffff;
-            box-shadow: 0 0 30px rgba(180, 255, 0, 0.6);
-            border-color: #B4FF00;
-            color: #0B1A12;
+            background: linear-gradient(145deg, #c40003, #9a0002);
+            box-shadow: 0 0 30px rgba(154, 0, 2, 0.7);
+            border-color: #efe6dd;
+            color: #efe6dd;
         }
 
         /* Glassmorphism */
@@ -172,14 +174,13 @@
                 <i class="fa-solid fa-xmark text-2xl"></i>
             </button>
             <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl"
-                    style="background: var(--primary)">
-                    <span class="font-bold text-[#0B1A12]">N</span>
+                <div class="w-12 h-12 flex items-center justify-center text-2xl font-mono font-bold drop-shadow-[0_0_12px_rgba(180,255,0,0.5)]">
+                    <span class="text-[#B4FF00]">&lt;/&gt;<span class="text-[#00F2FE]">.</span></span>
                 </div>
-                <h2 class="text-3xl font-bold">About Nexora</h2>
+                <h2 class="text-3xl font-bold">About Codeticz</h2>
             </div>
             <p class="text-lg text-white/80 leading-relaxed mb-6">
-                Nexora is a cutting-edge online compilation platform designed for the modern developer.
+                Codeticz is a cutting-edge online compilation platform designed for the modern developer.
                 Our mission is to provide a seamless, lightning-fast execution environment for over 128 programming
                 languages,
                 bridging the gap between ideation and execution with zero setup time.
@@ -245,11 +246,11 @@
             <div class="flex items-center gap-3 group cursor-pointer">
                 <!-- Logo -->
                 <div
-                    class="w-12 h-12 neo-button rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <span class="text-2xl font-black text-white italic">N</span>
+                    class="w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform drop-shadow-[0_0_12px_rgba(180,255,0,0.5)]">
+                    <span class="text-2xl font-mono font-black text-[#B4FF00]">&lt;/&gt;<span class="text-[#00F2FE]">.</span></span>
                 </div>
                 <div class="flex flex-col">
-                    <h1 class="text-2xl font-black tracking-tighter text-white">NEXORA</h1>
+                    <h1 class="text-2xl font-black tracking-tighter text-white">CODETICZ</h1>
                     <span class="text-[10px] uppercase tracking-[0.3em] text-[#B4FF00] font-bold">online compiler</span>
                 </div>
             </div>

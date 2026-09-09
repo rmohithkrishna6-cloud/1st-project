@@ -99,7 +99,7 @@ export async function runRedis(
 
       if (BLOCKED_COMMANDS.has(command)) {
         throw new Error(
-          `(error) ERR Nexora Sandbox Security: Command '${command.toUpperCase()}' is disabled in shared environment`
+          `(error) ERR Codeticz Sandbox Security: Command '${command.toUpperCase()}' is disabled in shared environment`
         );
       }
 

@@ -18,7 +18,7 @@ import { fetchLanguages } from './services/api';
 const queryClient = new QueryClient();
 
 export const App: React.FC = () => {
-  const { setLanguages, setCurrentLanguage } = useAppStore();
+  const { setLanguages, setCurrentLanguage, theme } = useAppStore();
 
   useEffect(() => {
     fetchLanguages()
@@ -36,7 +36,13 @@ export const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
-        <div className="min-h-screen bg-[#0B1A12] text-white flex flex-col selection:bg-[#B4FF00] selection:text-[#0B1A12]">
+        <div
+          className={`min-h-screen flex flex-col transition-colors duration-300 ${
+            theme === 'dark'
+              ? 'bg-[#080A0F] text-[#F4F7FB] selection:bg-[#FF5A1F] selection:text-[#F4F7FB]'
+              : 'bg-[#F8FAFC] text-[#0F172A] selection:bg-[#FF5A1F] selection:text-white'
+          }`}
+        >
           <CustomCursor />
           <MotionBackground />
           <div className="relative z-10 flex flex-col min-h-screen">

@@ -213,10 +213,10 @@ class PrismaPersistentStore {
   private seedDefaults() {
     const demoUser: UserRecord = {
       id: "usr-demo-123",
-      email: "developer@nexora.com",
+      email: "developer@codeticz.com",
       passwordHash: bcrypt.hashSync("demo123hash", 10),
       displayName: "Mohith Krishna R",
-      avatarUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=nexora",
+      avatarUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=codeticz",
       plan: "free",
       createdAt: new Date().toISOString(),
       lastLoginAt: new Date().toISOString(),
@@ -240,9 +240,9 @@ class PrismaPersistentStore {
       {
         id: "demo-web-sandbox",
         userId: "usr-demo-123",
-        title: "Nexora Lime UI Card (HTML/CSS)",
+        title: "Codeticz Lime UI Card (HTML/CSS)",
         language: "html",
-        code: `<!DOCTYPE html>\n<html>\n<head>\n  <style>\n    body { background: #0B1A12; color: white; font-family: sans-serif; display: grid; place-items: center; height: 100vh; margin: 0; }\n    .card { background: #0E2117; padding: 2rem; border-radius: 16px; border: 1px solid rgba(180, 255, 0, 0.3); text-align: center; }\n    h2 { color: #B4FF00; margin: 0 0 10px 0; }\n  </style>\n</head>\n<body>\n  <div class="card">\n    <h2>⚡ Nexora Live Preview</h2>\n    <p>Realtime HTML, CSS, and JS web sandbox rendering</p>\n  </div>\n</body>\n</html>`,
+        code: `<!DOCTYPE html>\n<html>\n<head>\n  <style>\n    body { background: #0B1A12; color: white; font-family: sans-serif; display: grid; place-items: center; height: 100vh; margin: 0; }\n    .card { background: #0E2117; padding: 2rem; border-radius: 16px; border: 1px solid rgba(180, 255, 0, 0.3); text-align: center; }\n    h2 { color: #B4FF00; margin: 0 0 10px 0; }\n  </style>\n</head>\n<body>\n  <div class="card">\n    <h2>⚡ Codeticz Live Preview</h2>\n    <p>Realtime HTML, CSS, and JS web sandbox rendering</p>\n  </div>\n</body>\n</html>`,
         stdin: "",
         visibility: "public",
         views: 95,
@@ -289,7 +289,7 @@ class PrismaPersistentStore {
         userId: "usr-demo-123",
         language: "typescript",
         status: "success",
-        stdout: "⚡ Nexora Fast Runner: TypeScript 5.7 OK",
+        stdout: "⚡ Codeticz Fast Runner: TypeScript 5.7 OK",
         stderr: "",
         exitCode: 0,
         wallTimeMs: 42,
@@ -347,7 +347,7 @@ class PrismaPersistentStore {
         wallTimeMs: 8,
         memoryKb: 5000,
         createdAt: new Date(now - dayMs * 4 - 1000 * 60 * 400).toISOString(),
-        code: "<h1>Hello Nexora</h1>",
+        code: "<h1>Hello Codeticz</h1>",
       },
     ];
     this.inMemExecutions = [...seedExecs];
@@ -355,8 +355,12 @@ class PrismaPersistentStore {
 
   // USER OPERATIONS
   findUserByEmail(email: string): UserRecord | undefined {
+    const target = email.toLowerCase();
     return Array.from(this.inMemUsers.values()).find(
-      (u) => u.email.toLowerCase() === email.toLowerCase()
+      (u) =>
+        u.email.toLowerCase() === target ||
+        (target === "developer@codeticz.com" && u.email.toLowerCase() === "developer@nexora.com") ||
+        (target === "developer@nexora.com" && u.email.toLowerCase() === "developer@codeticz.com")
     );
   }
 
@@ -779,7 +783,7 @@ class PrismaPersistentStore {
         id: "first_run",
         name: "First Compile",
         icon: "🚀",
-        description: "Executed your first program on the Nexora Engine",
+        description: "Executed your first program on the Codeticz Engine",
         unlocked: totalExecutions > 0,
         unlockedAt: userExecs[userExecs.length - 1]?.createdAt,
       },
@@ -851,7 +855,7 @@ class PrismaPersistentStore {
         nextLevelXp,
         rankTitle,
         onlineStatus: "Online & Compiling",
-        engineVersion: "Nexora Isolated Sandbox v1.0.0",
+        engineVersion: "Codeticz Isolated Sandbox v1.0.0",
         memberSince: user?.createdAt || "2025-01-01T00:00:00.000Z",
         topLanguages,
         recentActivity,

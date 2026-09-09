@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useAppStore } from '../store/useAppStore';
 import { Sparkles, X, Trophy, PartyPopper } from 'lucide-react';
 
 interface AnimalCelebrationProps {
@@ -23,6 +24,8 @@ const FIREWORKS = ['🎆', '💥', '🎇', '✨', '🎉', '🌟', '💥', '🎆'
 const CONFETTI_ITEMS = ['🎉', '✨', '🌟', '🎈', '💫', '🎊', '⭐', '🚀', '🔥', '🏆'];
 
 export const AnimalCelebration: React.FC<AnimalCelebrationProps> = ({ show, onDismiss }) => {
+  const { theme } = useAppStore();
+  const isDark = theme === 'dark';
   const [visible, setVisible] = useState(show);
 
   useEffect(() => {
@@ -81,7 +84,7 @@ export const AnimalCelebration: React.FC<AnimalCelebrationProps> = ({ show, onDi
           {ANIMALS.concat(ANIMALS).map((a, i) => (
             <div
               key={i}
-              className="text-4xl filter drop-shadow-[0_0_10px_rgba(180,255,0,0.8)]"
+              className="text-4xl filter drop-shadow-[0_0_12px_rgba(245,158,11,0.9)]"
               style={{
                 animation: `animalDance 0.8s ease-in-out infinite alternate`,
                 animationDelay: `${(i * 0.1) % 0.5}s`,
@@ -94,17 +97,21 @@ export const AnimalCelebration: React.FC<AnimalCelebrationProps> = ({ show, onDi
       </div>
 
       {/* 4. Bottom Main Celebration Banner */}
-      <div className="pointer-events-auto glass-box bg-[#0E2117]/95 border-2 border-[#B4FF00] p-4 sm:p-5 rounded-2xl shadow-[0_0_60px_rgba(180,255,0,0.6)] max-w-2xl w-full mx-auto text-center relative overflow-hidden animate-bannerPop mb-4">
+      <div className={`pointer-events-auto glass-box border-2 border-[#FF5A1F] p-4 sm:p-5 rounded-2xl shadow-[0_0_50px_rgba(255,90,31,0.45)] max-w-2xl w-full mx-auto text-center relative overflow-hidden animate-bannerPop mb-4 transition-colors duration-300 ${
+        isDark ? 'bg-[#121620]/95 text-[#F4F7FB]' : 'bg-white/95 text-[#0F172A]'
+      }`}>
         {/* Glow background circles */}
-        <div className="absolute -top-10 -left-10 w-36 h-36 bg-[#B4FF00]/25 rounded-full blur-2xl pointer-events-none" />
-        <div className="absolute -bottom-10 -right-10 w-36 h-36 bg-[#00f2fe]/25 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute -top-10 -left-10 w-36 h-36 bg-[#FF5A1F]/30 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute -bottom-10 -right-10 w-36 h-36 bg-[#FF304F]/20 rounded-full blur-2xl pointer-events-none" />
 
         <button
           onClick={() => {
             setVisible(false);
             if (onDismiss) onDismiss();
           }}
-          className="absolute top-3 right-3 text-white/50 hover:text-white transition-colors neo-inset p-1.5 rounded-lg"
+          className={`absolute top-3 right-3 transition-colors p-1.5 rounded-lg ${
+            isDark ? 'text-white/50 hover:text-white neo-inset' : 'text-slate-400 hover:text-slate-800 bg-slate-100'
+          }`}
           title="Close Celebration"
         >
           <X className="w-4 h-4" />
@@ -113,16 +120,16 @@ export const AnimalCelebration: React.FC<AnimalCelebrationProps> = ({ show, onDi
         {/* Title */}
         <div className="flex items-center justify-center gap-2 mb-1.5">
           <PartyPopper className="w-5 h-5 text-amber-400 animate-bounce" />
-          <h4 className="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+          <h4 className={`text-base sm:text-lg font-extrabold flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
             Execution Successful!
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#B4FF00] text-[#0B1A12] font-mono font-bold shadow-[0_0_12px_rgba(180,255,0,0.5)]">
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-gradient-to-r from-[#FF5A1F] to-[#FF304F] text-[#F4F7FB] font-mono font-bold shadow-[0_0_15px_rgba(255,90,31,0.45)]">
               Exit Code 0
             </span>
           </h4>
-          <Sparkles className="w-5 h-5 text-[#B4FF00] animate-pulse" />
+          <Sparkles className="w-5 h-5 text-[#FF5A1F] animate-pulse" />
         </div>
 
-        <p className="text-xs text-white/80 font-sans mb-3">
+        <p className={`text-xs font-sans mb-3 ${isDark ? 'text-white/80' : 'text-slate-600'}`}>
           The Animal Squad is marching & dancing to celebrate your successful code execution! 🎉
         </p>
 
@@ -138,11 +145,13 @@ export const AnimalCelebration: React.FC<AnimalCelebrationProps> = ({ show, onDi
               }}
               title={`${animal.name}: ${animal.label}`}
             >
-              <div className="relative text-3xl sm:text-4xl filter drop-shadow-[0_0_10px_rgba(180,255,0,0.7)]">
+              <div className="relative text-3xl sm:text-4xl filter drop-shadow-[0_0_12px_rgba(245,158,11,0.8)]">
                 {animal.emoji}
                 <span className="absolute -top-2 -right-1 text-xs">🎉</span>
               </div>
-              <span className="text-[9px] text-[#B4FF00] font-mono font-bold mt-1 opacity-90 whitespace-nowrap">
+              <span className={`text-[9px] font-mono font-bold mt-1 opacity-90 whitespace-nowrap ${
+                isDark ? 'text-[#F4F7FB]' : 'text-slate-800'
+              }`}>
                 {animal.name}
               </span>
             </div>

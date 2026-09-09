@@ -1,7 +1,7 @@
 {
-  "name": "nexora-platform",
+  "name": "codeticz-platform",
   "version": "1.0.0",
-  "description": "Nexora 128+ Multi-Language Compiler & Execution Platform",
+  "description": "Codeticz 128+ Multi-Language Compiler & Execution Platform",
   "private": true,
   "scripts": {
     "dev:backend": "npm run dev --prefix backend",

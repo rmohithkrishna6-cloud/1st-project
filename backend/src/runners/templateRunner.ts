@@ -75,24 +75,24 @@ function getTemplateContext(stdin: string): Record<string, any> {
       // If stdin is not JSON, supply it as raw stdin property
       return {
         stdin: stdin.trim(),
-        name: "Nexora User",
+        name: "Codeticz User",
         role: "Developer",
-        platform: "Nexora",
+        platform: "Codeticz",
         items: ["Python", "Rust", "Go", "TypeScript"],
         count: 4,
-        user: { name: "Nexora User", role: "Developer", active: true },
+        user: { name: "Codeticz User", role: "Developer", active: true },
       };
     }
   }
 
   return {
-    name: "Nexora User",
+    name: "Codeticz User",
     role: "Developer",
-    platform: "Nexora",
+    platform: "Codeticz",
     items: ["Python", "Rust", "Go", "TypeScript"],
     count: 4,
-    user: { name: "Nexora User", role: "Developer", active: true },
-    title: "Nexora Code Sandbox",
+    user: { name: "Codeticz User", role: "Developer", active: true },
+    title: "Codeticz Code Sandbox",
     timestamp: new Date().toISOString(),
   };
 }

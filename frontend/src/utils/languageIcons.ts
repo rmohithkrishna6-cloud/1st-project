@@ -1,4 +1,4 @@
-// Comprehensive icon directory mapping for all 128 languages in Nexora
+// Comprehensive icon directory mapping for all 128 languages in Codeticz
 // Prioritizes official Devicon colored vector logos and curated Font Awesome 6 icons
 
 export interface LanguageIconInfo {
@@ -68,7 +68,7 @@ export const LANGUAGE_ICONS: Record<string, LanguageIconInfo> = {
   mongodb: { iconClass: 'devicon-mongodb-plain colored' },
   redis: { iconClass: 'devicon-redis-plain colored' },
   graphql: { iconClass: 'devicon-graphql-plain colored' },
-  cypher: { iconClass: 'fa-solid fa-circle-nodes', color: '#B4FF00' },
+  cypher: { iconClass: 'fa-solid fa-circle-nodes', color: '#F4F7FB' },
   cql: { iconClass: 'fa-solid fa-table-cells', color: '#A78BFA' },
 
   // --- Mobile & Cross-Platform ---
@@ -142,7 +142,7 @@ export const LANGUAGE_ICONS: Record<string, LanguageIconInfo> = {
   diff: { iconClass: 'fa-solid fa-code-compare', color: '#34D399' },
   jq: { iconClass: 'fa-solid fa-filter', color: '#38BDF8' },
   sed: { iconClass: 'fa-solid fa-stream', color: '#FBBF24' },
-  cron: { iconClass: 'fa-solid fa-clock', color: '#B4FF00' },
+  cron: { iconClass: 'fa-solid fa-clock', color: '#FF5A1F' },
 
   // --- Esoteric Languages ---
   brainfuck: { iconClass: 'fa-solid fa-brain', color: '#F472B6' },
@@ -168,6 +168,6 @@ export function getLanguageIcon(id: string, fallback?: string): LanguageIconInfo
   }
   return {
     iconClass: fallback || 'fa-solid fa-code',
-    color: '#B4FF00',
+    color: '#FF5A1F',
   };
 }

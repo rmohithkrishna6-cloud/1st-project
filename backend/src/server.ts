@@ -53,7 +53,7 @@ app.use(express.json({ limit: "10mb" }));
 app.get("/health", (_req, res) => {
   res.json({
     status: "ok",
-    service: "Nexora Compiler Engine",
+    service: "Codeticz Compiler Engine",
     version: "1.0.0",
     timestamp: new Date().toISOString(),
   });
@@ -77,6 +77,6 @@ app.use((err: any, _req: express.Request, res: express.Response, next: express.N
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Nexora Backend Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Codeticz Backend Server running on http://localhost:${PORT}`);
   console.log(`⚡ Execution Engine & Persistent DB ready`);
 });

@@ -111,7 +111,7 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
     nextLevelXp: 500,
     rankTitle: 'Algorithm Specialist',
     onlineStatus: 'Online & Compiling',
-    engineVersion: 'Nexora Isolated Sandbox v1.0.0',
+    engineVersion: 'Codeticz Isolated Sandbox v1.0.0',
     memberSince: '2025-01-01',
     topLanguages: [
       { language: 'python', count: 2, percentage: 33 },
@@ -130,25 +130,25 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
     <div className="text-left w-full space-y-5 animate-fadeIn font-sans">
       {/* Welcome Notification Banner if newly logged in */}
       {welcomeNotice && (
-        <div className="p-3.5 rounded-2xl bg-[#B4FF00]/15 border border-[#B4FF00]/40 text-[#B4FF00] text-xs flex items-center gap-3 shadow-[0_0_20px_rgba(180,255,0,0.2)] animate-pulse">
-          <Sparkles className="w-5 h-5 shrink-0 text-[#B4FF00]" />
+        <div className="p-3.5 rounded-2xl bg-[#FF5A1F]/15 border border-[#FF5A1F]/30 text-[#F4F7FB] text-xs flex items-center gap-3 shadow-[0_0_15px_rgba(255,90,31,0.25)] animate-pulse">
+          <Sparkles className="w-5 h-5 shrink-0 text-[#FF5A1F]" />
           <div className="flex-1">
             <span className="font-extrabold text-sm block">{welcomeNotice}</span>
-            <span className="text-white/70 text-[11px]">Your daily coding streak and developer activity are live!</span>
+            <span className="text-slate-400 text-[11px]">Your daily coding streak and developer activity are live!</span>
           </div>
         </div>
       )}
 
       {/* Profile Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-[#0E2117]/80 border border-white/10 neo-inset">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-[#121620] border border-white/10 shadow-md">
         <div className="flex items-center gap-4">
           <div className="relative">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#B4FF00] via-[#8EEB00] to-[#00F2FE] text-[#0B1A12] font-black text-2xl flex items-center justify-center shadow-[0_0_20px_rgba(180,255,0,0.5)] border border-[#B4FF00]">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#FF5A1F] via-[#FF6D38] to-[#FF304F] text-[#F4F7FB] font-black text-2xl flex items-center justify-center shadow-[0_0_15px_rgba(255,90,31,0.4)] border border-white/20">
               {user.displayName.charAt(0).toUpperCase()}
             </div>
             {/* Live Online Glowing Beacon */}
             <span
-              className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-400 border-2 border-[#0B1A12] shadow-[0_0_8px_#34d399] flex items-center justify-center"
+              className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-400 border-2 border-[#121620] shadow-[0_0_8px_#34d399] flex items-center justify-center"
               title="Online & Compiling"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
@@ -157,10 +157,10 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
 
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="text-lg sm:text-xl font-extrabold text-white tracking-tight">
+              <h2 className="text-lg sm:text-xl font-extrabold text-[#F4F7FB] tracking-tight">
                 {user.displayName}
               </h2>
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#B4FF00]/20 text-[#B4FF00] font-mono border border-[#B4FF00]/40 font-bold flex items-center gap-1">
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#FF5A1F]/15 text-[#FF5A1F] font-mono border border-[#FF5A1F]/30 font-bold flex items-center gap-1">
                 <ShieldCheck className="w-3 h-3" />
                 Verified Dev
               </span>
@@ -168,70 +168,70 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
                 {user.plan} tier
               </span>
             </div>
-            <p className="text-xs text-white/50 font-mono mt-0.5">{user.email}</p>
-            <div className="flex items-center gap-2 mt-1 text-[11px] text-white/40">
+            <p className="text-xs text-slate-400 font-mono mt-0.5">{user.email}</p>
+            <div className="flex items-center gap-2 mt-1 text-[11px] text-slate-400">
               <span className="flex items-center gap-1">
-                <Cpu className="w-3 h-3 text-[#B4FF00]" />
+                <Cpu className="w-3 h-3 text-[#FF5A1F]" />
                 {dev.onlineStatus}
               </span>
               <span>•</span>
-              <span className="text-white/50">{dev.rankTitle}</span>
+              <span className="text-slate-300">{dev.rankTitle}</span>
             </div>
           </div>
         </div>
 
         {/* Quick Streak Flame Counter in Header */}
-        <div className="flex items-center gap-3 bg-[#0B1A12] px-4 py-2.5 rounded-xl border border-white/10 shrink-0 shadow-inner">
-          <div className="p-2 rounded-lg bg-orange-500/15 text-orange-400 border border-orange-500/30">
-            <Flame className="w-6 h-6 animate-pulse text-amber-400 fill-amber-400/20" />
+        <div className="flex items-center gap-3 bg-[#080A0F] px-4 py-2.5 rounded-xl border border-white/10 shrink-0 shadow-inner">
+          <div className="p-2 rounded-lg bg-[#FF5A1F]/15 text-[#FF5A1F] border border-[#FF5A1F]/30">
+            <Flame className="w-6 h-6 animate-pulse text-[#FF5A1F] fill-[#FF5A1F]/20" />
           </div>
           <div>
-            <div className="text-xs text-white/50 font-medium">Daily Streak</div>
-            <div className="text-lg font-black text-white font-mono flex items-center gap-1">
-              <span className="text-[#B4FF00] text-xl">{streak.currentStreak}</span>
-              <span className="text-xs text-white/60">Days</span>
+            <div className="text-xs text-slate-400 font-medium">Daily Streak</div>
+            <div className="text-lg font-black text-[#F4F7FB] font-mono flex items-center gap-1">
+              <span className="text-[#FF5A1F] text-xl">{streak.currentStreak}</span>
+              <span className="text-xs text-slate-400">Days</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Developer Level & XP Progress Card */}
-      <div className="p-4 rounded-2xl bg-[#0E2117]/60 border border-white/10 relative overflow-hidden">
+      <div className="p-4 rounded-2xl bg-[#121620] border border-white/10 relative overflow-hidden">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <div className="px-2.5 py-1 rounded-lg bg-[#B4FF00]/20 text-[#B4FF00] font-mono font-bold text-xs border border-[#B4FF00]/40 flex items-center gap-1.5">
+            <div className="px-2.5 py-1 rounded-lg bg-[#FF5A1F]/15 text-[#FF5A1F] font-mono font-bold text-xs border border-[#FF5A1F]/30 flex items-center gap-1.5">
               <Award className="w-3.5 h-3.5" />
               Level {dev.level}
             </div>
-            <span className="text-xs font-bold text-white/80">{dev.rankTitle}</span>
+            <span className="text-xs font-bold text-slate-300">{dev.rankTitle}</span>
           </div>
-          <div className="text-xs font-mono text-white/50">
-            <span className="text-[#B4FF00] font-bold">{dev.xp}</span> / {dev.nextLevelXp} XP
+          <div className="text-xs font-mono text-slate-400">
+            <span className="text-[#FF5A1F] font-bold">{dev.xp}</span> / {dev.nextLevelXp} XP
           </div>
         </div>
 
-        {/* Neon Lime XP Bar */}
+        {/* Flame XP Bar */}
         <div className="w-full h-2.5 bg-black/50 rounded-full overflow-hidden border border-white/5 relative p-0.5">
           <div
-            className="h-full bg-gradient-to-r from-[#B4FF00] via-[#00F2FE] to-[#B4FF00] rounded-full transition-all duration-700 shadow-[0_0_12px_rgba(180,255,0,0.8)]"
+            className="h-full bg-gradient-to-r from-[#FF5A1F] via-[#FF6D38] to-[#FF304F] rounded-full transition-all duration-700 shadow-[0_0_10px_rgba(255,90,31,0.6)]"
             style={{ width: `${xpPercent}%` }}
           />
         </div>
-        <div className="flex justify-between items-center mt-1.5 text-[10px] text-white/40">
+        <div className="flex justify-between items-center mt-1.5 text-[10px] text-slate-500">
           <span>+40 XP per execution</span>
           <span>+150 XP per streak day</span>
           <span>Next rank in {dev.nextLevelXp - dev.xp} XP</span>
         </div>
       </div>
 
-      {/* Tab Navigation Navigation */}
-      <div className="flex items-center bg-[#0E2117] p-1 rounded-xl border border-white/10 neo-inset">
+      {/* Tab Navigation */}
+      <div className="flex items-center bg-[#080A0F] p-1 rounded-xl border border-white/10">
         <button
           onClick={() => setActiveTab('streaks')}
           className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 ${
             activeTab === 'streaks'
-              ? 'bg-[#B4FF00] text-[#0B1A12] shadow-[0_0_12px_rgba(180,255,0,0.4)]'
-              : 'text-white/60 hover:text-white'
+              ? 'bg-gradient-to-r from-[#FF5A1F] to-[#FF304F] text-[#F4F7FB] shadow-[0_0_12px_rgba(255,90,31,0.4)]'
+              : 'text-slate-400 hover:text-white'
           }`}
         >
           <Flame className="w-4 h-4" />
@@ -242,8 +242,8 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
           onClick={() => setActiveTab('activity')}
           className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 ${
             activeTab === 'activity'
-              ? 'bg-[#B4FF00] text-[#0B1A12] shadow-[0_0_12px_rgba(180,255,0,0.4)]'
-              : 'text-white/60 hover:text-white'
+              ? 'bg-gradient-to-r from-[#FF5A1F] to-[#FF304F] text-[#F4F7FB] shadow-[0_0_12px_rgba(255,90,31,0.4)]'
+              : 'text-slate-400 hover:text-white'
           }`}
         >
           <Activity className="w-4 h-4" />
@@ -254,8 +254,8 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
           onClick={() => setActiveTab('badges')}
           className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 ${
             activeTab === 'badges'
-              ? 'bg-[#B4FF00] text-[#0B1A12] shadow-[0_0_12px_rgba(180,255,0,0.4)]'
-              : 'text-white/60 hover:text-white'
+              ? 'bg-gradient-to-r from-[#FF5A1F] to-[#FF304F] text-[#F4F7FB] shadow-[0_0_12px_rgba(255,90,31,0.4)]'
+              : 'text-slate-400 hover:text-white'
           }`}
         >
           <Trophy className="w-4 h-4" />
@@ -267,23 +267,23 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
       {activeTab === 'streaks' && (
         <div className="space-y-4">
           {/* Main Streak Banner */}
-          <div className="p-5 rounded-2xl bg-gradient-to-br from-[#142E20] to-[#0E2117] border border-[#B4FF00]/30 relative overflow-hidden shadow-xl">
+          <div className="p-5 rounded-2xl bg-[#121620] border border-white/10 relative overflow-hidden shadow-lg">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
               <div className="flex items-center gap-3.5">
-                <div className="w-14 h-14 rounded-2xl bg-[#B4FF00]/15 border-2 border-[#B4FF00] flex items-center justify-center shadow-[0_0_25px_rgba(180,255,0,0.5)]">
-                  <Flame className="w-8 h-8 text-[#B4FF00] fill-[#B4FF00]/20 animate-bounce" />
+                <div className="w-14 h-14 rounded-2xl bg-[#FF5A1F]/15 border-2 border-[#FF5A1F]/50 flex items-center justify-center shadow-[0_0_15px_rgba(255,90,31,0.3)]">
+                  <Flame className="w-8 h-8 text-[#FF5A1F] fill-[#FF5A1F]/20 animate-bounce" />
                 </div>
                 <div>
-                  <div className="text-xs text-white/50 font-mono flex items-center gap-2">
+                  <div className="text-xs text-slate-400 font-mono flex items-center gap-2">
                     <span>ACTIVE STREAK</span>
-                    <span className="w-1 h-1 rounded-full bg-[#B4FF00]" />
-                    <span className="text-[#B4FF00] font-bold">LOCKED IN</span>
+                    <span className="w-1 h-1 rounded-full bg-[#FF5A1F]" />
+                    <span className="text-[#FF5A1F] font-bold">LOCKED IN</span>
                   </div>
-                  <h3 className="text-2xl font-black text-white flex items-baseline gap-2">
+                  <h3 className="text-2xl font-black text-[#F4F7FB] flex items-baseline gap-2">
                     {streak.currentStreak}{' '}
-                    <span className="text-sm font-semibold text-white/70">Days Coding</span>
+                    <span className="text-sm font-semibold text-slate-400">Days Coding</span>
                   </h3>
-                  <p className="text-xs text-white/60 mt-0.5">
+                  <p className="text-xs text-slate-400 mt-0.5">
                     {streak.activeToday
                       ? '🔥 Active today! Keep your streak burning tomorrow.'
                       : '⚡ Run code in the editor today to keep your streak alive!'}
@@ -292,15 +292,15 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
               </div>
 
               <div className="flex flex-col sm:items-end gap-1.5">
-                <div className="px-3 py-1.5 rounded-xl bg-black/40 border border-white/10 flex items-center gap-2 text-xs font-mono">
+                <div className="px-3 py-1.5 rounded-xl bg-[#080A0F] border border-white/10 flex items-center gap-2 text-xs font-mono">
                   <Trophy className="w-4 h-4 text-amber-400" />
-                  <span className="text-white/60">Longest Streak:</span>
+                  <span className="text-slate-400">Longest Streak:</span>
                   <span className="font-bold text-amber-300">{streak.longestStreak} Days</span>
                 </div>
                 <button
                   onClick={handlePingStreak}
                   disabled={isPinging}
-                  className="px-3 py-1.5 rounded-xl bg-[#B4FF00]/10 hover:bg-[#B4FF00]/20 border border-[#B4FF00]/30 text-[#B4FF00] text-xs font-bold transition-all flex items-center gap-1.5 self-start sm:self-auto"
+                  className="px-3 py-1.5 rounded-xl bg-[#FF5A1F] hover:bg-[#FF6D38] text-[#F4F7FB] text-xs font-bold transition-all flex items-center gap-1.5 self-start sm:self-auto shadow-sm"
                 >
                   <RefreshCw className={`w-3.5 h-3.5 ${isPinging ? 'animate-spin' : ''}`} />
                   {isPinging ? 'Recording...' : 'Check-in Today'}
@@ -309,21 +309,21 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
             </div>
 
             {pingMessage && (
-              <div className="mt-3 p-2.5 rounded-xl bg-[#B4FF00]/20 border border-[#B4FF00]/40 text-[#B4FF00] text-xs font-bold flex items-center gap-2 animate-fadeIn">
-                <CheckCircle2 className="w-4 h-4 text-[#B4FF00]" />
+              <div className="mt-3 p-2.5 rounded-xl bg-[#FF5A1F]/15 border border-[#FF5A1F]/30 text-[#F4F7FB] text-xs font-bold flex items-center gap-2 animate-fadeIn">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                 {pingMessage}
               </div>
             )}
           </div>
 
           {/* Weekly Streak Checklist */}
-          <div className="p-4 rounded-2xl bg-[#0E2117]/80 border border-white/10 neo-inset">
+          <div className="p-4 rounded-2xl bg-[#121620] border border-white/10">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-bold text-white/80 flex items-center gap-1.5">
-                <Calendar className="w-4 h-4 text-[#B4FF00]" />
+              <span className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                <Calendar className="w-4 h-4 text-[#FF5A1F]" />
                 This Week's Activity
               </span>
-              <span className="text-[11px] font-mono text-white/40">Mon - Sun</span>
+              <span className="text-[11px] font-mono text-slate-500">Mon - Sun</span>
             </div>
 
             <div className="grid grid-cols-7 gap-2">
@@ -332,26 +332,26 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
                   key={idx}
                   className={`p-2 sm:p-2.5 rounded-xl flex flex-col items-center justify-center text-center transition-all ${
                     item.active
-                      ? 'bg-[#B4FF00]/15 border border-[#B4FF00]/50 shadow-[0_0_10px_rgba(180,255,0,0.2)]'
+                      ? 'bg-[#FF5A1F]/15 border border-[#FF5A1F]/40 shadow-[0_0_10px_rgba(255,90,31,0.2)]'
                       : item.isToday
-                      ? 'bg-white/10 border-2 border-[#B4FF00] shadow-[0_0_12px_rgba(180,255,0,0.3)]'
-                      : 'bg-black/30 border border-white/5 opacity-50'
+                      ? 'bg-white/5 border-2 border-[#FF5A1F]'
+                      : 'bg-black/30 border border-white/5 opacity-40'
                   }`}
                 >
-                  <span className="text-[10px] font-mono text-white/60 mb-1">{item.day}</span>
+                  <span className="text-[10px] font-mono text-slate-400 mb-1">{item.day}</span>
                   <div
                     className={`w-6 h-6 rounded-full flex items-center justify-center ${
                       item.active
-                        ? 'bg-[#B4FF00] text-[#0B1A12]'
+                        ? 'bg-[#FF5A1F] text-[#F4F7FB]'
                         : item.isToday
-                        ? 'bg-[#B4FF00]/20 text-[#B4FF00]'
+                        ? 'bg-[#FF5A1F]/20 text-[#FF5A1F]'
                         : 'bg-white/5 text-white/20'
                     }`}
                   >
                     {item.active ? (
-                      <Flame className="w-3.5 h-3.5 fill-[#0B1A12]" />
+                      <Flame className="w-3.5 h-3.5 fill-[#F4F7FB]" />
                     ) : item.isToday ? (
-                      <span className="w-2 h-2 rounded-full bg-[#B4FF00] animate-ping" />
+                      <span className="w-2 h-2 rounded-full bg-[#FF5A1F] animate-ping" />
                     ) : (
                       <span className="w-1.5 h-1.5 rounded-full bg-white/20" />
                     )}
@@ -361,30 +361,30 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
             </div>
           </div>
 
-          {/* 28-Day GitHub-style Activity Heatmap Grid */}
-          <div className="p-4 rounded-2xl bg-[#0E2117]/80 border border-white/10 neo-inset">
+          {/* 28-Day Activity Heatmap Grid */}
+          <div className="p-4 rounded-2xl bg-[#121620] border border-white/10">
             <div className="flex items-center justify-between mb-3">
               <div>
-                <span className="text-xs font-bold text-white/80 flex items-center gap-1.5">
+                <span className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
                   <Layers className="w-4 h-4 text-cyan-400" />
                   28-Day Activity Heatmap
                 </span>
-                <p className="text-[11px] text-white/40 mt-0.5">
+                <p className="text-[11px] text-slate-400 mt-0.5">
                   Daily code compilation and execution frequency
                 </p>
               </div>
-              <div className="flex items-center gap-1.5 text-[10px] text-white/40 font-mono">
+              <div className="flex items-center gap-1.5 text-[10px] text-slate-400 font-mono">
                 <span>Less</span>
                 <span className="w-2.5 h-2.5 rounded bg-white/5 border border-white/5" />
-                <span className="w-2.5 h-2.5 rounded bg-[#B4FF00]/30" />
-                <span className="w-2.5 h-2.5 rounded bg-[#B4FF00]/60" />
-                <span className="w-2.5 h-2.5 rounded bg-[#B4FF00] shadow-[0_0_6px_#B4FF00]" />
+                <span className="w-2.5 h-2.5 rounded bg-[#FF5A1F]/30" />
+                <span className="w-2.5 h-2.5 rounded bg-[#FF5A1F]" />
+                <span className="w-2.5 h-2.5 rounded bg-[#F4F7FB] shadow-[0_0_6px_#F4F7FB]" />
                 <span>More</span>
               </div>
             </div>
 
-            {/* Heatmap Grid: 4 weeks x 7 days */}
-            <div className="grid grid-cols-7 sm:grid-cols-14 gap-1.5 p-2 rounded-xl bg-black/40 border border-white/5">
+            {/* Heatmap Grid */}
+            <div className="grid grid-cols-7 sm:grid-cols-14 gap-1.5 p-2 rounded-xl bg-[#080A0F] border border-white/5">
               {(streak.history30Days.length > 0
                 ? streak.history30Days
                 : Array.from({ length: 28 }).map((_, i) => ({
@@ -397,13 +397,13 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
                 const getLevelClass = (level: number) => {
                   switch (level) {
                     case 4:
-                      return 'bg-[#B4FF00] border-[#B4FF00] shadow-[0_0_10px_rgba(180,255,0,0.8)]';
+                      return 'bg-[#F4F7FB] border-[#F4F7FB] shadow-[0_0_8px_rgba(244,247,251,0.6)]';
                     case 3:
-                      return 'bg-[#B4FF00]/75 border-[#B4FF00]/80';
+                      return 'bg-[#FF304F] border-[#FF304F]';
                     case 2:
-                      return 'bg-[#B4FF00]/45 border-[#B4FF00]/50';
+                      return 'bg-[#FF5A1F] border-[#FF5A1F]';
                     case 1:
-                      return 'bg-[#B4FF00]/25 border-[#B4FF00]/30';
+                      return 'bg-[#FF5A1F]/30 border-[#FF5A1F]/40';
                     default:
                       return 'bg-white/5 border-white/5 hover:border-white/20';
                   }
@@ -419,7 +419,7 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
                     )}`}
                   >
                     {day.count > 0 && (
-                      <span className="text-[9px] font-mono font-bold text-[#0B1A12]">
+                      <span className="text-[9px] font-mono font-bold text-[#080A0F]">
                         {day.count}
                       </span>
                     )}
@@ -431,12 +431,12 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
             {/* Tooltip for Hovered Day */}
             <div className="mt-2 text-center text-xs font-mono h-5">
               {hoveredDay ? (
-                <span className="text-[#B4FF00] bg-[#B4FF00]/10 px-3 py-0.5 rounded-full border border-[#B4FF00]/20">
+                <span className="text-[#F4F7FB] bg-[#1A202C] px-3 py-0.5 rounded-full border border-white/10">
                   📅 {hoveredDay.date}:{' '}
-                  <strong className="text-white font-bold">{hoveredDay.count} code runs</strong>
+                  <strong className="text-[#FF5A1F] font-bold">{hoveredDay.count} code runs</strong>
                 </span>
               ) : (
-                <span className="text-white/30 text-[11px]">Hover over squares to inspect daily runs</span>
+                <span className="text-slate-500 text-[11px]">Hover over squares to inspect daily runs</span>
               )}
             </div>
           </div>
@@ -446,14 +446,13 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
       {/* TAB 2: DEVELOPER ACTIVE DETAILS & STATS */}
       {activeTab === 'activity' && (
         <div className="space-y-4">
-          {/* 4 Core Metric Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="p-3.5 rounded-xl bg-[#0E2117] border border-white/10 neo-inset">
-              <div className="flex items-center gap-2 text-white/50 text-xs mb-1">
-                <Zap className="w-4 h-4 text-[#B4FF00]" />
+            <div className="p-3.5 rounded-xl bg-[#121620] border border-white/10">
+              <div className="flex items-center gap-2 text-slate-400 text-xs mb-1">
+                <Zap className="w-4 h-4 text-[#FF5A1F]" />
                 <span>Total Runs</span>
               </div>
-              <div className="text-xl font-extrabold text-white font-mono">
+              <div className="text-xl font-extrabold text-[#F4F7FB] font-mono">
                 {dev.totalExecutions}
               </div>
               <span className="text-[10px] text-emerald-400 font-mono flex items-center gap-1 mt-0.5">
@@ -462,47 +461,47 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
               </span>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-[#0E2117] border border-white/10 neo-inset">
-              <div className="flex items-center gap-2 text-white/50 text-xs mb-1">
+            <div className="p-3.5 rounded-xl bg-[#121620] border border-white/10">
+              <div className="flex items-center gap-2 text-slate-400 text-xs mb-1">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
                 <span>Success Rate</span>
               </div>
               <div className="text-xl font-extrabold text-emerald-300 font-mono">
                 {dev.successRate}%
               </div>
-              <span className="text-[10px] text-white/40 font-mono">
+              <span className="text-[10px] text-slate-400 font-mono">
                 {dev.successCount} ok / {dev.errorCount} err
               </span>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-[#0E2117] border border-white/10 neo-inset">
-              <div className="flex items-center gap-2 text-white/50 text-xs mb-1">
+            <div className="p-3.5 rounded-xl bg-[#121620] border border-white/10">
+              <div className="flex items-center gap-2 text-slate-400 text-xs mb-1">
                 <Clock className="w-4 h-4 text-cyan-400" />
                 <span>Wall Time</span>
               </div>
               <div className="text-xl font-extrabold text-cyan-300 font-mono">
                 {dev.totalWallTimeMs}
-                <span className="text-xs font-normal text-white/40 ml-1">ms</span>
+                <span className="text-xs font-normal text-slate-400 ml-1">ms</span>
               </div>
-              <span className="text-[10px] text-white/40 font-mono">Engine sandbox</span>
+              <span className="text-[10px] text-slate-500 font-mono">Engine sandbox</span>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-[#0E2117] border border-white/10 neo-inset">
-              <div className="flex items-center gap-2 text-white/50 text-xs mb-1">
+            <div className="p-3.5 rounded-xl bg-[#121620] border border-white/10">
+              <div className="flex items-center gap-2 text-slate-400 text-xs mb-1">
                 <Code className="w-4 h-4 text-purple-400" />
                 <span>Snippets</span>
               </div>
               <div className="text-xl font-extrabold text-purple-300 font-mono">
                 {dev.snippetsCount}
               </div>
-              <span className="text-[10px] text-white/40 font-mono">Cloud Synced</span>
+              <span className="text-[10px] text-slate-500 font-mono">Cloud Synced</span>
             </div>
           </div>
 
           {/* Polyglot Language Distribution */}
-          <div className="p-4 rounded-2xl bg-[#0E2117]/80 border border-white/10 neo-inset">
-            <h4 className="text-xs font-bold text-white/80 mb-3 flex items-center gap-2">
-              <Code className="w-4 h-4 text-[#B4FF00]" />
+          <div className="p-4 rounded-2xl bg-[#121620] border border-white/10">
+            <h4 className="text-xs font-bold text-slate-300 mb-3 flex items-center gap-2">
+              <Code className="w-4 h-4 text-[#FF5A1F]" />
               Polyglot Language Mastery
             </h4>
 
@@ -511,17 +510,17 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
                 {dev.topLanguages.map((lang, idx) => (
                   <div key={idx} className="space-y-1">
                     <div className="flex justify-between items-center text-xs">
-                      <span className="font-mono font-bold capitalize text-white flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-[#B4FF00]" />
+                      <span className="font-mono font-bold capitalize text-[#F4F7FB] flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[#FF5A1F]" />
                         {lang.language}
                       </span>
-                      <span className="text-white/50 font-mono text-[11px]">
+                      <span className="text-slate-400 font-mono text-[11px]">
                         {lang.count} runs ({lang.percentage}%)
                       </span>
                     </div>
-                    <div className="w-full h-2 bg-black/40 rounded-full overflow-hidden border border-white/5">
+                    <div className="w-full h-2 bg-[#080A0F] rounded-full overflow-hidden border border-white/5">
                       <div
-                        className="h-full bg-gradient-to-r from-[#B4FF00] to-emerald-400 rounded-full transition-all duration-500"
+                        className="h-full bg-gradient-to-r from-[#FF5A1F] to-[#FF304F] rounded-full transition-all duration-500"
                         style={{ width: `${lang.percentage}%` }}
                       />
                     </div>
@@ -529,15 +528,15 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-white/40 italic">
+              <p className="text-xs text-slate-500 italic">
                 Run scripts across multiple languages to build your polyglot chart!
               </p>
             )}
           </div>
 
           {/* Recent Developer Activity Feed */}
-          <div className="p-4 rounded-2xl bg-[#0E2117]/80 border border-white/10 neo-inset">
-            <h4 className="text-xs font-bold text-white/80 mb-3 flex items-center gap-2">
+          <div className="p-4 rounded-2xl bg-[#121620] border border-white/10">
+            <h4 className="text-xs font-bold text-slate-300 mb-3 flex items-center gap-2">
               <Terminal className="w-4 h-4 text-cyan-400" />
               Recent Execution Activity
             </h4>
@@ -547,10 +546,10 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
                 {dev.recentActivity.map((act, i) => (
                   <div
                     key={i}
-                    className="flex items-center justify-between p-2.5 rounded-xl bg-black/30 border border-white/5 text-xs font-mono"
+                    className="flex items-center justify-between p-2.5 rounded-xl bg-[#080A0F] border border-white/5 text-xs font-mono"
                   >
                     <div className="flex items-center gap-2.5">
-                      <span className="px-2 py-0.5 rounded bg-white/10 text-white font-bold capitalize">
+                      <span className="px-2 py-0.5 rounded bg-white/10 text-[#F4F7FB] font-bold capitalize">
                         {act.language}
                       </span>
                       <span
@@ -563,12 +562,12 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
                         {act.status}
                       </span>
                       {act.codeSnippet && (
-                        <span className="text-white/40 truncate max-w-[140px] sm:max-w-[200px] hidden sm:inline">
+                        <span className="text-slate-400 truncate max-w-[140px] sm:max-w-[200px] hidden sm:inline">
                           {act.codeSnippet}
                         </span>
                       )}
                     </div>
-                    <div className="flex items-center gap-3 text-white/40 text-[11px]">
+                    <div className="flex items-center gap-3 text-slate-400 text-[11px]">
                       <span>{act.wallTimeMs}ms</span>
                       <span>
                         {new Date(act.createdAt).toLocaleTimeString([], {
@@ -581,7 +580,7 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-white/40 italic">
+              <p className="text-xs text-slate-500 italic">
                 No recent executions yet. Run code in the editor to see your live feed!
               </p>
             )}
@@ -598,14 +597,14 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
                 key={badge.id}
                 className={`p-3.5 rounded-xl border transition-all flex items-start gap-3 ${
                   badge.unlocked
-                    ? 'bg-[#0E2117] border-[#B4FF00]/40 shadow-[0_0_15px_rgba(180,255,0,0.15)] neo-inset'
+                    ? 'bg-[#121620] border-[#FF5A1F]/30 shadow-md'
                     : 'bg-black/30 border-white/5 opacity-50'
                 }`}
               >
                 <div
                   className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0 ${
                     badge.unlocked
-                      ? 'bg-[#B4FF00]/20 border border-[#B4FF00]/40 text-[#B4FF00] shadow-[0_0_10px_rgba(180,255,0,0.3)]'
+                      ? 'bg-[#FF5A1F]/15 border border-[#FF5A1F]/40 text-[#FF5A1F]'
                       : 'bg-white/5 text-white/30'
                   }`}
                 >
@@ -613,18 +612,18 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-xs text-white">{badge.name}</span>
+                    <span className="font-bold text-xs text-[#F4F7FB]">{badge.name}</span>
                     <span
                       className={`text-[9px] px-1.5 py-0.5 rounded font-mono font-bold uppercase ${
                         badge.unlocked
-                          ? 'bg-[#B4FF00]/20 text-[#B4FF00]'
+                          ? 'bg-[#FF5A1F]/20 text-[#FF5A1F]'
                           : 'bg-white/10 text-white/40'
                       }`}
                     >
                       {badge.unlocked ? 'Unlocked' : 'Locked'}
                     </span>
                   </div>
-                  <p className="text-[11px] text-white/50 mt-1 leading-snug">
+                  <p className="text-[11px] text-slate-400 mt-1 leading-snug">
                     {badge.description}
                   </p>
                 </div>
@@ -642,7 +641,7 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
               onClose();
               navigate('/editor');
             }}
-            className="flex-1 sm:flex-initial py-2.5 px-4 bg-[#B4FF00] hover:bg-white text-[#0B1A12] rounded-xl font-extrabold text-xs transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(180,255,0,0.4)]"
+            className="flex-1 sm:flex-initial py-2.5 px-4 bg-[#FF5A1F] hover:bg-[#FF6D38] active:bg-[#E04812] text-[#F4F7FB] rounded-xl font-extrabold text-xs transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(255,90,31,0.4)]"
           >
             <span>Launch Editor</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -653,7 +652,7 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
               onClose();
               navigate('/gallery');
             }}
-            className="flex-1 sm:flex-initial py-2.5 px-3.5 bg-white/5 hover:bg-white/10 text-white/80 rounded-xl font-bold text-xs border border-white/10 transition-colors"
+            className="flex-1 sm:flex-initial py-2.5 px-3.5 bg-[#121620] hover:bg-[#1A202C] text-slate-300 hover:text-white rounded-xl font-bold text-xs border border-white/10 transition-colors"
           >
             Browse Gallery
           </button>
@@ -670,3 +669,5 @@ export const DeveloperProfileView: React.FC<DeveloperProfileViewProps> = ({
     </div>
   );
 };
+
+export default DeveloperProfileView;

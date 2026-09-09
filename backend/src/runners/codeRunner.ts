@@ -66,7 +66,7 @@ export async function executeCode(
       status: "error",
       stdout: "",
       stderr: sanitizeOutput(
-        `[Nexora Policy] Execution for ${langConfig.name} (${languageId}) is currently disabled (Coming Soon). Only the ${VERIFIED_ACTIVE_LANGUAGE_IDS.size} genuinely verified languages can be executed.`
+        `[Codeticz Policy] Execution for ${langConfig.name} (${languageId}) is currently disabled (Coming Soon). Only the ${VERIFIED_ACTIVE_LANGUAGE_IDS.size} genuinely verified languages can be executed.`
       ),
       exitCode: 1,
       wallTimeMs: 0,
