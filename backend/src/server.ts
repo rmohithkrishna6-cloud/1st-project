@@ -16,6 +16,7 @@ import { snippetsRouter } from "./routes/snippets.js";
 import { authRouter } from "./routes/auth.js";
 import { historyRouter } from "./routes/history.js";
 import { feedbackRouter } from "./routes/feedback.js";
+import { ensurePistonPackages } from "./runners/pistonRunner.js";
 
 const app = express();
 app.set("trust proxy", 1);
@@ -85,4 +86,7 @@ app.use((err: any, _req: express.Request, res: express.Response, _next: express.
 app.listen(PORT, () => {
   console.log(`🚀 Codeticz Backend Server running on http://localhost:${PORT}`);
   console.log(`⚡ Execution Engine & Persistent DB ready`);
+  ensurePistonPackages().catch((e) => {
+    console.warn("[Piston Provisioner] Background check note:", e?.message);
+  });
 });

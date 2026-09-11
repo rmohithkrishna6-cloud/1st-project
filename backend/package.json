@@ -8,15 +8,13 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "prisma:generate": "prisma generate",
-    "prisma:db:push": "prisma db push"
+    "prisma:db:push": "prisma db push",
+    "piston:setup": "node scripts/install-piston-packages.js"
   },
   "dependencies": {
     "@cdktf/hcl2json": "^0.21.0",
     "@live-codes/gleam-precompiled": "^0.5.0",
     "@prisma/client": "^5.22.0",
-    "@types/better-sqlite3": "^9.6.0",
-    "@types/js-yaml": "^4.0.9",
-    "@types/markdown-it": "^14.2.0",
     "bcryptjs": "^3.0.3",
     "better-sqlite3": "^13.0.3",
     "biwascheme": "^0.8.3",
@@ -56,6 +54,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/better-sqlite3": "^9.6.0",
     "@types/coffeescript": "^2.5.7",
     "@types/cors": "^2.8.17",
     "@types/diff": "^7.0.2",
@@ -63,8 +62,10 @@
     "@types/express": "^5.0.0",
     "@types/ini": "^4.1.1",
     "@types/ioredis": "^4.28.10",
+    "@types/js-yaml": "^4.0.9",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/less": "^3.0.8",
+    "@types/markdown-it": "^14.2.0",
     "@types/node": "^22.10.2",
     "@types/pug": "^2.0.10",
     "@types/stylus": "^0.48.43",

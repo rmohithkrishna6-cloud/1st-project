@@ -15,8 +15,7 @@ export const EmbedModal: React.FC = () => {
         .then((data) => setEmbedData(data))
         .catch((err) => console.error(err));
     } else if (isEmbedOpen && currentLanguage) {
-      const origin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173';
-      const url = `${origin}/editor?lang=${currentLanguage.id}`;
+      const url = `http://localhost:5173/editor?lang=${currentLanguage.id}`;
       const code = `<iframe src="${url}&embed=true" width="100%" height="500" frameborder="0" style="border-radius:16px; border:1px solid #FF5A1F;"></iframe>`;
       setEmbedData({ embedHtml: code, directUrl: url });
     }

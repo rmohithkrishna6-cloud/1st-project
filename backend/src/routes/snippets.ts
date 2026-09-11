@@ -34,7 +34,7 @@ snippetsRouter.get("/:id/embed", (req: Request, res: Response) => {
     return;
   }
 
-  const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+  const frontendUrl = "http://localhost:5173";
   const embedHtml = `<iframe src="${frontendUrl}/editor?lang=${snippet.language}&embed=true" width="100%" height="500" frameborder="0" style="border-radius:16px; border:1px solid #173525;"></iframe>`;
   
   res.json({

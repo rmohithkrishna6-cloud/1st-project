@@ -11,7 +11,7 @@ export interface LanguageConfig {
 }
 
 export const VERIFIED_ACTIVE_LANGUAGE_IDS = new Set<string>([
-  // 51 Isolated Piston Container Verified Languages (Exit 0)
+  // 61 Isolated Piston Container Verified Languages (Exit 0)
   "python", "javascript", "typescript", "cpp", "c", "java", "go", "rust",
   "php", "ruby", "bash", "perl", "lua", "swift", "csharp", "r", "dart",
   "haskell", "elixir", "groovy", "julia", "nim", "crystal", "d", "fortran",
@@ -19,6 +19,11 @@ export const VERIFIED_ACTIVE_LANGUAGE_IDS = new Set<string>([
   "pascal", "freebasic", "forth", "erlang", "fsharp", "clojure",
   "visualbasic", "awk", "qbasic", "smalltalk", "pony", "powershell", "vlang", "rockstar",
   "octave", "emojicode", "kotlin", "scala", "zig",
+  "ada", "objc", "arm", "factor",
+  "ballerina", "maxima", "lean",
+  "coq", "agda", "intercal",
+  "raku", "pure", "dash", "bqn",
+  "verilog", "emacs", "deno", "llvm_ir",
 
   // 21 In-App Specialized & Educational Engines (Tested & Verified Real Parsers / Simulators)
   "sql", "mysql", "postgresql", "mongodb", "graphql", "json", "xml",
@@ -726,12 +731,12 @@ end program main
     id: "ada",
     name: "Ada",
     category: "Popular",
-    version: "13.2",
+    version: "8.3.0",
     monacoLanguage: "ada",
     icon: "fa-solid fa-shield-halved",
     fileExtension: "adb",
-    defaultCode: `-- Codeticz Ada Sandbox (Pending Cloud Deployment)
-with Ada.Text_IO; use Ada.Text_IO;
+    defaultCode: `with Ada.Text_IO; use Ada.Text_IO;
+
 procedure Hello is
 begin
     Put_Line ("Hello from Codeticz Ada Sandbox!");
@@ -940,35 +945,40 @@ main = log "Hello from Codeticz PureScript Engine!"
 `
   },
   {
-    id: "idris",
-    name: "Idris",
-    category: "Scripting",
-    version: "2.0",
-    monacoLanguage: "idris",
-    icon: "fa-solid fa-code",
-    fileExtension: "idr",
-    defaultCode: `-- Codeticz Idris Sandbox (Pending Cloud Deployment)
-module Main
+    id: "raku",
+    name: "Raku",
+    category: "Popular",
+    version: "6.100.0",
+    monacoLanguage: "raku",
+    icon: "fa-solid fa-gem",
+    fileExtension: "raku",
+    defaultCode: `# Codeticz Raku Sandbox
+sub main() {
+    my $name = "Developer";
+    say "Hello, $name! Welcome to Codeticz Raku Sandbox!";
+    
+    # Arithmetic & List Processing
+    my @numbers = 1..5;
+    my $sum = [+] @numbers;
+    say "Sum of 1..5: $sum";
+}
 
-main : IO ()
-main = putStrLn "Hello from Codeticz Idris Engine!"
+main();
 `
   },
   {
     id: "objc",
     name: "Objective-C",
     category: "Popular",
-    version: "Clang 15",
+    version: "10.2.1",
     monacoLanguage: "objective-c",
     icon: "fa-brands fa-apple",
     fileExtension: "m",
-    defaultCode: `// Codeticz Objective-C Sandbox (Pending Cloud Deployment)
-#import <Foundation/Foundation.h>
+    defaultCode: `#include <stdio.h>
+#include <objc/objc.h>
 
-int main(int argc, const char * argv[]) {
-    @autoreleasepool {
-        NSLog(@"Hello from Codeticz Objective-C Sandbox!");
-    }
+int main(void) {
+    printf("Hello from Codeticz Objective-C Sandbox!\\n");
     return 0;
 }
 `
@@ -1163,27 +1173,32 @@ Codeticz provides high-performance code compilation, query evaluation, and data 
 `
   },
   {
-    id: "chapel",
-    name: "Chapel",
-    category: "Scientific",
-    version: "1.32",
+    id: "pure",
+    name: "Pure",
+    category: "Programming",
+    version: "0.68.0",
     monacoLanguage: "plaintext",
-    icon: "fa-solid fa-atom",
-    fileExtension: "chpl",
-    defaultCode: `// Codeticz Chapel Sandbox (Pending Cloud Deployment)
-writeln("Hello from Codeticz Chapel Sandbox!");
+    icon: "fa-solid fa-flask",
+    fileExtension: "pure",
+    defaultCode: `/* Codeticz Pure Functional Sandbox */
+using system;
+
+fact 0 = 1;
+fact n = n * fact (n - 1) if n > 0;
+
+printf "Hello from Codeticz Pure Sandbox!\\n";
+printf "Factorial of 5: %d\\n" (fact 5);
 `
   },
   {
     id: "ballerina",
     name: "Ballerina",
     category: "Cloud/Containers",
-    version: "2201.8",
+    version: "2201.8.6",
     monacoLanguage: "plaintext",
     icon: "fa-solid fa-cloud",
     fileExtension: "bal",
-    defaultCode: `// Codeticz Ballerina Sandbox (Pending Cloud Deployment)
-import ballerina/io;
+    defaultCode: `import ballerina/io;
 
 public function main() {
     io:println("Hello from Codeticz Ballerina Sandbox!");
@@ -1207,29 +1222,35 @@ pub fn main() {
 `
   },
   {
-    id: "hack",
-    name: "Hack (HHVM)",
-    category: "Web",
-    version: "4.108",
-    monacoLanguage: "php",
+    id: "dash",
+    name: "Dash",
+    category: "Systems",
+    version: "0.5.11",
+    monacoLanguage: "shell",
     icon: "fa-solid fa-terminal",
-    fileExtension: "hack",
-    defaultCode: `<<__EntryPoint>>
-function main(): void {
-  echo "Hello from Codeticz Hack Sandbox!\\n";
-}
+    fileExtension: "sh",
+    defaultCode: `#!/bin/dash
+# Codeticz Dash (POSIX Shell) Sandbox
+NAME="Developer"
+echo "Hello, $NAME! Welcome to Codeticz Dash Sandbox!"
+
+# Arithmetic evaluation
+A=15
+B=27
+SUM=$((A + B))
+echo "Sum of $A + $B = $SUM"
 `
   },
   {
     id: "factor",
     name: "Factor",
     category: "Esoteric",
-    version: "0.99",
+    version: "0.99.0",
     monacoLanguage: "forth",
     icon: "fa-solid fa-code",
     fileExtension: "factor",
-    defaultCode: `! Codeticz Factor Sandbox (Pending Cloud Deployment)
-USING: io ;
+    defaultCode: `USING: io ;
+
 "Hello from Codeticz Factor Sandbox!" print
 `
   },
@@ -1237,37 +1258,37 @@ USING: io ;
     id: "coq",
     name: "Coq",
     category: "Educational",
-    version: "8.18",
+    version: "8.9.0",
     monacoLanguage: "coq",
     icon: "fa-solid fa-graduation-cap",
     fileExtension: "v",
-    defaultCode: `(* Codeticz Coq Proof Assistant Sandbox (Pending Cloud Deployment) *)
+    defaultCode: `(* Codeticz Coq Proof Assistant Sandbox *)
 Theorem hello_coq : True.
 Proof. exact I. Qed.
+Print hello_coq.
 `
   },
   {
     id: "agda",
     name: "Agda",
     category: "Educational",
-    version: "2.6.4",
+    version: "2.5.4",
     monacoLanguage: "haskell",
     icon: "fa-solid fa-graduation-cap",
     fileExtension: "agda",
-    defaultCode: `-- Codeticz Agda Sandbox (Pending Cloud Deployment)
-module Hello where
+    defaultCode: `-- Codeticz Agda Sandbox
+module Main where
 `
   },
   {
     id: "lean",
     name: "Lean",
     category: "Educational",
-    version: "4.0",
+    version: "3.51.1",
     monacoLanguage: "lean",
     icon: "fa-solid fa-graduation-cap",
     fileExtension: "lean",
-    defaultCode: `-- Codeticz Lean Theorem Prover (Pending Cloud Deployment)
-#eval "Hello from Codeticz Lean Sandbox!"
+    defaultCode: `#eval "Hello from Codeticz Lean Sandbox!"
 `
   },
   {
@@ -1620,7 +1641,7 @@ class MyApp extends StatelessWidget {
     id: "intercal",
     name: "INTERCAL",
     category: "Esoteric",
-    version: "0.30",
+    version: "0.30.0",
     monacoLanguage: "plaintext",
     icon: "fa-solid fa-face-smile-beam",
     fileExtension: "i",
@@ -1629,6 +1650,15 @@ PLEASE DO ,1 SUB #1 <- #238
 DO ,1 SUB #2 <- #108
 PLEASE DO ,1 SUB #3 <- #112
 DO ,1 SUB #4 <- #0
+DO ,1 SUB #5 <- #64
+DO ,1 SUB #6 <- #194
+DO ,1 SUB #7 <- #48
+PLEASE DO ,1 SUB #8 <- #22
+DO ,1 SUB #9 <- #248
+DO ,1 SUB #10 <- #168
+DO ,1 SUB #11 <- #24
+DO ,1 SUB #12 <- #16
+DO ,1 SUB #13 <- #162
 PLEASE READ OUT ,1
 PLEASE GIVE UP
 `
@@ -1671,19 +1701,21 @@ Serves 1.
 `
   },
   {
-    id: "piet",
-    name: "Piet",
+    id: "bqn",
+    name: "BQN",
     category: "Esoteric",
-    version: "1.4",
-    monacoLanguage: "plaintext",
-    icon: "fa-solid fa-palette",
-    fileExtension: "piet",
-    defaultCode: `[Piet ASCII Codel Matrix Sandbox]
-r r r r r r r r r
-r g g g g g g g r
-r g b b b b b g r
-r g b y y y b g r
-r r r r r r r r r
+    version: "1.0.0",
+    monacoLanguage: "apl",
+    icon: "fa-solid fa-cube",
+    fileExtension: "bqn",
+    defaultCode: `# Codeticz BQN (Array Programming) Sandbox
+•Out "Hello from Codeticz BQN Sandbox!"
+
+# Array arithmetic: double each element of a vector
+numbers ← 1‿2‿3‿4‿5
+doubled ← 2 × numbers
+•Out "Original: " ∾ •Fmt numbers
+•Out "Doubled:  " ∾ •Fmt doubled
 `
   },
   {
@@ -2068,16 +2100,29 @@ RETURN p.name, m.title, r.role
 `
   },
   {
-    id: "cql",
-    name: "Cassandra CQL",
-    category: "Databases",
-    version: "4.1",
-    monacoLanguage: "sql",
-    icon: "fa-solid fa-table-cells",
-    fileExtension: "cql",
-    defaultCode: `-- Codeticz Cassandra Query Language Sandbox
-SELECT * FROM Codeticz_keyspace.user_metrics
-WHERE user_id = 101;
+    id: "verilog",
+    name: "Verilog (Icarus)",
+    category: "Systems",
+    version: "11.0.0",
+    monacoLanguage: "systemverilog",
+    icon: "fa-solid fa-microchip",
+    fileExtension: "v",
+    defaultCode: `// Codeticz Verilog (Icarus) Sandbox
+module main;
+  reg [7:0] a, b;
+  wire [8:0] sum;
+
+  assign sum = a + b;
+
+  initial begin
+    $display("Hello from Codeticz Verilog Sandbox!");
+    a = 8'd20;
+    b = 8'd22;
+    #1;
+    $display("Calculation: %0d + %0d = %0d", a, b, sum);
+    $finish;
+  end
+endmodule
 `
   },
   {
@@ -2221,49 +2266,73 @@ console.log "Squares:", squares
 `
   },
   {
-    id: "applescript",
-    name: "AppleScript",
-    category: "Scripting",
-    version: "2.8",
-    monacoLanguage: "applescript",
-    icon: "fa-brands fa-apple",
-    fileExtension: "scpt",
-    defaultCode: `-- Codeticz AppleScript Sandbox
-tell application "System Events"
-	display dialog "Hello from Codeticz AppleScript!"
-end tell
-`
-  },
-  {
-    id: "autohotkey",
-    name: "AutoHotkey",
-    category: "Scripting",
-    version: "2.0",
-    monacoLanguage: "autohotkey",
-    icon: "fa-solid fa-keyboard",
-    fileExtension: "ahk",
-    defaultCode: `; Codeticz AutoHotkey Automation Sandbox
-^!n::
-  MsgBox, Hello from Codeticz AutoHotkey Sandbox!
-return
-`
-  },
-  {
-    id: "actionscript",
-    name: "ActionScript 3",
+    id: "emacs",
+    name: "Emacs Lisp",
     category: "Popular",
-    version: "3.0",
-    monacoLanguage: "actionscript",
-    icon: "fa-solid fa-bolt",
-    fileExtension: "as",
-    defaultCode: `// Codeticz ActionScript 3.0 Sandbox
-package {
-    import flash.display.Sprite;
-    public class Main extends Sprite {
-        public function Main() {
-            trace("Hello from Codeticz ActionScript 3.0!");
-        }
-    }
+    version: "27.1.0",
+    monacoLanguage: "scheme",
+    icon: "fa-solid fa-feather-pointed",
+    fileExtension: "el",
+    defaultCode: `;; Codeticz Emacs Lisp (Elisp) Sandbox
+(defun greet (name)
+  (format "Hello, %s! Welcome to Codeticz Emacs Lisp Sandbox!" name))
+
+(message (greet "Developer"))
+
+;; Compute sum of squares
+(defun sum-of-squares (a b)
+  (+ (* a a) (* b b)))
+
+(message "Sum of squares (3, 4): %d" (sum-of-squares 3 4))
+`
+  },
+  {
+    id: "deno",
+    name: "Deno (TypeScript)",
+    category: "Web",
+    version: "1.32.3",
+    monacoLanguage: "typescript",
+    icon: "fa-solid fa-dragon",
+    fileExtension: "ts",
+    defaultCode: `// Codeticz Deno Sandbox
+interface User {
+  name: string;
+  role: string;
+}
+
+const user: User = {
+  name: "Developer",
+  role: "Engineer"
+};
+
+console.log(\`Hello, \${user.name}! Welcome to Codeticz Deno Sandbox!\`);
+console.log(\`Deno version: \${Deno.version.deno}\`);
+console.log(\`Calculation (40 + 2): \${40 + 2}\`);
+`
+  },
+  {
+    id: "llvm_ir",
+    name: "LLVM IR",
+    category: "Systems",
+    version: "12.0.1",
+    monacoLanguage: "plaintext",
+    icon: "fa-solid fa-cogs",
+    fileExtension: "ll",
+    defaultCode: `; Codeticz LLVM IR Sandbox
+@msg = internal constant [38 x i8] c"Hello from Codeticz LLVM IR Sandbox!\\0A\\00"
+@fmt = internal constant [20 x i8] c"Result of 21*2: %d\\0A\\00"
+
+declare i32 @printf(i8*, ...)
+
+define i32 @main() {
+    ; Print greeting
+    call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([38 x i8], [38 x i8]* @msg, i32 0, i32 0))
+    
+    ; Perform calculation: 21 * 2
+    %res = mul i32 21, 2
+    call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([20 x i8], [20 x i8]* @fmt, i32 0, i32 0), i32 %res)
+    
+    ret i32 0
 }
 `
   },
@@ -2271,7 +2340,7 @@ package {
     id: "maxima",
     name: "Maxima CAS",
     category: "Scientific",
-    version: "5.46.0",
+    version: "5.42.1",
     monacoLanguage: "plaintext",
     icon: "fa-solid fa-infinity",
     fileExtension: "mac",
@@ -2396,7 +2465,7 @@ _start:
     id: "arm",
     name: "ARM64 Assembly",
     category: "Systems",
-    version: "v8-A",
+    version: "1.0.0",
     monacoLanguage: "mips",
     icon: "fa-solid fa-microchip",
     fileExtension: "s",
@@ -2407,7 +2476,7 @@ _start:
 _start:
     MOV X0, #1          // stdout
     ADR X1, msg         // buffer
-    MOV X2, #26         // length
+    MOV X2, #27         // length
     MOV X8, #64         // sys_write
     SVC #0
 

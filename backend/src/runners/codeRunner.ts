@@ -153,8 +153,8 @@ export async function executeCode(
     return await runMobileLanguage(submissionId, languageId, code);
   }
 
-  // 11. Esoteric Language Interpreter (Brainfuck, Befunge, Whitespace, Chef, LOLCODE, COW, Malbolge)
-  if (["brainfuck", "befunge", "whitespace", "chef", "lolcode", "cow", "malbolge"].includes(languageId)) {
+  // 11. Esoteric Language Interpreter (Brainfuck, Befunge, Whitespace, Chef, LOLCODE, COW, Malbolge, INTERCAL)
+  if (["brainfuck", "befunge", "whitespace", "chef", "lolcode", "cow", "malbolge", "intercal"].includes(languageId)) {
     // Try Piston first if installed, else use verified in-memory interpreter
     const pistonResult = await runWithPiston(submissionId, languageId, code, stdin);
     if (pistonResult && pistonResult.status === "success") {
@@ -167,7 +167,7 @@ export async function executeCode(
   if (["scheme", "scm", "tcl"].includes(languageId)) {
     return await runSpecializedLanguage(submissionId, languageId, code, stdin);
   }
-  if (["purescript", "purs", "reason", "reasonml", "idris", "gleam"].includes(languageId)) {
+  if (["purescript", "purs", "reason", "reasonml", "gleam"].includes(languageId)) {
     return await runExpansionLanguage(submissionId, languageId, code, stdin);
   }
 

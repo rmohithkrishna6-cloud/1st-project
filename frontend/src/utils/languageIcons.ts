@@ -99,10 +99,12 @@ export const LANGUAGE_ICONS: Record<string, LanguageIconInfo> = {
   // --- Scientific & Functional ---
   octave: { iconClass: 'fa-solid fa-square-root-variable', color: '#38BDF8' },
   maxima: { iconClass: 'fa-solid fa-infinity', color: '#60A5FA' },
+  pure: { iconClass: 'fa-solid fa-flask', color: '#10B981' },
   chapel: { iconClass: 'fa-solid fa-atom', color: '#34D399' },
   purescript: { iconClass: 'devicon-purescript-original colored' },
   gleam: { iconClass: 'devicon-gleam-plain colored' },
   reason: { iconClass: 'fa-solid fa-atom', color: '#FB923C' },
+  raku: { iconClass: 'fa-solid fa-gem', color: '#D97706' },
   idris: { iconClass: 'fa-solid fa-shapes', color: '#F87171' },
   lisp: { iconClass: 'fa-solid fa-code', color: '#FB7185' },
   scheme: { iconClass: 'fa-solid fa-feather-pointed', color: '#F87171' },
@@ -111,6 +113,9 @@ export const LANGUAGE_ICONS: Record<string, LanguageIconInfo> = {
   assembly: { iconClass: 'fa-solid fa-microchip', color: '#34D399' },
   nasm64: { iconClass: 'fa-solid fa-microchip', color: '#2DD4BF' },
   arm: { iconClass: 'fa-solid fa-microchip', color: '#60A5FA' },
+  verilog: { iconClass: 'fa-solid fa-microchip', color: '#6366F1' },
+  iverilog: { iconClass: 'fa-solid fa-microchip', color: '#6366F1' },
+  llvm_ir: { iconClass: 'fa-solid fa-cogs', color: '#EF4444' },
   d: { iconClass: 'fa-solid fa-code-merge', color: '#F43F5E' },
   pascal: { iconClass: 'fa-solid fa-cube', color: '#60A5FA' },
   freebasic: { iconClass: 'fa-solid fa-terminal', color: '#4ADE80' },
@@ -120,6 +125,7 @@ export const LANGUAGE_ICONS: Record<string, LanguageIconInfo> = {
   smalltalk: { iconClass: 'fa-solid fa-comment-dots', color: '#38BDF8' },
   pony: { iconClass: 'fa-solid fa-horse', color: '#C084FC' },
   vlang: { iconClass: 'fa-solid fa-bolt', color: '#38BDF8' },
+  dash: { iconClass: 'fa-solid fa-terminal', color: '#38BDF8' },
   hack: { iconClass: 'fa-solid fa-terminal', color: '#60A5FA' },
   factor: { iconClass: 'fa-solid fa-calculator', color: '#FBBF24' },
   ada: { iconClass: 'fa-solid fa-shield-halved', color: '#22D3EE' },
@@ -136,6 +142,8 @@ export const LANGUAGE_ICONS: Record<string, LanguageIconInfo> = {
   lean: { iconClass: 'fa-solid fa-tree', color: '#34D399' },
 
   // --- Scripting & Utilities ---
+  deno: { iconClass: 'fa-solid fa-dragon', color: '#14B8A6' },
+  emacs: { iconClass: 'fa-solid fa-feather-pointed', color: '#A855F7' },
   applescript: { iconClass: 'fa-brands fa-apple', color: '#F1F5F9' },
   autohotkey: { iconClass: 'fa-solid fa-keyboard', color: '#22C55E' },
   actionscript: { iconClass: 'fa-solid fa-bolt', color: '#EF4444' },
@@ -145,6 +153,7 @@ export const LANGUAGE_ICONS: Record<string, LanguageIconInfo> = {
   cron: { iconClass: 'fa-solid fa-clock', color: '#FF5A1F' },
 
   // --- Esoteric Languages ---
+  bqn: { iconClass: 'fa-solid fa-cube', color: '#38BDF8' },
   brainfuck: { iconClass: 'fa-solid fa-brain', color: '#F472B6' },
   befunge: { iconClass: 'fa-solid fa-border-all', color: '#FBBF24' },
   whitespace: { iconClass: 'fa-regular fa-square', color: '#E2E8F0' },

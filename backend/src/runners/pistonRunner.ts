@@ -47,8 +47,10 @@ const PISTON_LANGUAGE_MAPPINGS: Record<string, string> = {
   fsharp: "fsharp.net",
   clojure: "clojure",
   pure: "pure",
-  "objective-c": "objective-c",
-  objc: "objective-c",
+  "objective-c": "objc",
+  objc: "objc",
+  arm: "arm",
+  maxima: "maxima",
   visualbasic: "basic",
   vb: "basic",
   node: "javascript",
@@ -66,6 +68,16 @@ const PISTON_LANGUAGE_MAPPINGS: Record<string, string> = {
   coq: "coq",
   agda: "agda",
   lean: "lean",
+  raku: "raku",
+  dash: "dash",
+  bqn: "bqn",
+  verilog: "iverilog",
+  iverilog: "iverilog",
+  emacs: "emacs",
+  elisp: "emacs",
+  deno: "deno",
+  llvm_ir: "llvm_ir",
+  llvm: "llvm_ir",
   brainfuck: "brainfuck",
   bf: "brainfuck",
   befunge: "befunge",
@@ -152,7 +164,20 @@ export async function runWithPiston(
     const langConfig = LANGUAGES.find((l) => l.id === languageId);
     const version = matchedRuntime ? matchedRuntime.version : langConfig?.version || "*";
 
-    const fileName = langConfig?.fileExtension ? `main.${langConfig.fileExtension}` : undefined;
+    let fileName = langConfig?.fileExtension ? `main.${langConfig.fileExtension}` : undefined;
+    if (languageId === "agda") {
+      const moduleMatch = code.match(/module\s+([A-Za-z0-9_]+)/);
+      fileName = moduleMatch ? `${moduleMatch[1]}.agda` : "Main.agda";
+    } else if (languageId === "ada") {
+      const unitMatch = code.match(/procedure\s+([A-Za-z0-9_]+)/i);
+      fileName = unitMatch ? `${unitMatch[1].toLowerCase()}.adb` : "main.adb";
+    } else if (languageId === "verilog" || languageId === "iverilog") {
+      fileName = "main.v";
+    } else if (languageId === "emacs" || languageId === "elisp") {
+      fileName = "main.el";
+    } else if (languageId === "llvm_ir" || languageId === "llvm") {
+      fileName = "main.ll";
+    }
     const filePayload: { name?: string; content: string } = { content: code };
     if (fileName) filePayload.name = fileName;
 
@@ -214,9 +239,21 @@ export async function runWithPiston(
       status = "error";
     }
 
-    const stdout = sanitizeOutput(runObj.stdout || "");
+    let stdout = sanitizeOutput(runObj.stdout || "");
 
     let rawStderr = runObj.stderr || "";
+    if (languageId === "maxima" && /incorrect syntax:|syntax error/i.test(stdout)) {
+      status = "error";
+      rawStderr = stdout;
+    }
+    if (languageId === "pure" && /syntax error/i.test(rawStderr || stdout)) {
+      status = "error";
+      if (!rawStderr) rawStderr = stdout;
+    }
+    if ((languageId === "emacs" || languageId === "elisp") && status === "success" && !stdout && rawStderr) {
+      stdout = rawStderr;
+      rawStderr = "";
+    }
     if (status === "compilation_error") {
       rawStderr = compileObj.stderr || compileObj.output || runObj.stderr || "";
     }
@@ -266,3 +303,53 @@ export async function runWithPiston(
     };
   }
 }
+
+export const REQUIRED_PISTON_PACKAGES: Array<{ language: string; version: string }> = [
+  { language: "raku", version: "6.100.0" },
+  { language: "pure", version: "0.68.0" },
+  { language: "dash", version: "0.5.11" },
+  { language: "bqn", version: "1.0.0" },
+  { language: "iverilog", version: "11.0.0" },
+  { language: "emacs", version: "27.1.0" },
+  { language: "deno", version: "1.32.3" },
+  { language: "llvm_ir", version: "12.0.1" },
+];
+
+/**
+ * Ensures that all required Piston runtime packages are installed.
+ * If connected to an instance with missing runtimes (e.g. fresh local Docker container),
+ * this provisioner auto-installs them via the Piston package manager API.
+ */
+export async function ensurePistonPackages(): Promise<void> {
+  const pistonUrl = process.env.PISTON_URL || "http://localhost:2000";
+  try {
+    const runtimes = await getPistonRuntimes(pistonUrl);
+    if (!runtimes || runtimes.length === 0) return;
+
+    for (const pkg of REQUIRED_PISTON_PACKAGES) {
+      const isInstalled = runtimes.some(
+        (r) => r.language === pkg.language || (r.aliases && r.aliases.includes(pkg.language))
+      );
+      if (!isInstalled) {
+        console.log(`[Piston Provisioner] Auto-installing package ${pkg.language}-${pkg.version} on ${pistonUrl}...`);
+        try {
+          const res = await fetch(`${pistonUrl}/api/v2/packages`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ language: pkg.language, version: pkg.version }),
+          });
+          if (res.ok) {
+            console.log(`[Piston Provisioner] Successfully provisioned ${pkg.language}-${pkg.version}`);
+          }
+        } catch (e: any) {
+          console.warn(`[Piston Provisioner] Failed to auto-install ${pkg.language}:`, e.message);
+        }
+      }
+    }
+    cachedRuntimes = null;
+    lastRuntimesFetch = 0;
+  } catch (err: any) {
+    // Graceful fallback if Piston is unreachable during startup
+  }
+}
+

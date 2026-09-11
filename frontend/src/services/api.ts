@@ -138,6 +138,14 @@ export async function saveSnippet(snippet: {
   return await safeParseJsonResponse<Snippet>(res, 'Failed to save snippet');
 }
 
+export async function deleteSnippet(id: string): Promise<{ message: string; id: string }> {
+  const res = await safeFetch(`${API_BASE}/snippets/${id}`, {
+    method: 'DELETE',
+    headers: getAuthHeaders(),
+  });
+  return await safeParseJsonResponse<{ message: string; id: string }>(res, 'Failed to delete snippet');
+}
+
 export async function fetchEmbedCode(id: string): Promise<{ snippetId: string; embedHtml: string; directUrl: string }> {
   const res = await safeFetch(`${API_BASE}/snippets/${id}/embed`);
   return await safeParseJsonResponse<{ snippetId: string; embedHtml: string; directUrl: string }>(res, 'Failed to fetch embed code');
